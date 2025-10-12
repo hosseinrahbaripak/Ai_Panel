@@ -1,0 +1,124 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>210b0201-c5b7-40a1-ba27-4fb5ea144538</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Areas\AdminArea\Data\**" />
+    <Compile Remove="Areas\AdminArea\Models\**" />
+    <Compile Remove="Areas\AdminArea\Views\BackUpManage\**" />
+    <Compile Remove="Areas\AdminArea\Views\TestAiConfig\**" />
+    <Compile Remove="Views\Cart\**" />
+    <Compile Remove="Views\Components\**" />
+    <Compile Remove="wwwroot\content\**" />
+    <Compile Remove="wwwroot\images\SubBookGroup\**" />
+    <Content Remove="Areas\AdminArea\Data\**" />
+    <Content Remove="Areas\AdminArea\Models\**" />
+    <Content Remove="Areas\AdminArea\Views\BackUpManage\**" />
+    <Content Remove="Areas\AdminArea\Views\TestAiConfig\**" />
+    <Content Remove="Views\Cart\**" />
+    <Content Remove="Views\Components\**" />
+    <Content Remove="wwwroot\content\**" />
+    <Content Remove="wwwroot\images\SubBookGroup\**" />
+    <EmbeddedResource Remove="Areas\AdminArea\Data\**" />
+    <EmbeddedResource Remove="Areas\AdminArea\Models\**" />
+    <EmbeddedResource Remove="Areas\AdminArea\Views\BackUpManage\**" />
+    <EmbeddedResource Remove="Areas\AdminArea\Views\TestAiConfig\**" />
+    <EmbeddedResource Remove="Views\Cart\**" />
+    <EmbeddedResource Remove="Views\Components\**" />
+    <EmbeddedResource Remove="wwwroot\content\**" />
+    <EmbeddedResource Remove="wwwroot\images\SubBookGroup\**" />
+    <None Remove="Areas\AdminArea\Data\**" />
+    <None Remove="Areas\AdminArea\Models\**" />
+    <None Remove="Areas\AdminArea\Views\BackUpManage\**" />
+    <None Remove="Areas\AdminArea\Views\TestAiConfig\**" />
+    <None Remove="Views\Cart\**" />
+    <None Remove="Views\Components\**" />
+    <None Remove="wwwroot\content\**" />
+    <None Remove="wwwroot\images\SubBookGroup\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\files\dent-green-eagle.epub" />
+    <Content Remove="wwwroot\js\Book.js" />
+    <Content Remove="wwwroot\js\chart.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\js\Book.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AspNetCoreRateLimit" Version="5.0.0" />
+    <PackageReference Include="ClosedXML" Version="0.102.2" />
+    <PackageReference Include="DNTCaptcha.Core" Version="5.3.1" />
+    <PackageReference Include="ExcelDataReader" Version="3.6.0" /> 
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration" Version="8.0.1" />
+    <PackageReference Include="Quartz.AspNetCore" Version="3.8.1" />
+    <PackageReference Include="Zarinpal" Version="2.0.4" />
+    <PackageReference Include="ZarinpalSandbox" Version="2.0.4" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen.ConventionalRouting" Version="4.3.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DataLayer\Live_Book.Persistence.csproj" />
+    <ProjectReference Include="..\Live_Book.Application\Live_Book.Application.csproj" />
+    <ProjectReference Include="..\Live_Book.Infrastructure\Live_Book.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Components\" />
+    <Folder Include="Pages\Shared\Partial\" />
+    <Folder Include="Views\Shared\Components\UserReadLogsViewComponent\" />
+    <Folder Include="wwwroot\excel\export\" />
+    <Folder Include="wwwroot\excel\import\" />
+    <Folder Include="wwwroot\files\app\android\" />
+    <Folder Include="wwwroot\files\app\ios\" />
+    <Folder Include="wwwroot\files\book\pdf\" />
+    <Folder Include="wwwroot\images\book\" />
+    <Folder Include="wwwroot\images\bookgroups\" />
+    <Folder Include="wwwroot\images\bookcontent\" />
+    <Folder Include="wwwroot\images\aboutus\" />
+    <Folder Include="wwwroot\images\contactus\" />
+    <Folder Include="wwwroot\images\publisher\" />
+    <Folder Include="wwwroot\backup\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\files\dent-green-eagle.epub" />
+    <None Include="wwwroot\fonts\fa-brands-400.woff2" />
+    <None Include="wwwroot\fonts\fa-regular-400.woff2" />
+    <None Include="wwwroot\fonts\fa-solid-900.woff2" />
+    <None Include="wwwroot\fonts\Flaticon.woff2" />
+    <None Include="wwwroot\fonts\iranyekanwebbold.woff2" />
+    <None Include="wwwroot\fonts\iranyekanweblight.woff2" />
+    <None Include="wwwroot\fonts\iranyekanwebregular.woff2" />
+    <None Include="wwwroot\js\book.js" />
+    <None Include="wwwroot\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\js\offcanvas.js" />
+    <None Include="wwwroot\js\script.js" />
+    <None Include="wwwroot\js\site.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="wwwroot\js\chart.js" />
+  </ItemGroup>
+
+</Project>

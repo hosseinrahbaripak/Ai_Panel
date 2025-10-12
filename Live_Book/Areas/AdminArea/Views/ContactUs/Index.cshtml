@@ -1,0 +1,104 @@
+﻿@model IEnumerable<Live_Book.Domain.ContactUs>
+
+@{
+    ViewData["Title"] = "تماس با ما";
+}
+
+<div class="row justify-content-md-center">
+    <div class="col-md-12 col-lg-12 col-12 mt-3">
+        <div class="card shadow">
+            <h6 class="card-header">تماس با ما </h6>
+            @if (ViewBag.HasContact=="")
+            {
+                <div class="col-4 mt-3 me-3">
+                    <a class="btn btn-outline-success btn-sm" onclick="Add()">
+                        <i class="fa fa-plus"></i>
+                        ایجاد تماس با ما
+                    </a>
+                </div>
+            }
+            <div class="card-body">
+                <div class="table table-responsive table-radius">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Address)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.PhoneNumber)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Fax)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.LogoName)
+                                </th>
+                                <th>
+                                    عملیات
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+
+                                    <td>
+                                        <div style="white-space: nowrap;width: 85px;overflow: hidden;text-overflow:ellipsis;">
+                                            @item.Address
+                                        </div>
+                                    </td>
+                                     <td>
+                                         @item.PhoneNumber
+                                    </td>
+                                    <td>
+                                        @item.Fax
+                                    </td>
+                                    <td>
+                                        <img src="~/images/contactus/@item.LogoName" class="img-thumbnail" alt="عکسی انتخاب نشده است" width="80" height="60">
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-sm" onclick="Edit(@item.Id)">
+                                            <i class="fa fa-edit text-warning"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<partial name="_Modal"/>
+
+@section Scripts
+    {
+    <script>
+        function Add() {
+            $.ajax({
+                url: "/Admin/ContactUs/Add/",
+                type: "Get",
+                data: {}
+            }).done(function (result) {
+                $('#Modal-lg').modal('show');
+                $('#Modal-lg-Label').html('افزودن تماس با ما');
+                $('#Modal-lg-Body').html(result);
+            });
+        }
+        function Edit(Id) {
+            $.ajax({
+                url: "/Admin/ContactUs/Edit/" + Id,
+                type: "Get",
+                data: {}
+            }).done(function (result) {
+                $('#Modal-lg').modal('show');
+                $('#Modal-lg-Label').html('ویرایش تماس با ما');
+                $('#Modal-lg-Body').html(result);
+            });
+        }
+    </script>
+}

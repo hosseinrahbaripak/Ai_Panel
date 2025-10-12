@@ -1,0 +1,51 @@
+﻿@model Live_Book.Domain.AdminLogin
+@{
+    ViewData["Title"] = "ایجاد ادمین";
+}
+
+<form asp-action="Add" enctype="multipart/form-data" id="FormInModal" data-ajax="true" data-ajax-begin="StartLoading()" data-ajax-success="FormSubmit">
+	@Html.AntiForgeryToken()
+	<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+	<div class="row mb-3">
+		<div class="col-lg-12 col-md-12 col-12 mb-2">
+			<div class="">
+				<label asp-for="UserName" class="">نام کاربری ادمین : </label>
+				<input asp-for="UserName" class="form-control" autocomplete="off"/>
+				<span asp-validation-for="UserName" class="text-danger"></span>
+			</div>
+			<div class="mt-2">
+				<label asp-for="Email" class="">ایمیل : </label>
+				<input asp-for="Email" class="form-control "/>
+				<span asp-validation-for="Email" class="text-danger"></span>
+			</div>
+			<div class="mt-2">
+				<label asp-for="Password" class="">کلمه عبور : </label>
+				<input type="password" asp-for="Password" class="form-control " id="password" autocomplete="new-password" />
+				<label class="mt-1"> نمایش کلمه عبور </label>
+				<input class="mt-1" type="checkbox" onclick="ShowPassword('password')">
+				<br/>
+				<span asp-validation-for="Password" class="text-danger"></span>
+			</div>
+			<div class="mt-5">
+				<label asp-for="RoleId" class="">نقش : </label>
+				<select asp-for="RoleId" class="form-select" asp-items="ViewBag.Roles">
+					<option disabled selected>لطفا موردی را انتخاب کنید</option>
+				</select>
+				<span asp-validation-for="RoleId" class="text-danger"></span>
+			</div>
+		</div>
+		<div class="col-lg-12 col-md-12 col-12 ">
+			<div class="d-grid gap-2">
+				<button class="btn btn-primary" type="submit">ثبت</button>
+			</div>
+		</div>
+	</div>
+</form>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

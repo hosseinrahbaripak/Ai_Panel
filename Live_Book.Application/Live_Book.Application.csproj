@@ -1,0 +1,108 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="DTOs\BookCategory\**" />
+    <Compile Remove="DTOs\Cart\**" />
+    <Compile Remove="DTOs\DownloadPdfLink\**" />
+    <Compile Remove="DTOs\ReportUserCommentOnBook\**" />
+    <Compile Remove="DTOs\UserHighLightsOnBook\**" />
+    <Compile Remove="Features\AdvisorProfile\**" />
+    <Compile Remove="Features\AppLogin\**" />
+    <Compile Remove="Features\BookQuestion\**" />
+    <Compile Remove="Features\Book\**" />
+    <Compile Remove="Features\DownloadPdfLink\**" />
+    <Compile Remove="Features\ProjectProfile\**" />
+    <Compile Remove="Features\PublicDashboard\**" />
+    <Compile Remove="Features\ReadyFolder\**" />
+    <Compile Remove="Features\ReportUserCommentOnBook\**" />
+    <Compile Remove="Features\Roles\Handler\Command\**" />
+    <Compile Remove="Features\SupervisorProfile\**" />
+    <Compile Remove="Features\UserCommentOnBook\**" />
+    <Compile Remove="Features\UserCommentsOnBook\**" />
+    <Compile Remove="Features\UserHighLightsOnBook\**" />
+    <Compile Remove="Features\UserNoteOnBookPart\**" />
+    <Compile Remove="Features\UserNoteOnPdf\**" />
+    <Compile Remove="Features\UserTag\**" />
+    <EmbeddedResource Remove="DTOs\BookCategory\**" />
+    <EmbeddedResource Remove="DTOs\Cart\**" />
+    <EmbeddedResource Remove="DTOs\DownloadPdfLink\**" />
+    <EmbeddedResource Remove="DTOs\ReportUserCommentOnBook\**" />
+    <EmbeddedResource Remove="DTOs\UserHighLightsOnBook\**" />
+    <EmbeddedResource Remove="Features\AdvisorProfile\**" />
+    <EmbeddedResource Remove="Features\AppLogin\**" />
+    <EmbeddedResource Remove="Features\BookQuestion\**" />
+    <EmbeddedResource Remove="Features\Book\**" />
+    <EmbeddedResource Remove="Features\DownloadPdfLink\**" />
+    <EmbeddedResource Remove="Features\ProjectProfile\**" />
+    <EmbeddedResource Remove="Features\PublicDashboard\**" />
+    <EmbeddedResource Remove="Features\ReadyFolder\**" />
+    <EmbeddedResource Remove="Features\ReportUserCommentOnBook\**" />
+    <EmbeddedResource Remove="Features\Roles\Handler\Command\**" />
+    <EmbeddedResource Remove="Features\SupervisorProfile\**" />
+    <EmbeddedResource Remove="Features\UserCommentOnBook\**" />
+    <EmbeddedResource Remove="Features\UserCommentsOnBook\**" />
+    <EmbeddedResource Remove="Features\UserHighLightsOnBook\**" />
+    <EmbeddedResource Remove="Features\UserNoteOnBookPart\**" />
+    <EmbeddedResource Remove="Features\UserNoteOnPdf\**" />
+    <EmbeddedResource Remove="Features\UserTag\**" />
+    <None Remove="DTOs\BookCategory\**" />
+    <None Remove="DTOs\Cart\**" />
+    <None Remove="DTOs\DownloadPdfLink\**" />
+    <None Remove="DTOs\ReportUserCommentOnBook\**" />
+    <None Remove="DTOs\UserHighLightsOnBook\**" />
+    <None Remove="Features\AdvisorProfile\**" />
+    <None Remove="Features\AppLogin\**" />
+    <None Remove="Features\BookQuestion\**" />
+    <None Remove="Features\Book\**" />
+    <None Remove="Features\DownloadPdfLink\**" />
+    <None Remove="Features\ProjectProfile\**" />
+    <None Remove="Features\PublicDashboard\**" />
+    <None Remove="Features\ReadyFolder\**" />
+    <None Remove="Features\ReportUserCommentOnBook\**" />
+    <None Remove="Features\Roles\Handler\Command\**" />
+    <None Remove="Features\SupervisorProfile\**" />
+    <None Remove="Features\UserCommentOnBook\**" />
+    <None Remove="Features\UserCommentsOnBook\**" />
+    <None Remove="Features\UserHighLightsOnBook\**" />
+    <None Remove="Features\UserNoteOnBookPart\**" />
+    <None Remove="Features\UserNoteOnPdf\**" />
+    <None Remove="Features\UserTag\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DTOs\ChatWithAiWeb\" />
+    <Folder Include="DTOs\AiContent\" />
+    <Folder Include="Features\AiChat\Handler\Queries\" />
+    <Folder Include="Features\AiConfig\Request\Command\" />
+    <Folder Include="Features\AiContent\Handler\Queries\" />
+    <Folder Include="Features\AiContent\Request\Queries\" />
+    <Folder Include="Features\Roles\Handler\Queries\" />
+    <Folder Include="Features\Roles\Request\Command\" />
+    <Folder Include="Features\TestAiConfig\Handler\Queries\" />
+    <Folder Include="Features\TestAiConfig\Request\Queries\" />
+    <Folder Include="Profiles\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+    <PackageReference Include="Dapper" Version="2.1.35" />
+    <PackageReference Include="EasyUploader" Version="3.1.0" />
+    <PackageReference Include="Google.Apis.Sheets.v4" Version="1.68.0.3407" />
+    <PackageReference Include="MediatR" Version="12.3.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
+    <PackageReference Include="PersianAssistant" Version="2.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Live_Book.Domain\Live_Book.Domain.csproj" />
+    <ProjectReference Include="..\Live_Book.Infrastructure\Live_Book.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,72 @@
+﻿.navbar {
+    border-bottom: 1px solid #4a8cf6;
+    background-color: white;
+}
+
+.list-group-item.active {
+    background-color: #43519f !important;
+    border-color: #43519f !important;
+}
+
+.btn-primary {
+    background-color: #43519f !important;
+    border-color: #43519f !important;
+}
+
+.btn-outline-danger {
+    color: #f26b2a !important;
+    border-color: #f26b2a !important;
+}
+
+    .btn-outline-danger:hover {
+        color: white !important;
+        border-color: #f26b2a !important;
+        background-color: #f26b2a !important;
+    }
+
+.bg-danger {
+    background-color: #f46b2a !important;
+}
+.bg-primary {
+    background-color: #43519f !important;
+}
+.btn-info {
+    color: #000;
+    background-color: #4a8cf6 !important;
+    border-color: #4a8cf6 !important;
+}
+.btn-outline-primary {
+    color: #43519f !important;
+    border-color: #43519f !important;
+}
+.btn-outline-primary .selected-grade {
+    color: white !important;
+}
+    .btn-outline-primary:hover {
+        color: white !important;
+        border-color: #43519f !important;
+        background-color: #43519f !important;
+    }
+
+.admin-home .card {
+    color: white !important;
+    border-color: #43519f !important;
+    background-color: #43519f !important;
+}
+.navbar-light .navbar-nav .nav-link, .dropdown-item {
+    color: #43519f !important;
+}
+.factor-to-pay {
+    background-color: #f9bfa4!important;
+}
+.nav-link {
+    color: #43519f !important;
+}
+.alert-info {
+    color: black;
+    background-color: #f5f5f5;
+    border-color: #f5f5f5;
+}
+.h1-heading {
+    font-size: 1.25rem !important;
+}

@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/images/logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/images/logo.png" type="image/x-icon">
+    <title>@ViewData["Title"]</title>
+
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/bootstrap.rtl.min.css" rel="stylesheet" />
+    <link href="~/css/jquery-confirm.min.css" rel="stylesheet" />
+    <link href="~/css/jquery-confirm.rtl.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/fonts/fontiran.css" rel="stylesheet" />
+    <link href="~/css/persian-datepicker.min.css" rel="stylesheet" />
+    <link href="~/css/color.css" rel="stylesheet" />
+    <link href="~/css/select2.min.css" rel="stylesheet" />
+</head>
+<body>
+    <partial name="_Menu" />
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    
+    <footer class="border-top text-muted container-fluid">
+        <div class=" footer-container row mt-3">
+            <div class="col-md-6 col-12">
+                <div> تمامی حقوق مادی و معنوی متعلق به موسسه علامه حلی است.</div>
+            </div>
+            <div class="col-md-6 col-12">
+                <div class="text-center enamad">
+                    <a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=4482&Code=9CY4fiT4r8C1Ec6qldkE'>
+                        <img referrerpolicy='origin' src='https://trustseal.enamad.ir/logo.aspx?id=4482&Code=9CY4fiT4r8C1Ec6qldkE' alt='' style='cursor:pointer' code='9CY4fiT4r8C1Ec6qldkE'>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/js/jquery-3.6.0.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/jquery-confirm.min.js"></script>
+    <script src="~/js/helper.js" asp-append-version="true"></script>
+    <script src="~/js/onlyTypeNumber.js"></script>
+    @*<script src="https://kit.fontawesome.com/f02f2d5598.js" crossorigin="anonymous"></script>*@
+    <script src="~/js/kit.fontawesome.js"></script>
+    <script src="~/js/persian-date.min.js"></script>
+    <script src="~/js/persian-datepicker.min.js"></script>
+    <script src="~/js/select2.full.min.js"></script>
+    <script src="~/js/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

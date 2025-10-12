@@ -1,0 +1,22 @@
+﻿.jconfirm-title-c {
+    text-align: right !important;
+}
+.jconfirm-icon-c {
+    text-align: right !important;
+}
+.jconfirm-title {
+    text-align: right !important;
+}
+.jconfirm .jconfirm-box div.jconfirm-content-pane .jconfirm-content {
+    overflow: hidden !important;
+}
+.jconfirm-content {
+    text-align: right !important;
+}
+
+.jconfirm-content-pane {
+    text-align: right !important;
+}
+.jconfirm-buttons {
+    float: left !important;
+} 

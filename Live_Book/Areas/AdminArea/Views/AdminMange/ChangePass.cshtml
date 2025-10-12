@@ -1,0 +1,50 @@
+﻿@model Live_Book.Application.DTOs.ChangePass
+@{
+    int type = ViewBag.Type;
+}
+<form autocomplete="off" asp-action="ChangePass" enctype="multipart/form-data" id="FormInModal" data-ajax="true" data-ajax-begin="StartLoading()" data-ajax-success="FormSubmit">
+	@Html.AntiForgeryToken()
+	<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+	<div class="row mb-3">
+		<div class="col-lg-12 col-md-12 col-12 mb-2">
+			@if (type == 1)
+			{
+				<div class="mb-3">
+					<label asp-for="OldPass" class=""></label> :
+					<input asp-for="OldPass" class="form-control" autocomplete="old-password" id="oldPassword" />
+					<label class="mt-1"> نمایش تکرار کلمه عبور </label>
+					<input class="mt-1" type="checkbox" onclick="ShowPassword('oldPassword')">
+					<br />
+					<span asp-validation-for="OldPass" class="text-danger"></span>
+				</div>
+			}
+			<div class="mb-3">
+				<label asp-for="Pass" class=""></label> :
+				<input asp-for="Pass" class="form-control " id="password" autocomplete="new-password" />
+				<label class="mt-1"> نمایش کلمه عبور </label>
+				<input class="mt-1" type="checkbox" onclick="ShowPassword('password')" >
+				<br/>
+				<span asp-validation-for="Pass" class="text-danger"></span>
+			</div>
+			<div class="">
+				<label asp-for="RePass" class=""></label> :
+				<input type="password" asp-for="RePass" class="form-control " id="rePassword" />
+				<label class="mt-1"> نمایش تکرار کلمه عبور </label>
+				<input class="mt-1" type="checkbox" onclick="ShowPassword('rePassword')">
+				<br />
+				<span asp-validation-for="RePass" class="text-danger"></span>
+			</div>
+		</div>
+		<div class="col-lg-12 col-md-12 col-12 ">
+			<div class="d-grid gap-2">
+				<button class="btn btn-primary" type="submit">ثبت</button>
+			</div>
+		</div>
+	</div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

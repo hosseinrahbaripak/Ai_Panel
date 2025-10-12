@@ -1,0 +1,92 @@
+﻿@page
+@using Live_Book.Application.Constants
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model Live_Book.Pages.Admin.AiContent.IndexModel
+@{
+	string title = "لیست محتوای کتاب";
+	ViewData["Title"] = title;
+}
+<div class="row justify-content-md-center">
+    <div class="col-md-12 col-lg-12 col-12 mt-3">
+        <div class="card shadow">
+            <h6 class="card-header">لیست نسخه ها</h6>
+            <div class="col-4 mt-3 me-3">
+                <a class="btn btn-outline-success btn-sm" asp-page="@Urls.AiContent@ActionPage.Add">
+                    <i class="fa fa-plus"></i>
+                    ایجاد محتوا جدید
+                </a>
+            </div>
+            <div class="card-body">
+                <div class="table table-responsive">
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th>
+                                    کتاب
+                                </th>
+                                <th>
+                                    فصل
+                                </th>
+                                <th>
+                                    هوش مصنوعی
+                                </th>
+                                <th>
+                                   مدل
+                                </th>
+                                <th>
+                                   شماره نسخه
+                                </th>
+                                <th>
+                                    تاریخ ایجاد
+                                </th>
+                                <th>
+                                   آخرین ویرایش
+                                </th>
+                                <th>
+                                    عملیات
+                                </th>
+                            </tr>
+                        </thead>
+                        @* <tbody>
+                            @foreach (var item in Model.AiContents)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Book.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Part.PartName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AiConfig.AiModel.Parent.Title)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AiConfig.AiModel.Title)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AiConfig.Version)
+                                    </td>
+                                    <td>
+                                        @item.DateTime.ToPersianDateTime()
+                                    </td>
+                                    <td>
+                                        @item.UpdateDateTime.ToPersianDateTime()
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-sm" asp-page="@Urls.AiContent@ActionPage.Edit" asp-route-id="@item.Id">
+                                            <i class="fa fa-edit text-warning"></i>
+                                        </a>
+                                        <a class="btn btn-sm mouse-pointer" onclick="DeleteFunction('/Admin/AppVersion/Delete', @item.Id)">
+                                            <i class="fa fa-trash text-danger"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody> *@
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@Html.AntiForgeryToken()

@@ -1,0 +1,144 @@
+﻿@using PersianAssistant.Extensions
+@model Live_Book.Application.DTOs.TestAiConfig.TestAiConfigDashboardDto
+@if (Model.TestAiConfigLogsCount == 0)
+{
+	<div class="alert alert-info">
+		<p>رکوردی برای نمایش یافت نشد</p>
+	</div>
+}
+else
+{
+	<div class="col-6 mb-3">
+		<label class="">
+			تعداد رکوردها :
+			@Model.TestAiConfigLogsCount
+		</label> |
+		<label class="">
+			مجموع هزینه ها :
+			@(Math.Round(Model.TestAiConfigLogsTotalCost, 4))<i class="fa fa-dollar"></i>
+		</label>
+	</div>
+	<div class="scrolable-table-holder">
+		<table class="table table-hover sortable" id="TestConfigLogs" data-form="TestConfigLogsFilterForm" data-input="TestConfigLogsOrderBy" data-sortStr="@Model.OrderBy">
+			<thead>
+				<tr>
+					<th data-sort="UserName" class="mouse-pointer">
+						@Html.DisplayNameFor(model => model.TestAiConfigLogs[0].Name)
+					</th>
+					<th data-sort="Book" class="mouse-pointer">
+						@Html.DisplayNameFor(model => model.TestAiConfigLogs[0].Book)
+					</th>
+					<th data-sort="Part" class="mouse-pointer">
+						@Html.DisplayNameFor(model => model.TestAiConfigLogs[0].Part)
+					</th>
+					<th data-sort="Ai" class="mouse-pointer">
+						@Html.DisplayNameFor(model => model.TestAiConfigLogs[0].Ai)
+					</th>
+					<th data-sort="Model" class="mouse-pointer">
+						@Html.DisplayNameFor(model => model.TestAiConfigLogs[0].AiModel)
+					</th>
+					<th>
+						@Html.DisplayNameFor(model => model.TestAiConfigLogs[0].UserMessage)
+					</th>
+					<th>
+						@Html.DisplayNameFor(model => model.TestAiConfigLogs[0].AiResponse)
+					</th>
+					<th>
+						@Html.DisplayNameFor(model => model.TestAiConfigLogs[0].Prompt)
+					</th>
+					<th data-sort="Temperature" class="mouse-pointer">
+						@Html.DisplayNameFor(model => model.TestAiConfigLogs[0].Temperature)
+					</th>
+					<th data-sort="TopP" class="mouse-pointer">
+						@Html.DisplayNameFor(model => model.TestAiConfigLogs[0].TopP)
+					</th>
+					<th data-sort="PresencePenalty" class="mouse-pointer">
+						@Html.DisplayNameFor(model => model.TestAiConfigLogs[0].PresencePenalty)
+					</th>
+					<th data-sort="FrequencyPenalty" class="mouse-pointer">
+						@Html.DisplayNameFor(model => model.TestAiConfigLogs[0].FrequencyPenalty)
+					</th>
+					<th>
+						@Html.DisplayNameFor(model => model.TestAiConfigLogs[0].Stop)
+					</th>
+					<th data-sort="MaxTokens" class="mouse-pointer">
+						@Html.DisplayNameFor(model => model.TestAiConfigLogs[0].MaxTokens)
+					</th>
+					<th data-sort="Date" class="mouse-pointer">
+						@Html.DisplayNameFor(model => model.TestAiConfigLogs[0].Date)
+					</th>
+					<th data-sort="Cost" class="mouse-pointer">
+						@Html.DisplayNameFor(model => model.TestAiConfigLogs[0].Cost)
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var log in Model.TestAiConfigLogs)
+				{
+					<tr>
+						<td>
+							@(log?.Name ?? "-")
+						</td>
+						<td>
+							@(log?.Book ?? "-")
+						</td>
+						<td>
+							@(log?.Part ?? "-")
+						</td>
+						<td>
+							@(log?.Ai ?? "-")
+						</td>
+						<td>
+							@(log?.AiModel ?? "-")
+						</td>
+						<td title="@(log?.UserMessage ?? "-")" class="mouse-pointer">
+							@(
+								(log?.UserMessage ?? "-").Length > 50
+								? (log?.UserMessage ?? "-").Substring(0, 50) + "..."
+								: (log?.UserMessage ?? "-")
+							)
+						</td>
+						<td title="@(log?.AiResponse ?? "-")" class="mouse-pointer">
+							@(
+								(log?.AiResponse ?? "-").Length > 30
+								? (log?.AiResponse ?? "-").Substring(0, 30) + "..."
+								: (log?.AiResponse ?? "-")
+							)
+						</td>
+						<td title="@(log?.Prompt ?? "-")" class="mouse-pointer">
+							@(
+								(log?.Prompt ?? "-").Length > 30
+								? (log?.Prompt ?? "-").Substring(0, 30) + "..."
+								: (log?.Prompt ?? "-")
+							)
+						</td>
+						<td>
+							@(log?.Temperature ?? 0)
+						</td>
+						<td>
+							@(log?.TopP ?? 0)
+						</td>
+						<td>
+							@(log?.PresencePenalty ?? 0)
+						</td>
+						<td>
+							@(log?.FrequencyPenalty ?? 0)
+						</td>
+						<td>
+							@(log?.Stop ?? "-")
+						</td>
+						<td>
+							@(log?.MaxTokens ?? 0)
+						</td>
+						<td>
+							@(log?.Date.ToPersianDateTime())
+						</td>
+						<td>
+							@(Math.Round(log?.Cost ?? 0, 4))
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+}

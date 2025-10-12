@@ -1,0 +1,295 @@
+﻿@page
+@using Live_Book.Application.Tools
+@model Live_Book.Pages.Admin.TestAiConfigLogs.IndexModel
+@{
+    ViewData["Title"] = "گزارش تست کانفیگ های هوش مصنوعی";
+    Layout = "_AdminLayout";
+}   
+<div class="row">
+	<div class="col-md-12">
+		<div class="card card-primary card-outline shadow h-100">
+			<div class="d-flex card-header">
+				<div class="col-lg-10 col-md-4 col-6">
+					<h5 class="card-title col-lg-10 col-md-4 col-6">
+						<i class="fa fa-bar-chart-o"></i>
+						گزارش تست کانفیگ های هوش مصنوعی
+					</h5>
+				</div>
+			</div>
+
+			<div class="card-body">
+				<section class="card-text">
+					<form enctype="multipart/form-data" method="post" id="TestConfigLogsFilterForm" data-ajax-success="FormSubmitHandler">
+						@Html.AntiForgeryToken()
+						<div class="row mb-3">
+							<div class="col-3 mb-3">
+								<label for="TestConfigLogsUserId">ادمین :</label>
+								<select class="form-control form-select" asp-items="ViewBag.Admins" name="UserId" id="TestConfigLogsUserId">
+									<option value="0" selected>همه</option>
+								</select>
+							</div>
+							<div class="col-3 mb-3">
+								<label for="TestConfigLogsBookId">کتاب :</label>
+								<select class="form-control form-select" asp-items="ViewBag.Books" name="BookId" id="TestConfigLogsBookSelect" onchange="bookChange()">
+									<option value="0" selected>همه</option>
+								</select>
+							</div>
+							<div class="col-3 mb-3">
+								<label for="TestConfigLogsPartId">فصل :</label>
+								<select class="form-control form-select" name="PartId" id="TestConfigLogsPartSelect">
+									<option value="0" selected>همه</option>
+								</select>
+							</div>
+							<div class="col-3 mb-3">
+								<label for="TestConfigLogsAiId">هوش مصنوعی :</label>
+								<select class="form-control form-select" name="AiId" asp-items="ViewBag.AiTypes" id="TestConfigLogsAiType" asp-items="ViewBag.AiTypes" onchange="changeAiModels()">
+									<option value="0" selected>همه</option>
+								</select>
+							</div>
+							<div class="col-3 mb-3">
+								<label for="TestConfigLogsAiModelId">مدل هوش مصنوعی :</label>
+								<select class="form-control form-select" name="AiModelId" id="TestConfigLogsAiModelTypes">
+									<option value="0" selected>همه</option>
+								</select>
+							</div>
+							<input id="TestConfigLogsOrderBy" type="hidden" name="OrderBy">
+							<div class="col-lg-12 mb-3">
+								<div class="btn-group" role="group" aria-label="Basic example">
+									<button type="submit" class="btn btn-primary" title="جستجو" id="TestConfigLogsFilterFormBtn" data-input="TestConfigLogsOrderBy">
+										<i class="fa fa-search"></i>
+									</button>
+									<button class="removeSortBtn btn btn-link" data-input="TestConfigLogsOrderBy">حذف مرتب سازی ها</button>
+								</div>
+							</div>
+
+						</div>
+					</form>
+				</section>
+				<div id="TestConfigLogsHolder">
+					@if (Model.TestAiConfigLogsDto.TestAiConfigLogsCount == 0)
+					{
+						<div class="alert alert-info">
+							<p>رکوردی برای نمایش یافت نشد</p>
+						</div>
+					}
+					else
+					{
+						<div class="col-6 mb-3">
+							<label class="">
+								تعداد رکوردها :
+								@Model.TestAiConfigLogsDto.TestAiConfigLogsCount
+							</label> |
+							<label class="">
+								مجموع هزینه ها :
+								@(Math.Round(Model.TestAiConfigLogsDto.TestAiConfigLogsTotalCost, 4))<i class="fa fa-dollar"></i>
+							</label>
+						</div>
+						<div class="scrolable-table-holder">
+							<table class="table table-hover sortable text-center" style=" overflow-x: auto;" id="TestConfigLogs" data-form="TestConfigLogsFilterForm" data-input="TestConfigLogsOrderBy" data-sortStr="@Model.TestAiConfigLogsDto.OrderBy">
+								<thead>
+									<tr>
+										<th data-sort="UserName" class="mouse-pointer">
+											@Html.DisplayNameFor(model => model.TestAiConfigLogsDto.TestAiConfigLogs[0].Name)
+										</th>
+										<th data-sort="Book" class="mouse-pointer">
+											@Html.DisplayNameFor(model => model.TestAiConfigLogsDto.TestAiConfigLogs[0].Book)
+										</th>
+										<th data-sort="Part" class="mouse-pointer">
+											@Html.DisplayNameFor(model => model.TestAiConfigLogsDto.TestAiConfigLogs[0].Part)
+										</th>
+										<th data-sort="Ai" class="mouse-pointer">
+											@Html.DisplayNameFor(model => model.TestAiConfigLogsDto.TestAiConfigLogs[0].Ai)
+										</th>
+										<th data-sort="Model" class="mouse-pointer">
+											@Html.DisplayNameFor(model => model.TestAiConfigLogsDto.TestAiConfigLogs[0].AiModel)
+										</th>
+										<th>
+											@Html.DisplayNameFor(model => model.TestAiConfigLogsDto.TestAiConfigLogs[0].UserMessage)
+										</th>
+										<th>
+											@Html.DisplayNameFor(model => model.TestAiConfigLogsDto.TestAiConfigLogs[0].AiResponse)
+										</th>
+										<th>
+											@Html.DisplayNameFor(model => model.TestAiConfigLogsDto.TestAiConfigLogs[0].Prompt)
+										</th>
+										<th data-sort="Temperature" class="mouse-pointer">
+											@Html.DisplayNameFor(model => model.TestAiConfigLogsDto.TestAiConfigLogs[0].Temperature)
+										</th>
+										<th data-sort="TopP" class="mouse-pointer">
+											@Html.DisplayNameFor(model => model.TestAiConfigLogsDto.TestAiConfigLogs[0].TopP)
+										</th>
+										<th data-sort="PresencePenalty" class="mouse-pointer">
+											@Html.DisplayNameFor(model => model.TestAiConfigLogsDto.TestAiConfigLogs[0].PresencePenalty)
+										</th>
+										<th data-sort="FrequencyPenalty" class="mouse-pointer">
+											@Html.DisplayNameFor(model => model.TestAiConfigLogsDto.TestAiConfigLogs[0].FrequencyPenalty)
+										</th>
+										<th>
+											@Html.DisplayNameFor(model => model.TestAiConfigLogsDto.TestAiConfigLogs[0].Stop)
+										</th>
+										<th data-sort="MaxTokens" class="mouse-pointer">
+											@Html.DisplayNameFor(model => model.TestAiConfigLogsDto.TestAiConfigLogs[0].MaxTokens)
+										</th>
+										<th data-sort="Date" class="mouse-pointer">
+											@Html.DisplayNameFor(model => model.TestAiConfigLogsDto.TestAiConfigLogs[0].Date)
+										</th>
+										<th data-sort="Cost" class="mouse-pointer">
+											@Html.DisplayNameFor(model => model.TestAiConfigLogsDto.TestAiConfigLogs[0].Cost)
+										</th>	
+									</tr>
+								</thead>
+								<tbody>
+									@foreach (var log in Model.TestAiConfigLogsDto.TestAiConfigLogs)
+									{
+										<tr>
+											<td>
+												@(log?.Name ?? "-")
+											</td>
+											<td>
+												@(log?.Book ?? "-")
+											</td>
+											<td>
+												@(log?.Part ?? "-")
+											</td>
+											<td>
+												@(log?.Ai ?? "-")
+											</td>
+											<td>
+												@(log?.AiModel ?? "-")
+											</td>
+											<td title="@(log?.UserMessage ?? "-")" class="mouse-pointer">
+												@(
+													(log?.UserMessage ?? "-").Length > 50
+													? (log?.UserMessage ?? "-").Substring(0, 50) + "..."
+													: (log?.UserMessage ?? "-")
+												)
+											</td>
+											<td title="@(log?.AiResponse ?? "-")" class="mouse-pointer">
+												@(
+													(log?.AiResponse ?? "-").Length > 30
+													? (log?.AiResponse ?? "-").Substring(0, 30) + "..."
+													: (log?.AiResponse ?? "-")
+												)
+											</td>
+											<td title="@(log?.Prompt ?? "-")" class="mouse-pointer">
+												@(
+													(log?.Prompt ?? "-").Length > 30
+													? (log?.Prompt ?? "-").Substring(0, 30) + "..."
+													: (log?.Prompt ?? "-")
+												)
+											</td>
+											<td>
+												@(log?.Temperature ?? 0)
+											</td>
+											<td>
+												@(log?.TopP ?? 0)
+											</td>
+											<td>
+												@(log?.PresencePenalty ?? 0)
+											</td>
+											<td>
+												@(log?.FrequencyPenalty ?? 0)
+											</td>
+											<td>
+												@(log?.Stop ?? "-")
+											</td>
+											<td>
+												@(log?.MaxTokens ?? 0)
+											</td>
+											<td>
+												@(log?.Date.ToPersianDateTime())
+											</td>
+											<td>
+												@(Math.Round(log?.Cost ?? 0, 4))
+											</td>
+										</tr>
+									}
+								</tbody>
+							</table>
+						</div>
+					}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+@section Scripts
+{
+	<script>
+		loadSorts("TestConfigLogs")
+		$("#TestConfigLogsFilterForm").submit(function (event) {
+				event.preventDefault();
+				let url = '/Admin/TestAiConfigLogs/Index/FilterTestAiConfigLogs';
+				let targetId = 'TestConfigLogsHolder';
+				StartLoading();
+				var formData = new FormData(this);
+				$.ajax({
+					url: `${url}`,
+					type: 'POST',
+					data: formData,
+					beforeSend: function () {
+						StartLoading();
+					},
+					success: function (response) {
+						CloseLoading();
+						FormSubmitHandler(response, targetId);
+						loadSorts("TestConfigLogs");
+					},
+					error: function () {
+						CloseLoading();
+						ShowFailedAlert();
+					},
+					cache: false,
+					contentType: false,
+					processData: false
+				});
+			});
+			var bookPartsUrl = "/Admin/BookPart/Index/GetBookParts";
+			$('#TestConfigLogsBookId')?.change(function() {
+			var bookId = $(this).val();
+			if(!StringIsNullOrEmpty(bookId)){
+				let data = { bookId: bookId};
+				let target = "TestConfigLogsPartId";
+				AjaxSelectBoxFilter(bookPartsUrl, data, target, targetChild = null, type = 'GET', defaultValue=false, allOption=true);
+			}
+			});
+
+		var parentsData = @Html.Raw(ViewBag.childAiModels);
+		var aiModelTypes = document.getElementById('TestConfigLogsAiModelTypes');
+		function changeAiModels() {
+			var selectedAi = Number($('#TestConfigLogsAiType').val());
+			const AiModelChildern = parentsData.filter(item => item.ParentId === selectedAi);
+			let options = aiModelTypes.getElementsByTagName('option');
+			for (var i = options.length; i--;) {
+				aiModelTypes.removeChild(options[i]);
+			}
+			let defaultOption = new Option('لطفا موردی را انتخاب کنید', '0');
+			defaultOption.setAttribute("disabled", "true");
+			defaultOption.setAttribute("selected", "selected");
+			aiModelTypes.add(defaultOption, undefined);
+			for (const element of AiModelChildern) {
+				let newOption = new Option(`${element.Title}`, `${element.Id}`);
+				aiModelTypes.add(newOption, undefined);
+			}
+		}
+
+		var bookParts = @Html.Raw(ViewBag.BookParts);
+		var bookPartsSelectBox = document.getElementById('TestConfigLogsPartSelect');
+		function bookChange() {
+			var selectedBook = Number($('#TestConfigLogsBookSelect').val());
+			const bookPartsChildern = bookParts.filter(item => item.BookId === selectedBook);
+			let options = bookPartsSelectBox.getElementsByTagName('option');
+			for (var i = options.length; i--;) {
+				bookPartsSelectBox.removeChild(options[i]);
+			}
+			let defaultOption = new Option('لطفا موردی را انتخاب کنید', '0');
+			defaultOption.setAttribute("disabled", "true");
+			defaultOption.setAttribute("selected", "selected");
+			bookPartsSelectBox.add(defaultOption, undefined);
+			for (const element of bookPartsChildern) {
+				let newOption = new Option(`${element.Title}`, `${element.Id}`);
+				bookPartsSelectBox.add(newOption, undefined);
+			}
+		}
+	</script>
+}

@@ -1,0 +1,29 @@
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Live_Book.Domain
+{
+	public class UserSession
+	{
+		[Key]
+		public int Id { get; set; }
+
+		public int UserId { get; set; }
+
+		[Required]
+		[MaxLength(150)]
+		public string Token { get; set; }
+
+		[Display(Name = "تاریخ ورود")]
+		public DateTime DateTime { get; set; }
+
+		[Display(Name = "تاریخ خروج")]
+		public DateTime? DateLogout { get; set; }
+
+		[Display(Name = "وضعیت")]
+		public bool IsLogout { get; set; }
+
+		[ForeignKey("UserId")]
+		public User Users { get; set; }
+	}
+}

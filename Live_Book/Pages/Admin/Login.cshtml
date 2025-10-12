@@ -1,0 +1,77 @@
+﻿@page
+@model Live_Book.Pages.Admin.LoginModel
+@using Live_Book.Application.Constants;
+@{
+    ViewData["Title"] = "ورود";
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+<div class="row justify-content-md-center mt-5">
+    <div class="col-md-5 col-lg-5 col-12">
+        <div class="card shadow">
+            <div class="card-body">
+                <section class="card-text">
+                    <form method="Post">
+                        <input type="hidden" asp-for="ReturnUrl"/>
+                        <h4 class="text-center mb-5">ورود به حساب کاربری</h4>
+                        <div class="mb-3">
+                            <label asp-for="@Model.Login.UserName">نام کاربری:</label>
+                            <input asp-for="@Model.Login.UserName" class="form-control" autocomplete="off" placeholder="نام کاربری"/>
+                            <span asp-validation-for="@Model.Login.UserName" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label>کلمه عبور:</label> 
+                            <input asp-for="@Model.Login.Password" class="form-control" autocomplete="off" placeholder="کلمه عبور" id="password"/>
+                            <span asp-validation-for="@Model.Login.Password" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <label class="mt-1"> نمایش کلمه عبور </label>
+                            <input class="mt-1 form-check-input" type="checkbox" onclick="ShowPassword('password')">
+                            <br/>
+                            <label class="form-check-label">
+                                @Html.DisplayNameFor(model => model.Login.RememberMe) <input class="form-check-input" asp-for="@Model.Login.RememberMe"/>
+                            </label>
+                        </div>
+                        @* <div class="mb-3 form-check"> *@
+                        @*     <div class="g-recaptcha" data-sitekey="6Lff7V8mAAAAAKewDYGoVa7mJ3oTpkYfrBolfaFC"></div> *@
+                        @*     <span class="text-danger">@ViewBag.Message</span> *@
+                        @* </div> *@
+                        <div id="local_captcha">
+                            <dnt-captcha asp-captcha-generator-max="999999"
+                                asp-captcha-generator-min="100000"
+                                asp-captcha-generator-language="English"
+                                asp-captcha-generator-display-mode="ShowDigits"
+                                asp-use-relative-urls="true"
+                                asp-placeholder="کد اعتبارسنجی"
+                                asp-validation-error-message="@(SystemMessages.CaptchaError)"
+                                asp-too-many-requests-error-message="@(SystemMessages.TooManyRequestError)"
+                                asp-font-name="Tahoma"
+                                asp-font-size="40"
+                                asp-fore-color="#283890"
+                                asp-back-color="#fafafa"
+                                asp-text-box-class="form-control"
+                                asp-text-box-template="<div>{0}</div>"
+                                asp-validation-message-class="text-danger"
+                                asp-refresh-button-class="fa fa-rotate-right btn-lg"
+                                asp-dir="rtl" 
+                            />
+                        </div>
+                        <div class="d-grid gap-2 mt-3 mb-3">
+                            <button class="btn btn-primary" id="submit-btn" type="submit">ورود به سامانه</button>
+                        </div>
+                        <div class="alert alert-secondary">
+
+                            <div class="login-info">
+                                <i class="fa fa-lock"></i>
+                                نام کاربری و کلمه عبور خود را جهت ورود به سامانه وارد کنید.
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

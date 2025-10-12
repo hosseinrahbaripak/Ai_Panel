@@ -1,0 +1,49 @@
+﻿using Live_Book.Application.Contracts.Persistence.Dapper;
+using Live_Book.Application.Contracts.Persistence.EfCore;
+using Live_Book.Persistence.Repository.Dapper;
+using Live_Book.Persistence.Repository.EfCore;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace Live_Book.Persistence.Configurations;
+
+public static class PersistenceServicesRegistration
+{
+    public static IServiceCollection ConfigurePersistenceServices(this IServiceCollection services,
+        IConfiguration configuration)
+    {
+        services.AddDbContext<LiveBookContext>(options =>
+        {
+            options.UseSqlServer(configuration
+                .GetConnectionString("LiveBookConnection"));
+        }, ServiceLifetime.Transient);
+
+        services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+        #region --IOC--EfCore
+        services.AddScoped<IErrorLog, ErrorLogRepository>();
+        services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+        services.AddScoped<IRole, RoleRepository>();
+        services.AddScoped<IAdminManage, AdminManageRepository>();
+        services.AddScoped<IAboutUs, AboutUsRepository>();
+        services.AddScoped<IApiRequestLog, ApiRequestLogRepository>();
+        services.AddScoped<IRoleInPages, RoleInPagesService>();
+        services.AddScoped<IUserAiChatLogsRepository, UserAiChatLogsRepository>();
+        services.AddScoped<IAdminTypeRepository, AdminTypeRepository>();
+        services.AddScoped<IAiConfigRepository, AiConfigRepository>();
+        services.AddScoped<IAiModelRepository, AiModelRepository>();
+        services.AddScoped<IAiContentRepository, AiContentRepository>();
+        services.AddScoped<ITestAiConfigRepository, TestAiConfigRepository>();
+        services.AddScoped<IAiPlatformRepository, AiPlatformRepository>();
+        #endregion
+
+        #region --IOC--Dapper
+        services.AddScoped<IUserRepositoryDp, UserRepositoryDp>();
+        services.AddScoped<IUserAiChatLogsRepositoryDp, UserAiChatLogsRepositoryDp>();
+        services.AddScoped<ITestAiConfigRepositoryDp, TestAiConfigRepositoryDp>();
+        #endregion
+
+        return services;
+    }
+}

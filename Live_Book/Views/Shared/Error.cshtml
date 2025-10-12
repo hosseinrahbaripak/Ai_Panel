@@ -1,0 +1,21 @@
+﻿@model Live_Book.Models.ErrorViewModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<div class="row justify-content-md-center">
+    <div class="col-md-6 col-lg-6 col-12">
+        <div class="card shadow">
+            <div class="card-body">
+                <section class="card-text"> 
+                    <p class="alert alert-info text-center">
+                        خطای ناخواسته ای رخ داده است لطفا با تیم پشتیبانی تماس بگیرید و با دادن کد "@ViewBag.Token" به پشتیبان او را همراهی کنید ، ممنون از شکیبایی شما
+                        <br />
+                        <br />
+                        <a class="btn btn-outline-secondary btn-sm" href="/Admin/Home/Index">بازگشت به صفحه اصلی</a>
+                    </p> 
+                </section>
+            </div>
+        </div>
+    </div>
+</div>

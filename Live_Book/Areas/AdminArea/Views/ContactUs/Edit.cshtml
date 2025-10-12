@@ -1,0 +1,58 @@
+﻿@model Live_Book.Domain.ContactUs
+
+<form asp-action="Edit" id="FormInModal" method="post" enctype="multipart/form-data">
+	@Html.AntiForgeryToken()
+	<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+	<div class="row mb-3">
+		<div class="col-lg-12 col-md-12 col-12 mb-2">
+			<div class="">
+				<label asp-for="Address"></label>
+				<textarea rows="4" asp-for="Address" class="form-control margin13bt"></textarea>
+				<span asp-validation-for="Address" class="text-danger"></span>
+			</div>
+			<div class="mt-3">
+				<div class="alert alert-warning mt-2re">
+					<p>اگر چند شماره تلفن میخواهید وارد کنید با ویرگول از هم جدا کنید مثلا : "0215513,091234"</p>
+				</div>
+				<label asp-for="PhoneNumber" class="control-label"></label>
+				<input type="text" asp-for="PhoneNumber" class="form-control"/>
+				<span asp-validation-for="PhoneNumber" class="text-danger"></span>
+			</div>
+			<div class="mt-3">
+				<label asp-for="Fax" class=""></label>
+				<input type="text" asp-for="Fax" class="form-control"/>
+				<span asp-validation-for="Fax" class="text-danger"></span>
+			</div>
+			<div class="mt-3">
+				<label asp-for="LogoName" class="">انتخاب تصویر : </label>
+				<input type="file" name="image" asp-for="LogoName" class="form-control"/>
+				<span asp-validation-for="LogoName" class="text-danger"></span>
+			</div>
+			<div class="mt-3">
+				<label class="">عکس انتخاب شده : </label>
+				<img id="Publisherimg" class="img-thumbnail selected-img" src="~/images/contactus/@Model.LogoName" alt="عکسی هنوز انتخاب نشده است"/>
+			</div>
+		</div>
+		<div class="col-lg-12 col-md-12 col-12 ">
+			<div class="d-grid gap-2">
+				<button class="btn btn-primary" type="submit">ثبت</button>
+			</div>
+		</div>
+	</div>
+</form>
+
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#Publisherimg').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#LogoName").change(function () {
+        readURL(this);
+    });
+</script>

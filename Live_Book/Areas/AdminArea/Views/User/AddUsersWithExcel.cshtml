@@ -1,0 +1,186 @@
+﻿@using Live_Book.Application.Constants
+@model Live_Book.Application.DTOs.AddExcelUserViewModel
+@{
+    string title = "وارد کردن اکسل کاربران";
+    ViewData["Title"] = title;
+}
+<div class="alert alert-warning">
+    <p class="text-justify">
+        @SystemMessages.ImportExcelGuide
+    </p>
+</div>
+
+<div class="row justify-content-md-center">
+    <div class="col-md-8 col-lg-8 col-12">
+        <div class="card shadow">
+            <h5 class="card-header">وارد کردن اکسل افزودن و ویرایش کاربران</h5>
+            <div class="card-body">
+                <section class="card-text">
+	                <form asp-page-handler="InputExcel" method="post" enctype="multipart/form-data">
+		                @Html.AntiForgeryToken()
+		                <input type="hidden" id="DeleteLastUserBooksValue" name="DeleteLastUserBooks"/>
+						<input type="hidden" id="DeleteLastUserTagsValue" name="DeleteLastUserTags" />
+		                <input type="hidden" id="UpdateMobileNumberValue" name="updateMobileNumber"/>
+		                <div class="row mb-3">
+			                <div class="col-lg-12 col-md-12 col-12 mb-2">
+				                <div class="">
+					                <label class="">پایه : </label>
+					                <select name="GradeId" class="form-select custom-select" asp-items="ViewBag.Grades">
+						                <option disabled selected>لطفا موردی را انتخاب کنید</option>
+					                </select>
+					                <span class="text-danger"></span>
+				                </div>
+								@if (ViewBag.ProjectId > 0)
+								{
+									<input name="ProjectId" type="hidden" id="projectSelect" value="@ViewBag.ProjectId">
+								}
+								else
+								{
+									<div class="mt-3">
+										<label asp-for="@Model.ProjectId" class=""></label> :
+										<select name="ProjectId" class="form-select custom-select" asp-items="ViewBag.ProjectProfile" id="projectSelect">
+											<option disabled selected>لطفا موردی را انتخاب کنید</option>
+										</select>
+									</div>
+								}
+								<div class="mt-3">
+									<div class="form-check form-switch form-check-reverse">
+										<input class="form-check-input" type="checkbox" role="switch" id="DeleteLastUserTags">
+										<label class="form-check-label" for="DeleteLastUserTags">حذف تگ های قبلی کاربران در صورت وجود</label>
+									</div>
+								</div>
+								<div class="mt-3">
+									<label class="mt-2">سر تگ ها : </label>
+									<select asp-for="@Model.ParentUserTagId" name="parentUserTagId" asp-items="ViewBag.ParentUserTags" id="parentUserTagSelect" class="mb-5 form-control js-example-basic-multiple ">
+										<option disabled selected>لطفا ابتدا پروژه را انتخاب کنید</option>
+									</select>
+								</div>
+								<div class="mt-3">
+									<label class="mt-2">تگ ها : </label>
+									<select asp-for="@Model.UserTagId" name="userTagId" id="userTagSelect" class="mb-5 form-control js-example-basic-multiple ">
+										<option disabled selected>لطفا ابتدا سر تگ را انتخاب کنید</option>
+									</select>
+								</div>
+				                <div class="mt-3">
+					                <div class="form-check form-switch form-check-reverse">
+										<input class="form-check-input" type="checkbox" role="switch" id="DeleteLastUserBooks">
+						                <label class="form-check-label" for="DeleteLastUserBooks">حذف کتاب های قبلی کاربران در صورت وجود</label>
+					                </div>
+				                </div>
+				                @*                                 <div class="mt-3">
+                                    <div class="form-check form-switch form-check-reverse">
+                                        <input class="form-check-input" type="checkbox" role="switch" id="UpdateMobileNumber">
+                                        <label class="form-check-label" for="UpdateMobileNumber">آپدیت شماره تلفن کاربران</label>
+                                    </div>
+                                </div> *@
+				                <div class="mt-3">
+					                <label class="mt-2">کتاب های مجاز : </label>
+					                <select asp-for="@Model.BookId" id="bookSelect" name="BookId" asp-items="ViewBag.Books" class="mb-5 form-control js-example-basic-multiple "></select>
+				                </div>
+				                <div class="mt-5">
+					                <a class="btn btn-outline-success" href="~/excel/example/ImportUserExcelExample.xlsx" target="_blank">دانلود نمونه فایل فرمت ورودی اکسل</a>
+				                </div>
+				                <div class="mb-3">
+					                <label>فایل اکسل : </label>
+					                <input type="file" name="Excel" id="Excel" class="form-control"/>
+				                </div>
+				                <div class="mt-3 mb-3">
+					                <a class="btn btn-primary" onclick="SendAjaxReq('/Admin/BackUpManage/Add', 'GET')"><i class="fa fa-database"></i> گرفتن بکاپ از دیتابیس</a>
+				                </div>
+				                <div class="row mb-3">
+					                <div class="col-1 text-end" id="submitExcel">
+						                <div class="spinner-border text-primary" role="status">
+							                <span class="visually-hidden">Loading...</span>
+						                </div>
+					                </div>
+					                <div class="col-11 mt-2" id="ExcelStatus"></div>
+					                <a target="_blank" class="btn btn-outline-danger mt-2 d-none" id="ReportImportExcel">دانلود اکسل گزارش </a>
+				                </div>
+				                <div class="mt-3 mb-3">
+					                <button class="btn btn-primary" onclick="SubmitExcel('/Admin/User/Add/AddUsersWithExce', '/Admin/User/Index/ExcelStatus')" id="submitExcel-btn" title="ذخیره"><i class="fa fa-save"></i> ذخیره</button>
+				                </div>
+			                </div>
+		                </div>
+	                </form>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        var switchStatus = false;
+        $("#DeleteLastUserBooks").on('change', function () {
+            if ($(this).is(':checked')) {
+                switchStatus = $(this).is(':checked');
+            }
+            else {
+                switchStatus = $(this).is(':checked');
+            }
+            document.getElementById('DeleteLastUserBooksValue').value = switchStatus;
+        });
+		$("#DeleteLastUserTags").on('change', function () {
+			if ($(this).is(':checked')) {
+				switchStatus = $(this).is(':checked');
+			}
+			else {
+				switchStatus = $(this).is(':checked');
+			}
+			document.getElementById('DeleteLastUserTagsValue').value = switchStatus;
+		});
+
+        var switchStatusUpdateMobile = false;
+        $("#UpdateMobileNumber").on('change', function () {
+            if ($(this).is(':checked')) {
+                switchStatusUpdateMobile = $(this).is(':checked');
+            }
+            else {
+                switchStatusUpdateMobile = $(this).is(':checked');
+            }
+            document.getElementById('UpdateMobileNumberValue').value = switchStatusUpdateMobile;
+        });
+		let tagUrl = "/Admin/UserTag/Index/GetUserTagsBy";
+		let advisorUrl = "/Admin/AdvisorProfile/Index/GetAdvisorsBy";
+		let bookUrl = "/Admin/Books/Index/GetByProject/";
+		var projectId = $('#projectSelect').val();
+		$('#projectSelect')?.change(function () {
+			projectId = $(this).val();
+			if (projectId) {
+				let advisorData = { projectId: projectId };
+				let advisorTarget = "parentAdvisorSelect";
+				let advisorTargetChild = "advisorSelect";
+				AjaxSelectBoxFilter(advisorUrl, advisorData, advisorTarget, advisorTargetChild, type = 'GET');
+				let data = { "projectId": projectId, "parentsId": null };
+				let target = "parentUserTagSelect";
+				let targetChild = "userTagSelect";
+				AjaxSelectBoxFilter(tagUrl, data, target, targetChild = targetChild, type = 'GET', multiple = true);
+				let bookData = { projectId: projectId };
+				let bookTarget = 'bookSelect';
+				AjaxSelectBoxFilter(bookUrl, bookData, bookTarget, targetChild = null, type = 'GET');
+			}
+		});
+
+		$('#parentUserTagSelect')?.change(function () {
+			var parentsId = $(this).val();
+			if (!StringIsNullOrEmpty(parentsId)) {
+				let data = { "projectId": projectId, "parentsId": `${parentsId}` };
+				let target = "userTagSelect";
+				AjaxSelectBoxFilter(tagUrl, data, target, targetChild = null, type = 'GET', multiple = true);
+			}
+		});
+		$('#parentAdvisorSelect')?.change(function () {
+			var parentId = $(this).val();
+			if (!StringIsNullOrEmpty(parentId)) {
+				let advisorData = { projectId: projectId, parentId: parentId, forChild: true };
+				let advisorTarget = "advisorSelect";
+				AjaxSelectBoxFilter(advisorUrl, advisorData, advisorTarget, targetChild = null, type = 'GET');
+			}
+		});
+    </script>
+}

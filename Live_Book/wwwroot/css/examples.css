@@ -1,0 +1,87 @@
+body {
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-justify-content: center;
+}
+#next {
+    left: 30px !important;
+}
+
+#prev {
+    right: 30px !important;
+}
+
+.arrow {
+    position: fixed;
+    top: 50%;
+    font-size: 64px;
+    color: #E2E2E2;
+    font-family: arial, sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    text-decoration: none;
+}
+
+
+    .arrow:hover, .navlink:hover {
+        color: #777;
+    }
+
+    .arrow:active, .navlink:hover {
+        color: #000;
+    }
+
+#book-wrapper {
+    width: 480px;
+    height: 640px;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    margin: 28px auto;
+    background: #fff;
+    border-radius: 0 5px 5px 0;
+    position: absolute;
+}
+
+#book-viewer {
+    width: 480px;
+    height: 660px;
+    margin: -30px auto;
+    -moz-box-shadow: inset 10px 0 20px rgba(0,0,0,.1);
+    -webkit-box-shadow: inset 10px 0 20px rgba(0,0,0,.1);
+    box-shadow: inset 10px 0 20px rgba(0,0,0,.1);
+}
+
+    #book-viewer iframe {
+        padding: 40px 40px;
+    }
+
+#controls > input[type=range] {
+    width: 400px;
+}
+
+#viewer {
+    width: 290px;
+    height: 580px;
+    box-shadow: 0 0 4px #ccc;
+    padding: 10px -1px 0px 10px;
+    margin: 0px auto;
+    background: white;
+}
+
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 667px) {
+    #viewer {
+        width: 290px;
+        height: 580px;
+    }
+
+    #viewer iframe { /* pointer-events: none; */ }
+
+    .arrow {
+        position: inherit;
+        display: none;
+    }
+}

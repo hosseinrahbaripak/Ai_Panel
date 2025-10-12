@@ -1,0 +1,85 @@
+﻿@using PersianAssistant.Extensions
+@model List<Live_Book.Application.DTOs.AiChat.AiChatApiDto>
+@{
+    Layout = "_AppLayout";
+    ViewData["Title"] = "صفحه چت با هوش مصنوعی";
+}
+<input type="hidden" value="@(Model.LastOrDefault()?.Id ?? 0)" id="LastMsgId" />
+<div class=" direct-chat direct-chat-primary mt-3">
+    <div class="card-header ui-sortable-handle">
+        <h3 class="card-title text-center">گفت‌وگو با دستیار آموزشی علامه حلی</h3>
+    </div>
+    <div class="" style="display: block;">
+        <div class="row direct-chat-messages" id="chatbody">
+            @foreach (var message in Model)
+            {
+                <div class="col-12" id="message_@message.Id">
+                    <div class="direct-chat-msg mb-3 right">
+                        <div class="direct-chat-infos clearfix">
+                            <span class="direct-chat-name float-right">@ViewBag.UserName</span>
+                            <span dir="ltr" class="direct-chat-timestamp float-right me-3 ">@message.DateTime.ToPersianDateTime()</span>
+                        </div>
+                        @* <img class="direct-chat-img" src="/images/user-avatar.jpg" alt="."> *@
+                        <div class="direct-chat-text">
+                            <p>
+                                @message.UserMessage
+                            </p>
+                        </div>
+                    </div>
+                    <div class="direct-chat-msg mb-3 float-end">
+                        <div class="direct-chat-infos clearfix">
+                            <span class="direct-chat-name float-left">دستیار آموزشی</span>
+                        </div>
+                        <img class="direct-chat-img" src="/images/1cfc25cf-41bf-41cb-916b-f2d889933703_page-0001.png" alt=".">
+                        <div class="direct-chat-text">
+                            <p>
+                                @message.AiResponse
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="card-footer fix-chatMessage-Bottom">
+        <form method="post" id="SendMessageForm">
+            <input type="hidden" id="Token" value="@ViewBag.Token" />
+            <input type="hidden" id="PartId" name="PartId" value="@ViewBag.PartId" />
+            <div class="input-group ">
+                <input type="text" id="Message" name="Message" placeholder="سوال خودت رو بپرس ..." class="form-control shadow-none" autocomplete="off" style="height:45px;">
+                <button id="SendMessageBtn" onclick="SendFormDataMessage('SendMessageForm','/ChatWithAi/Ask')" type="submit" class="btn btn-appblue shadow-none" style="height:45px;">
+                    <i class="fa fa-send"></i>
+                    @* <div class='spinner-border' role='status'><span class='visually-hidden' > Loading...</span > </div > *@
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        (function () {
+            var lastMsgId = Number(document.getElementById('LastMsgId')?.value ?? 0);
+            if (lastMsgId && lastMsgId !== 0) {
+                var element = document.getElementById(`message_${lastMsgId}`);
+                element.scrollIntoView();
+            }
+        })();
+        function scrollToInput() {
+            const input = document.getElementById('Message'); // Replace with your input selector
+            if (input) {
+                input.addEventListener('focus', function () {
+                    // Scroll the input into view, accounting for the keyboard height
+                    input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            }
+        }
+        // Call the function when the page loads
+        scrollToInput();
+
+
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+}

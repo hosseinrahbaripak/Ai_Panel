@@ -1,0 +1,39 @@
+﻿@page
+@model Live_Book.Pages.UnderConstructionModel
+@{
+    Layout = "_AppLayout";
+    ViewData["Title"] = "در حال بروزرسانی";
+}
+<h2 class="text-center mb-3">به زودی بر میگردیم</h2>
+<div class="alert alert-warning mb-3">
+    <p class="text-center">در حال بروزرسانی سایت هستیم . لطفا تا بروزرسانی کامل سایت صبور و همراه ما باشید .</p>
+</div>
+<div class="text-center">زمان تقریبی برای امتحان دوباره <span id="time">05:00</span> دقیقه !</div>
+
+@section Scripts
+    {
+    <script>
+        function startTimer(duration, display) {
+            var timer = duration, minutes, seconds;
+            setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    timer = duration;
+                }
+            }, 1000);
+        }
+
+        window.onload = function () {
+            var fiveMinutes = 60 * 5,
+                display = document.querySelector('#time');
+            startTimer(fiveMinutes, display);
+        };
+    </script>
+}

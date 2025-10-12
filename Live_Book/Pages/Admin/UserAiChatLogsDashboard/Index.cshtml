@@ -1,0 +1,379 @@
+﻿@page
+@model Live_Book.Pages.Admin.UserAiChatLogsDashboard.IndexModel
+@using Live_Book.Application.Tools
+@using PersianAssistant.Extensions
+@{
+	Layout = "Shared/_AdminLayout";
+	ViewData["Title"] = "داشبورد گزارشات هوش مصنوعی";
+	var currentMonth = Utility.GetCurrentShamsiMonthRange();
+	string monthStart = currentMonth.ShamsiStart;
+	string monthEnd = currentMonth.ShamsiEnd;
+}
+<div class="row">
+	<div class="col-md-12">
+		<div class="row">
+			<div class="col-md-6">
+				<input id="aiChatCountTitles" type="hidden" value="@Model.AiChatsCounts.Titles" />
+				<input id="aiChatCountValues" type="hidden" value="@Model.AiChatsCounts.Values" />
+				<div class="card card-primary card-outline shadow h-100">
+					<div class="card-header">
+						<h3 class="card-title">
+							<i class="fa fa-bar-chart-o"></i>
+							نمودار تعداد چت های هوش مصنوعی
+						</h3>
+					</div>
+					<div class="card-body h-100" id="chartDiv">
+						<section class="card-text">
+							<form enctype="multipart/form-data" method="post" id="aiChatCountFilterForm" data-ajax-success="FormSubmitHandler">
+								@Html.AntiForgeryToken()
+								<div class="row align-items-center d-flex">
+									<div class="col-lg-3 col-md-6 col-12 mb-3">
+										<select class="form-control form-select" asp-items="ViewBag.TimeType" name="TimeType" id="aiChatCountTimeType">
+											<option value="" disabled>واحد زمان</option>
+										</select>
+									</div>
+									<div class="col-lg-3 col-md-4 col-12 mb-3">
+										<div class="input-group">
+											<input autocomplete="off" type="text" class="form-control date-input mb-0" value="" name="DateStr" placeholder="@monthStart" id="aiChatCountDateStr">
+											<input autocomplete="off" type="text" class="form-control to-date-input mb-0" value="" name="ToDateStr" placeholder="@monthEnd" id="aiChatCountToDateStr">
+										</div>
+									</div>
+									<div class="col-lg-3 col-md-6 col-12 mb-3">
+										<div class="btn-group" role="group" aria-label="Basic example">
+											<button type="submit" class="btn btn-primary" title="جستجو" id="aiChatCountFilterFormBtn">
+												<i class="fa fa-search"></i>
+											</button>
+										</div>
+									</div>
+								</div>
+							</form>
+						</section>
+						<canvas id="aiChatCountChart"></canvas>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<input id="aiChatWordsCountTitles" type="hidden" value="@Model.AiChatWordsCount.Titles" />
+				<input id="aiChatWordsCountValues" type="hidden" value="@Model.AiChatWordsCount.Values" />
+				<div class="card card-primary card-outline shadow h-100">
+					<div class="card-header">
+						<h3 class="card-title">
+							<i class="fa fa-bar-chart-o"></i>
+							نمودار تعداد کلمات رد و بدل شده هوش مصنوعی
+						</h3>
+					</div>
+					<div class="card-body h-100" id="chartDiv">
+						<section class="card-text">
+							<form enctype="multipart/form-data" method="post" id="aiChatWordsCountFilterForm" data-ajax-success="FormSubmitHandler">
+								@Html.AntiForgeryToken()
+								<div class="row align-items-center d-flex">
+									<div class="col-lg-3 col-md-6 col-12 mb-3">
+										<select class="form-control form-select" asp-items="ViewBag.TimeType" name="TimeType" id="aiChatWordsCountTimeType">
+											<option value="" disabled>واحد زمان</option>
+										</select>
+									</div>
+									<div class="col-lg-3 col-md-4 col-12 mb-3">
+										<div class="input-group">
+											<input autocomplete="off" type="text" class="form-control date-input mb-0" value="" name="DateStr" placeholder="@monthStart" id="aiChatWordsCountDateStr">
+											<input autocomplete="off" type="text" class="form-control to-date-input mb-0" value="" name="ToDateStr" placeholder="@monthEnd" id="aiChatWordsCountToDateStr">
+										</div>
+									</div>
+									<div class="col-lg-3 col-md-6 col-12 mb-3">
+										<div class="btn-group" role="group" aria-label="Basic example">
+											<button type="submit" class="btn btn-primary" title="جستجو" id="aiChatWordsCountFilterFormBtn">
+												<i class="fa fa-search"></i>
+											</button>
+										</div>
+									</div>
+								</div>
+							</form>
+						</section>
+						<canvas id="aiChatWordsCountChart"></canvas>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12 mt-3">
+				<div class="card card-primary card-outline shadow h-100">
+					<div class="d-flex card-header">
+						<div class="col-lg-10 col-md-4 col-6">
+							<h3 class="card-title col-lg-10 col-md-4 col-6">
+								<i class="fa fa-bar-chart-o"></i>
+								گزارش سوال و جواب کاربر و هوش مصنوعی
+							</h3>
+						</div>
+					</div>
+
+					<div class="card-body">
+						 <section class="card-text">
+						 	<form enctype="multipart/form-data" method="post" id="AiChatLogsFilterForm" data-ajax-success="FormSubmitHandler">
+						 		@Html.AntiForgeryToken()
+						 		<div class="row mb-3">
+									<div class="col-lg-3 col-md-3 col-6 mb-3">
+										<label for="AiChatLogsUserId">کاربر :</label>
+										<select class="form-control form-select" asp-items="ViewBag.Users" name="UserId" id="AiChatLogsUserId">
+											<option value="0" selected>همه</option>
+										</select>
+									</div>
+						 			<div class="col-lg-3 col-md-3 col-6 mb-3">
+										<label for="AiChatLogsBookId">کتاب :</label>
+						 				<select class="form-control form-select" asp-items="ViewBag.Books" name="BookId" id="AiChatLogsBookId">
+						 					<option value="0" selected>همه</option>
+						 				</select>
+						 			</div>
+									<div class="col-lg-3 col-md-3 col-6 mb-3">
+										<label for="AiChatLogsPartId">فصل :</label>
+										<select class="form-control form-select" name="PartId" id="AiChatLogsPartId">
+											<option value="0" selected>همه</option>
+										</select>
+									</div>	
+									<input type="hidden" id="AiChatLogsOrderBy" name="OrderBy">
+						 			<div class="col-lg-12 mb-3">
+						 				<div class="btn-group" role="group" aria-label="Basic example">
+											<button type="submit" class="btn btn-primary" title="جستجو" id="AiChatLogsFilterFormBtn" data-input="AiChatLogsOrderBy">
+						 						<i class="fa fa-search"></i>
+						 					</button>
+											<button class="removeSortBtn btn btn-link" data-input="AiChatLogsOrderBy">حذف مرتب سازی ها</button>
+						 				</div>
+						 			</div>
+
+						 		</div>
+						 	</form>
+						 </section>
+						<div id="AiChatLogsHolder">
+							@if (Model.AiChatLogsDashboardDto.AiChatLogsCount == 0)
+							{
+								<div class="alert alert-info">
+									<p>رکوردی برای نمایش یافت نشد</p>
+								</div>
+							}
+							else
+							{
+								<div class="col-6 mb-3">
+									<label class="">
+										تعداد رکوردها :
+										@Model.AiChatLogsDashboardDto.AiChatLogsCount
+									</label> |
+									<label class="">
+										مجموع هزینه ها :
+										@(Math.Round(Model.AiChatLogsDashboardDto.AiChatLogsTotalCost, 4))<i class="fa fa-dollar"></i>
+									</label>
+								</div>
+							<div class="scrolable-table-holder">
+									<table class="table table-hover sortable" id="AiChatLog" data-form="AiChatLogsFilterForm" data-input="AiChatLogsOrderBy" data-sortStr="@Model.AiChatLogsDashboardDto.OrderBy">
+									<thead>
+										<tr>
+											<th data-sort="Name" class="mouse-pointer">
+												@Html.DisplayNameFor(model => model.AiChatLogsDashboardDto.AiChatLogs[0].Name)
+											</th>
+											<th data-sort="Book" class="mouse-pointer">
+												@Html.DisplayNameFor(model => model.AiChatLogsDashboardDto.AiChatLogs[0].Book)
+											</th>
+                                            <th data-sort="Part" class="mouse-pointer">
+                                                @Html.DisplayNameFor(model => model.AiChatLogsDashboardDto.AiChatLogs[0].Part)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.AiChatLogsDashboardDto.AiChatLogs[0].Ai)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.AiChatLogsDashboardDto.AiChatLogs[0].AiModel)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.AiChatLogsDashboardDto.AiChatLogs[0].Version)
+                                            </th>
+											<th>
+												@Html.DisplayNameFor(model => model.AiChatLogsDashboardDto.AiChatLogs[0].UserMessage)
+											</th>
+											<th>
+												@Html.DisplayNameFor(model => model.AiChatLogsDashboardDto.AiChatLogs[0].AiResponse)
+											</th>
+											<th data-sort="Date" class="mouse-pointer">
+												@Html.DisplayNameFor(model => model.AiChatLogsDashboardDto.AiChatLogs[0].Date)
+											</th>
+											<th data-sort="Cost" class="mouse-pointer">
+												@Html.DisplayNameFor(model => model.AiChatLogsDashboardDto.AiChatLogs[0].Cost)
+											</th>
+											<th data-sort="AiCouldResponse" class="mouse-pointer">
+												@Html.DisplayNameFor(model => model.AiChatLogsDashboardDto.AiChatLogs[0].AiCouldResponse)
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										@foreach (var chat in Model.AiChatLogsDashboardDto.AiChatLogs)
+										{ 
+											<tr>
+												<td>
+													@(chat?.Name ?? "-")
+												</td>
+												<td>
+													@(chat?.Book ?? "-")
+												</td>
+                                                <td>
+                                                    @(chat?.Part ?? "-")
+                                                </td>
+                                                <td>
+                                                    @(chat?.Ai ?? "-")
+                                                </td>
+                                                <td>
+                                                    @(chat?.AiModel ?? "-")
+                                                </td>
+												<td>
+													@(chat?.Version ?? "-")
+												</td>
+												<td>
+													@(chat?.UserMessage ?? "-")
+												</td>
+												<td style="max-width:600px;">
+													@(chat?.AiResponse ?? "-")
+												</td>
+												<td>
+													@(chat?.Date.ToPersianDateTime())
+												</td>
+												<td>
+													@(Math.Round(chat?.Cost ?? 0, 4))
+												</td>
+												<td>
+													@if (chat.AiCouldResponse)
+													{
+														<i class="fa fa-check text-success"></i>
+													}
+													else
+													{
+														<i class="fa fa-exclamation text-danger"></i>
+													}
+												</td>
+											</tr>
+										}
+									</tbody>
+								</table>
+							</div>
+							}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+@section Scripts
+{	
+	<script src="~/js/select2.min.js"></script>
+	<script>
+		loadSorts("AiChatLog");
+		let filterError = "لطفاً تمامی فیلترها را پر کنید.";
+		$("select").select2({
+			language: {
+				noResults:
+					function () {
+						return "نتیجه ای یافت نشد";
+					}
+			}
+		});
+		// ai chat count chart
+		let aiChatCountTitleData = document.getElementById('aiChatCountTitles').value;
+		let aiChatCountValueData = document.getElementById('aiChatCountValues').value;
+		var aiChatCountisdateIsDate = false;
+		// see timetype enum
+		if ($('#aiChatCountTimeType').val() == 1 || $('#aiChatCountTimeType').val() == 2) {
+			aiChatCountisdateIsDate = true;
+		}
+		let aiChatCountChart = ChartMaker("aiChatCountChart", aiChatCountTitleData, aiChatCountValueData, type = "bar", null, aiChatCountisdateIsDate)
+		$("#aiChatCountFilterForm").submit(function (event) {
+			event.preventDefault();
+			if (
+				// StringIsNullOrEmpty($('#aiChatCountDateStr').val()) ||
+				// StringIsNullOrEmpty($('#aiChatCountToDateStr').val()) ||
+				StringIsNullOrEmpty($('#aiChatCountTimeType').val())
+			) {
+				alert(filterError);
+			}
+			else {
+				event.preventDefault();
+				StartLoading();
+				let url = "/Admin/UserAiChatLogsDashboard/Index/FilterAiChatsCount";
+				let formData = new FormData(this);
+				var isdate = false;
+				// see timetype enum 
+				if ($('#aiChatCountTimeType').val() == 1 || $('#aiChatCountTimeType').val() == 2) {
+					isdate = true;
+				}
+				// see readtype enum 
+				var unit = null;
+				aiChatCountChart = SendReqAjaxChartFilterWithFormData(url, "aiChatCountChart", aiChatCountChart, formData, "bar", unit, isdate);
+			}
+		});
+
+
+	// ai Chat Words Count
+		let aiChatWordsCountTitleData = document.getElementById('aiChatWordsCountTitles').value;
+		let aiChatWordsCountValueData = document.getElementById('aiChatWordsCountValues').value;
+		var aiChatWordsCountisdateIsDate = false;
+		// see timetype enum
+		if ($('#aiChatWordsCountTimeType').val() == 1 || $('#aiChatWordsCountTimeType').val() == 2) {
+		aiChatWordsCountisdateIsDate = true;
+		}
+		let aiChatWordsCountChart = ChartMaker("aiChatWordsCountChart", aiChatWordsCountTitleData, aiChatWordsCountValueData, type = "bar", null, aiChatWordsCountisdateIsDate)
+		$("#aiChatWordsCountFilterForm").submit(function (event) {
+			event.preventDefault();
+			if (
+				// StringIsNullOrEmpty($('#aiChatWordsCountDateStr').val()) ||
+				// StringIsNullOrEmpty($('#aiChatWordsCountToDateStr').val()) ||
+				StringIsNullOrEmpty($('#aiChatWordsCountTimeType').val())
+			) {
+				alert(filterError);
+			}
+			else {
+				event.preventDefault();
+				StartLoading();
+				let url = "/Admin/UserAiChatLogsDashboard/Index/FilterAiChatWordsCount";
+				let formData = new FormData(this);
+				var isdate = false;
+				// see timetype enum
+				if ($('#aiChatWordsCountTimeType').val() == 1 || $('#aiChatWordsCountTimeType').val() == 2) {
+					isdate = true;
+				}
+				// see readtype enum
+				var unit = null;
+				aiChatWordsCountChart = SendReqAjaxChartFilterWithFormData(url, "aiChatWordsCountChart", aiChatWordsCountChart, formData, "bar", unit, isdate);
+			}
+		});
+
+		$("#AiChatLogsFilterForm").submit(function (event) {
+			event.preventDefault();
+			let url = '/Admin/UserAiChatLogsDashboard/Index/FilterAiChatLogs';
+			let targetId = 'AiChatLogsHolder';
+			StartLoading();
+			var formData = new FormData(this);
+			$.ajax({
+				url: `${url}`,
+				type: 'POST',
+				data: formData,
+				beforeSend: function () {
+					StartLoading();
+				},
+				success: function (response) {
+					CloseLoading();
+					FormSubmitHandler(response, targetId);
+					loadSorts("AiChatLog");
+				},
+				error: function () {
+					CloseLoading();
+					ShowFailedAlert();
+				},
+				cache: false,
+				contentType: false,
+				processData: false
+			});
+		});
+		var bookPartsUrl = "/Admin/BookPart/Index/GetBookParts";
+		$('#AiChatLogsBookId')?.change(function() {
+			var bookId = $(this).val();
+			if(!StringIsNullOrEmpty(bookId)){
+				let data = { bookId: bookId};
+				let target = "AiChatLogsPartId";
+				AjaxSelectBoxFilter(bookPartsUrl, data, target, targetChild = null, type = 'GET', defaultValue=false, allOption=true);
+			}
+		});
+	</script>
+}

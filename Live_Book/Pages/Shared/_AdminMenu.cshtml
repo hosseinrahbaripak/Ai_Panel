@@ -1,0 +1,72 @@
+﻿@using Live_Book.Application.Constants
+@using Live_Book.Classes
+@* @inject AdminHelper AdminHelper *@
+
+@{
+	// var admin = await AdminHelper.GetAdminLoggedIn(true);
+}
+
+<header>
+	<nav class="navbar navbar-expand-lg navbar-light fixed-top mb-3">
+		<div class="container-fluid">
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse d-sm-inline-flex justify-content-between" id="navbarSupportedContent">
+				<div class="d-flex">
+					<div class="dropdown">
+						<button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+							سلام
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+							<li>
+								<a class="dropdown-item" onclick="AdminChangePass(0)">
+									<i class="fa fa-lock"></i>
+									تغییر کلمه عبور
+								</a>
+							</li>
+							<li>
+								<a class="dropdown-item" asp-page="/Admin/SignOut">
+									<i class="fa fa-sign-out"></i>
+									خروج
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+					<li class="nav-item">
+						<a class="nav-link text-dark" href="@Urls.AdminHome@ActionPage.Index">خانه</a>
+					</li>
+
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="dropdownMenuButton2" role="button" data-bs-toggle="dropdown" aria-expanded="true">
+							هوش مصنوعی
+						</a>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2" data-bs-popper="none">
+							<li> <a class="dropdown-item" asp-page="@Urls.AiConfig@ActionPage.Index">تنظیمات و کانفیگ</a></li>
+							<li> <a class="dropdown-item" asp-page="@Urls.BookQuestions@ActionPage.Index">سوالات کتاب</a></li>
+							<li> <a class="dropdown-item" asp-page="@Urls.TestAiConfigLogs@ActionPage.Index">گزارش تست کانفیگ ها </a></li>
+						</ul>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-dark" href="@Urls.User@ActionPage.Index?pageId=1"> لیست کاربران</a>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="dropdownMenuButton4" role="button" data-bs-toggle="dropdown" aria-expanded="true">
+							اطلاعات پایه
+						</a>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton4" data-bs-popper="none">
+
+							<li> <a class="dropdown-item" href="@Urls.AboutUs@ActionPage.Index">درباره ما</a></li>
+							<li> <a class="dropdown-item" href="@Urls.ContactUs@ActionPage.Index">تماس با ما</a></li>
+							<li> <a class="dropdown-item" asp-controller="FrequentlyQuestion" asp-action="Index">سوالات متداول</a></li>
+							<li> <a class="dropdown-item" asp-controller="LearnApp" asp-action="Index">آموزش اپ</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</header>

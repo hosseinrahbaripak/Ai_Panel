@@ -1,0 +1,6 @@
+﻿*:focus {
+    outline: none !important;
+}
+.shadow-none{
+    box-shadow:none !important;
+}

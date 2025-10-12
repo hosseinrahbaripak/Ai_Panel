@@ -1,0 +1,1107 @@
+﻿@page
+@using Live_Book.Application.Tools
+@model Live_Book.Pages.Admin.Home.IndexModel
+
+
+@* @page
+@using Live_Book.Application.Tools
+@model Live_Book.Pages.Admin.Home.IndexModel
+@{
+    ViewData["Title"] = "پنل ادمین سایت";
+    Layout = "_AdminLayout";
+    var currentMonth = Utility.GetCurrentShamsiMonthRange();
+    string monthStart = currentMonth.ShamsiStart;
+    string monthEnd = currentMonth.ShamsiNow;
+}   
+<div class="row">
+    <div class="col-md-12 mx-auto mb-3 mt-3">
+        <table class="table text-center" style="table-layout: fixed;">
+            <thead>
+                <tr>
+                    <th>تعداد کل مطالعه های امروز کاربران</th>
+                    <th>میزان نصب برنامه</th>
+                    <th>تعداد کل کاربران</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        @Model.TodayBookReadLogCount
+                    </td>
+                    <td>
+                        @Model.InstallationRatio %
+                    </td>
+                    <td>
+                        @Model.UsersCount
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 mb-3 mt-3">
+        <input id="UserUsageTitle" type="hidden" value="@Model.UsersUsages.Titles" />
+        <input id="UserUsageValue" type="hidden" value="@Model.UsersUsages.Values" />
+        <input id="UserUsageAvg" type="hidden" value="@Model.UsersUsages.Averages" />
+        <input id="UserUsageTotalAvg" type="hidden" value="@Model.UsersUsages.TotalAverage" />
+        <div class="card card-primary card-outline h-100 shadow">
+            <div class="card-header">
+                <h5 class="card-title">
+                    <i class="fa fa-bar-chart-o"></i>
+                    نمودار ستونی استفاده مخاطبان بر اساس زمان
+                </h5>
+            </div>
+            <div class="card-body h-100" id="chartDiv">
+                <section class="card-text">
+                    <form enctype="multipart/form-data" method="post" id="userUsageFilterForm" data-ajax-success="FormSubmitHandler">
+                        @Html.AntiForgeryToken()
+                        <div class="row align-items-center d-flex">
+                            @if (Model.ProjectIds?.Count > 0)
+                            {
+                                <input type="hidden" name="ProjectIds" value="@(string.Join(",", Model.ProjectIds))" id="userUsageProject" />
+                            }
+                            else{
+                                <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                    <label for="userUsageProject">پروژه :</label>
+                                    <select class="form-control form-select" asp-items="ViewBag.Projects" name="ProjectIds" id="userUsageProject">
+                                        <option value="" selected>همه</option>
+                                    </select>
+                                </div>
+                            }
+                            @if (Model.ParentAdvisorId > 0)
+                            {
+                                <input type="hidden" name="ParentAdvisorId" value="@Model.ParentAdvisorId" id="userUsageParentAdvisorId" />
+                            }
+                            else if (Model.AdvisorId <= 0 && Model.ParentAdvisorId <= 0)
+                            {
+                                <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                    <label for="userUsageParentAdvisorId">سر مشاور :</label>
+                                    <select class="form-control form-select" asp-items="ViewBag.ParentAdvisors" name="ParentAdvisorId" id="userUsageParentAdvisorId">
+                                        <option value="" selected>همه</option>
+                                    </select>
+                                </div>
+                            }
+                            @if(Model.AdvisorId > 0)
+                            {
+                                <input type="hidden" name="AdvisorId" value="@Model.AdvisorId" id="userUsageAdvisor" />
+                            }
+                            else
+                            {
+                                <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                    <label for="userUsageAdvisor">مشاور :</label>
+                                    <select class="form-control form-select" asp-items="ViewBag.Advisors" name="AdvisorId" id="userUsageAdvisor">
+                                        <option value="" selected>همه</option>
+                                    </select>
+                                </div>
+                            }
+                            <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                <label for="parentUserUsageTags">سرتگ :</label>
+                                <select name="ParentTags" id="parentUserUsageTags" class="form-control js-example-basic-multiple" multiple asp-items="ViewBag.ParentUserTags">
+                                    <option value="" selected>
+                                        همه
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                <label for="userUsageTags">تگ :</label>
+                                <select name="Tags" id="userUsageTags" class="form-control js-example-basic-multiple" multiple>
+                                    <option value="" selected>
+                                        همه
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                <label for="userUsageBookId">کتاب :</label>
+                                <select class="form-control form-select" asp-items="ViewBag.Books" name="BookId" id="userUsageBookId">
+                                    <option value="" selected>همه</option>
+                                </select>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                <label for="userUsageReadType">واحد استفاده :</label>
+                                <select class="form-control form-select" asp-items="ViewBag.ReadType" name="ReadType" id="userUsageReadType">
+                                </select>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                <label for="userUsageTimeType">واحد زمان :</label>
+                                <select class="form-control form-select" asp-items="ViewBag.TimeType" name="TimeType" id="userUsageTimeType">
+                                </select>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                <label for="userUsageDateStr">بازه زمانی :</label>
+                                <div class="input-group">
+                                    <input autocomplete="off" type="text" class="form-control date-input" value="" name="DateStr" placeholder="@monthStart" id="userUsageDateStr" style="margin:0 !important;">
+                                    <input autocomplete="off" type="text" class="form-control to-date-input" value="" name="ToDateStr" placeholder="@monthEnd" id="userUsageToDateStr" style="margin:0 !important;">
+                                </div>
+                            </div>
+                            <div class="col-1 mt-4">
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="submit" class="btn btn-primary" title="جستجو" id="userUsageFilterFormBtn">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+                <canvas id="UserUsageChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-3 mt-3">
+        <input id="ReadLogsPerBookValues" type="hidden" value="@Model.ReadLogsPerBook.Values" />
+        <input id="ReadLogsPerBookTitles" type="hidden" value="@Model.ReadLogsPerBook.Titles" />
+        <input id="ReadLogsPerBookAverages" type="hidden" value="@Model.ReadLogsPerBook.Averages" />
+        <input id="ReadLogsPerBookTotalAvg" type="hidden" value="@Model.ReadLogsPerBook.TotalAverage" />
+        <div class="card card-primary card-outline h-100 shadow">
+            <div class="card-header">
+                <h5 class="card-title">
+                    <i class="fa fa-bar-chart-o"></i>
+                    نمودار ستونی استفاده بر اساس کتاب
+                </h5>
+            </div>
+            <div class="card-body">
+                <section class="card-text">
+                    <form enctype="multipart/form-data" method="post" id="ReadLogsPerBookFilterForm" data-ajax-success="FormSubmitHandler">
+                        @Html.AntiForgeryToken()
+                        <div class="row mb-3">
+                            <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                <label for="readLogsPerBookGroupId">پایه :</label>
+                                <select class="form-control form-select" asp-items="ViewBag.BookGroups" name="BookGroupId" id="readLogsPerBookGroupId">
+                                    <option value="" selected>همه</option>
+                                </select>
+                            </div>
+                            @if (Model.ProjectIds?.Count > 0)
+                            {
+                                <input type="hidden" name="ProjectIds" value="@(string.Join(",", Model.ProjectIds))" id="readLogsPerBookProject" />
+                            }
+                            else
+                            {
+                                <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                    <label for="readLogsPerBookProject">پروژه :</label>
+                                    <select class="form-control form-select" asp-items="ViewBag.Projects" name="ProjectIds" id="readLogsPerBookProject">
+                                        <option value="" selected>همه</option>
+                                    </select>
+                                </div>
+                            }
+                            @if (Model.ParentAdvisorId > 0)
+                            {
+                                <input type="hidden" name="ParentAdvisorId" value="@Model.ParentAdvisorId" id="readLogsPerBookParentAdvisorId" />
+                            }
+                            else if (Model.AdvisorId <= 0 && Model.ParentAdvisorId <= 0)
+                            {
+                                <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                    <label for="readLogsPerBookParentAdvisorId">سر مشاور :</label>
+                                    <select class="form-control form-select" asp-items="ViewBag.ParentAdvisors" name="ParentAdvisorId" id="readLogsPerBookParentAdvisorId">
+                                        <option value="" selected>همه</option>
+                                    </select>
+                                </div>
+                            }
+                            @if (Model.AdvisorId > 0)
+                            {
+                                <input type="hidden" name="AdvisorId" value="@Model.AdvisorId" id="readLogsPerBookAdvisor" />
+                            }
+                            else
+                            {
+                                <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                    <label for="readLogsPerBookAdvisor">مشاور :</label>
+                                    <select class="form-control form-select" asp-items="ViewBag.Advisors" name="AdvisorId" id="readLogsPerBookAdvisor">
+                                        <option value="" selected>همه</option>
+                                    </select>
+                                </div>
+                            }
+                            <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                <label for="parentReadLogsPerBookTags">سرتگ :</label>
+                                <select name="ParentTags" id="parentReadLogsPerBookTags" class="form-control js-example-basic-multiple" multiple asp-items="ViewBag.ParentUserTags">
+                                    <option value="" selected>
+                                        همه
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                <label for="readLogsPerBookTags">تگ :</label>
+                                <select name="Tags" id="readLogsPerBookTags" class="form-control js-example-basic-multiple" multiple>
+                                    <option value="" selected>
+                                        همه
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                <label for="readLogsPerBookBookId">کتاب :</label>
+                                <select class="form-control form-select" asp-items="ViewBag.Books" name="BookId" id="readLogsPerBookBookId">
+                                    <option value="" selected>همه</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                <label for="readLogsPerBookReadType">واحد استفاده :</label>
+                                <select class="form-control form-select" asp-items="ViewBag.ReadType" name="ReadType" id="readLogsPerBookReadType">
+                                </select>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                <label for="ReadLogsPerBookDateStr">بازه زمانی :</label>
+                                <div class="input-group">
+                                    <input autocomplete="off" type="text" class="form-control date-input" value="" name="DateStr" placeholder="@monthStart" id="readLogsPerBookDateStr">
+                                    <input autocomplete="off" type="text" class="form-control to-date-input" value="" name="ToDateStr" placeholder="@monthEnd" id="ReadLogsPerBookToDateStr">
+                                </div>
+                            </div>
+                            <div  class="col-3 d-flex">
+                                <input type="hidden" id="readLogsPerBookByPartValue" name="ByPart"/>
+                                <label class="form-check-label" for="readLogsPerBookByPart">بر اساس فصل  : </label>
+					            <div class="form-check form-switch form-check-reverse">
+									<input class="form-check-input" type="checkbox" role="switch" id="readLogsPerBookByPart">
+					            </div>
+				            </div>
+                            
+                            <div class="col-1">
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="submit" class="btn btn-primary" title="جستجو" id="ReadLogsPerBookFilterFormBtn">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+                <canvas id="ReadLogsPerBookChart" class=""></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <input id="UsersPerGradeValue" type="hidden" value="@Model.UsersPer.Values" />
+        <input id="UsersPerGradeTitle" type="hidden" value="@Model.UsersPer.Titles" />
+        <div class="card card-primary card-outline h-100 shadow">
+            <div class="card-header">
+                <h5 class="card-title">
+                    <i class="fa fa-bar-chart-o"></i>
+                    نمودار ستونی تعداد کاربران
+                </h5>
+            </div>
+            <div class="card-body">
+                <section class="card-text">
+                    <form enctype="multipart/form-data" method="post" id="UsersPerGradeFilterForm" data-ajax-success="FormSubmitHandler">
+                        @Html.AntiForgeryToken()
+                        <div class="row mb-3">
+                            @if (Model.ProjectIds?.Count > 0)
+                            {
+                                <input type="hidden" name="ProjectIds" value="@(string.Join(",", Model.ProjectIds))" id="usersPerProject" />
+                            }
+                            else
+                            {
+                                <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                    <label for="UsersPerProject">پروژه :</label>
+                                    <select class="form-control form-select" asp-items="ViewBag.Projects" name="ProjectIds" id="usersPerProject">
+                                        <option value="" selected>همه</option>
+                                    </select>
+                                </div>
+                            }
+                            @if (Model.ParentAdvisorId > 0)
+                            {
+                                <input type="hidden" name="ParentAdvisorId" value="@Model.ParentAdvisorId" id="usersPerParentAdvisorId" />
+                            }
+                            else if (Model.AdvisorId <= 0 && Model.ParentAdvisorId <= 0)
+                            {
+                                <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                    <label for="usersPerParentAdvisorId">سر مشاور :</label>
+                                    <select class="form-control form-select" asp-items="ViewBag.ParentAdvisors" name="ParentAdvisorId" id="usersPerParentAdvisorId">
+                                        <option value="" selected>همه</option>
+                                    </select>
+                                </div>
+                            }
+                            @if (Model.AdvisorId > 0)
+                            {
+                                <input type="hidden" name="AdvisorId" value="@Model.AdvisorId" id="usersPerAdvisor" />
+                            }
+                            else
+                            {
+                                <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                    <label for="usersPerAdvisor">مشاور :</label>
+                                    <select class="form-control form-select" asp-items="ViewBag.Advisors" name="AdvisorId" id="usersPerAdvisor">
+                                        <option value="">همه</option>
+                                    </select>
+                                </div>
+                            }
+                            <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                <label for="parentUsersPerTags">سرتگ :</label>
+                                <select name="ParentTags" id="parentUsersPerTags" class="form-control js-example-basic-multiple" multiple asp-items="ViewBag.ParentUserTags">
+                                    <option value="" selected>
+                                        همه
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                <label for="usersPerTags">تگ :</label>
+                                <select name="Tags" id="usersPerTags" class="form-control js-example-basic-multiple" multiple>
+                                    <option value="" selected>
+                                        همه
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                <label for="usersPerTags">پایه :</label>
+                                <select name="Grades" id="usersPerGrades" class="form-control js-example-basic-multiple" asp-items="ViewBag.Grades" multiple>
+                                    <option value="" selected>
+                                        همه
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                <label for="usersPerByType">براساس :</label>
+                                <select class="form-control form-select" asp-items="ViewBag.ByType" name="ByType" id="usersPerByType">
+                                </select>
+                            </div>
+                            <div class="col-1 mt-4">
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="submit" class="btn btn-primary" title="جستجو" id="UsersPerGradeFilterFormBtn">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+                <canvas id="UsersPerGradeChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <input id="UserUsagesPerHourTitles" type="hidden" value="@Model.UsersUsagesPerHour.Title" />
+        <input id="UserUsagesPerHourValues" type="hidden" value="@Model.UsersUsagesPerHour.Value" />
+        <div class="card card-primary card-outline h-100 shadow">
+            <div class="card-header">
+                <h5 class="card-title">
+                    <i class="fa fa-bar-chart-o"></i>
+                    نمودار ستونی استفاده مخاطبان بر اساس ساعت
+                </h5>
+            </div>
+            <div class="card-body h-100" id="chartDiv">
+                <section class="card-text">
+                    <form enctype="multipart/form-data" method="post" id="userUsagesPerHourFilterForm" data-ajax-success="FormSubmitHandler">
+                        @Html.AntiForgeryToken()
+                        <div class="row align-items-center d-flex">
+                            @if (Model.ProjectIds?.Count > 0)
+                            {
+                                <input type="hidden" name="ProjectIds" value="@(string.Join(",", Model.ProjectIds))" id="userUsagesPerHourProject" />
+                            }
+                            else{
+                                <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                    <label for="userUsagesPerHourProject">پروژه :</label>
+                                    <select class="form-control form-select" asp-items="ViewBag.Projects" name="ProjectIds" id="userUsagesPerHourProject">
+                                        <option value="" selected>همه</option>
+                                    </select>
+                                </div>
+                            }
+                            @if (Model.ParentAdvisorId > 0)
+                            {
+                                <input type="hidden" name="ParentAdvisorId" value="@Model.ParentAdvisorId" id="userUsagesPerHourParentAdvisorId" />
+                            }
+                            else if (Model.AdvisorId <= 0 && Model.ParentAdvisorId <= 0)
+                            {
+                                <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                    <label for="userUsagesPerHourParentAdvisorId">سر مشاور :</label>
+                                    <select class="form-control form-select" asp-items="ViewBag.ParentAdvisors" name="ParentAdvisorId" id="userUsagesPerHourParentAdvisorId">
+                                        <option value="" selected>همه</option>
+                                    </select>
+                                </div>
+                            }
+                            @if(Model.AdvisorId > 0)
+                            {
+                                <input type="hidden" name="AdvisorId" value="@Model.AdvisorId" id="userUsagesPerHourAdvisor" />
+                            }
+                            else
+                            {
+                                <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                    <label for="userUsagesPerHourAdvisor">مشاور :</label>
+                                    <select class="form-control form-select" asp-items="ViewBag.Advisors" name="AdvisorId" id="userUsagesPerHourAdvisor">
+                                        <option value="" selected>همه</option>
+                                    </select>
+                                </div>
+                            }
+                            <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                <label for="userUsagesPerHourParentTags">سرتگ :</label>
+                                <select name="ParentTags" id="userUsagesPerHourParentTags" class="form-control js-example-basic-multiple" multiple asp-items="ViewBag.ParentUserTags">
+                                    <option value="" selected>
+                                        همه
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                <label for="userUsagesPerHourTags">تگ :</label>
+                                <select name="Tags" id="userUsagesPerHourTags" class="form-control js-example-basic-multiple" multiple>
+                                    <option value="" selected>
+                                        همه
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                <label for="userUsagesPerHourBookId">کتاب :</label>
+                                <select class="form-control form-select" asp-items="ViewBag.Books" name="BookId" id="userUsagesPerHourBookId">
+                                    <option value="" selected>همه</option>
+                                </select>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                <label for="userUsagesPerHourDateStr">بازه زمانی :</label>
+                                <div class="input-group">
+                                    <input autocomplete="off" type="text" class="form-control date-input" value="" name="DateStr" placeholder="@monthStart" id="userUsagesPerHourDateStr" style="margin:0 !important;">
+                                    <input autocomplete="off" type="text" class="form-control to-date-input" value="" name="ToDateStr" placeholder="@monthEnd" id="userUsagesPerHourToDateStr" style="margin:0 !important;">
+                                </div>
+                            </div>
+                            <div class="col-1 mt-4">
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="submit" class="btn btn-primary" title="جستجو" id="userUsagesPerHourFilterFormBtn">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+                <canvas id="UsersUsagesPerHourChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-3 mt-3">
+        <input id="usersUsagePerTagTitles" type="hidden" value="@Model.UsersUsagesPerTag.Title" />
+        <input id="usersUsagePerTagValues" type="hidden" value="@Model.UsersUsagesPerTag.Value" />
+        <div class="card card-primary card-outline h-100 shadow">
+            <div class="card-header">
+                <h5 class="card-title">
+                    <i class="fa fa-bar-chart-o"></i>
+                    نمودار ستونی استفاده مخاطبان بر اساس سر تگ
+                </h5>
+            </div>
+            <div class="card-body h-100">
+                <section class="card-text">
+                    <form enctype="multipart/form-data" method="post" id="usersUsagePerTagFilterForm" data-ajax-success="FormSubmitHandler">
+                        @Html.AntiForgeryToken()
+                        <div class="row align-items-center d-flex">
+                            @if (Model.ProjectIds.Count > 0)
+                            {
+                                <input type="hidden" name="ProjectIds" value="@(string.Join(",", Model.ProjectIds))" id="usersUsagePerTagProject" />
+                            }
+                            else
+                            {
+                                <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                    <label for="userUsageProject">پروژه :</label>
+                                    <select class="form-control form-select" asp-items="ViewBag.Projects" name="ProjectIds" id="usersUsagePerTagProject">
+                                        <option value="" selected>همه</option>
+                                    </select>
+                                </div>
+                            }
+                            @if (Model.ParentAdvisorId > 0)
+                            {
+                                <input type="hidden" name="ParentAdvisorId" value="@Model.ParentAdvisorId" id="usersUsagePerTagParentAdvisor" />
+                            }
+                            else if (Model.AdvisorId <= 0 && Model.ParentAdvisorId <= 0)
+                            {
+                                <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                    <label for="usersUsagePerTagParentAdvisor">سر مشاور :</label>
+                                    <select class="form-control form-select" asp-items="ViewBag.ParentAdvisors" name="ParentAdvisorId" id="usersUsagePerTagParentAdvisor">
+                                        <option value="" selected>همه</option>
+                                    </select>
+                                </div>
+                            }
+                            @if (Model.AdvisorId > 0)
+                            {
+                                <input type="hidden" name="AdvisorId" value="@Model.AdvisorId" id="usersUsagePerTagAdvisor" />
+                            }
+                            else
+                            {
+                                <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                    <label for="usersUsagePerTagAdvisor">مشاور :</label>
+                                    <select class="form-control form-select" asp-items="ViewBag.Advisors" name="AdvisorId" id="usersUsagePerTagAdvisor">
+                                        <option value="" selected>همه</option>
+                                    </select>
+                                </div>
+                            }
+                            <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                <label for="usersUsagePerTagParentTag">سرتگ :</label>
+                                <select name="ParentTags" id="usersUsagePerTagParentTag" class="form-control" asp-items="ViewBag.ParentUserTags">
+                                    
+                                </select>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                <label for="usersUsagePerTagBook">کتاب :</label>
+                                <select class="form-control form-select" asp-items="ViewBag.Books" name="BookId" id="usersUsagePerTagBook">
+                                    <option value="" selected>همه</option>
+                                </select>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                <label for="usersUsagePerTagReadType">واحد استفاده :</label>
+                                <select class="form-control form-select" asp-items="ViewBag.ReadType" name="ReadType" id="usersUsagePerTagReadType">
+                                </select>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                <label for="usersUsagePerTagDateStr">بازه زمانی :</label>
+                                <div class="input-group">
+                                    <input autocomplete="off" type="text" class="form-control date-input" value="" name="DateStr" placeholder="@monthStart" id="usersUsagePerTagDateStr" style="margin:0 !important;">
+                                    <input autocomplete="off" type="text" class="form-control to-date-input" value="" name="ToDateStr" placeholder="@monthEnd" id="usersUsagePerTagToDateStr" style="margin:0 !important;">
+                                </div>
+                            </div>
+                            <div class="col-1 mt-4">
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="submit" class="btn btn-primary" title="جستجو" id="usersUsagePerTagFilterFormBtn">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+                <canvas id="usersUsagePerTagChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-3 mt-3">
+        <input id="statsTitles" type="hidden" value="@Model.Stats.Titles" />
+        <input id="statsRegistereds" type="hidden" value="@Model.Stats.Registereds" />
+        <input id="statsInstalleds" type="hidden" value="@Model.Stats.Installeds" />
+        <div class="card card-primary card-outline h-100 shadow">
+            <div class="card-header">
+                <h5 class="card-title">
+                    <i class="fa fa-bar-chart-o"></i>
+                    نمودار ستونی نصب و ثبت نام کاربران
+                </h5>
+            </div>
+            <div class="card-body h-100">
+                <section class="card-text">
+                    <form enctype="multipart/form-data" method="post" id="statsFilterForm" data-ajax-success="FormSubmitHandler">
+                        @Html.AntiForgeryToken()
+                        <div class="row align-items-center d-flex">
+                            @if (Model.ProjectIds.Count > 0)
+                            {
+                                <input type="hidden" name="ProjectIds" value="@(string.Join(",", Model.ProjectIds))" id="statsProject" />
+                            }
+                            else
+                            {
+                                <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                    <label for="statsProject">پروژه :</label>
+                                    <select class="form-control form-select" asp-items="ViewBag.Projects" name="ProjectIds" id="statsProject">
+                                        <option value="" selected>همه</option>
+                                    </select>
+                                </div>
+                            }
+                            @if (Model.ParentAdvisorId > 0)
+                            {
+                                <input type="hidden" name="ParentAdvisorId" value="@Model.ParentAdvisorId" id="statsParentAdvisorId" />
+                            }
+                            else if (Model.AdvisorId <= 0 && Model.ParentAdvisorId <= 0)
+                            {
+                                <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                    <label for="statsParentAdvisorId">سر مشاور :</label>
+                                    <select class="form-control form-select" asp-items="ViewBag.ParentAdvisors" name="ParentAdvisorId" id="statsParentAdvisorId">
+                                        <option value="" selected>همه</option>
+                                    </select>
+                                </div>
+                            }
+                            @if (Model.AdvisorId > 0)
+                            {
+                                <input type="hidden" name="AdvisorId" value="@Model.AdvisorId" id="statsAdvisorId" />
+                            }
+                            else
+                            {
+                                <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                    <label for="statsAdvisorId">مشاور :</label>
+                                    <select class="form-control form-select" asp-items="ViewBag.Advisors" name="AdvisorId" id="statsAdvisorId">
+                                        <option value="" selected>همه</option>
+                                    </select>
+                                </div>
+                            }
+                            <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                <label for="statsParentTags">سرتگ :</label>
+                                <select name="ParentTags" id="statsParentTags" class="form-control js-example-basic-multiple" multiple asp-items="ViewBag.ParentUserTags">
+                                    <option value="" selected>
+                                        همه
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                <label for="statsTags">تگ :</label>
+                                <select name="Tags" id="statsTags" class="form-control js-example-basic-multiple" multiple>
+                                    <option value="" selected>
+                                        همه
+                                    </option>
+                                </select>
+                            </div>
+                            
+                            <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                <label for="statsTimeType">واحد زمان :</label>
+                                <select class="form-control form-select" asp-items="ViewBag.TimeType" name="TimeType" id="statsTimeType">
+                                </select>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-12 mb-2">
+                                <label for="statsDateStr">بازه زمانی :</label>
+                                <div class="input-group">
+                                    <input autocomplete="off" type="text" class="form-control date-input" value="" name="DateStr" placeholder="@monthStart" id="statsDateStr" style="margin:0 !important;">
+                                    <input autocomplete="off" type="text" class="form-control to-date-input" value="" name="ToDateStr" placeholder="@monthEnd" id="statsToDateStr" style="margin:0 !important;">
+                                </div>
+                            </div>
+                            <div class="col-1 mt-4">
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="submit" class="btn btn-primary" title="جستجو" id="statsFilterFormBtn">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+                <canvas id="statsChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script>
+        var switchStatus = false;
+        $("#readLogsPerBookByPart").on('change', function () {
+            if ($(this).is(':checked')) {
+                switchStatus = $(this).is(':checked');
+            }
+            else {
+                switchStatus = $(this).is(':checked');
+            }
+            document.getElementById('readLogsPerBookByPartValue').value = switchStatus;
+        });
+        $('.js-example-basic-multiple').on('change', function () {
+            var selectbox = $(this);
+            var selectedValues = selectbox.val();
+
+            if (selectedValues && selectedValues.includes("")) {
+                selectbox.val([""]);
+            } else {
+                selectbox.find('option[value=""]').prop('selected', false);
+            }
+            selectbox.trigger('change.select2');
+        });
+        let tagUrl = "/Admin/UserTag/Index/GetUserTagsBy";
+        let advisorUrl = "/Admin/AdvisorProfile/Index/GetAdvisorsBy";
+        let filterError = "لطفاً تمامی فیلترها را پر کنید.";
+        $("select").select2({
+            language: {
+                noResults:
+                    function () {
+                        return "نتیجه ای یافت نشد";
+                    }
+            }
+        });
+        // user userUsage tags
+        var userUsagegprojectId = $('#userUsageProject').val();
+		$('#userUsageProject')?.change(function() {
+			userUsagegprojectId = $(this).val();
+			let advisorTarget = "userUsageParentAdvisorId";
+			let advisorTargetChild = "userUsageAdvisor";
+            let tagTarget = "parentUserUsageTags";
+			let tagTargetChild = "userUsageTags";
+            if (userUsagegprojectId){
+                let advisorData = { "projectId" : userUsagegprojectId };
+                AjaxSelectBoxFilter(advisorUrl, advisorData, advisorTarget, advisorTargetChild, type = 'GET', defaultValue = false, allOption = true);
+				
+			    let tagData = { "projectId": userUsagegprojectId, "parentsId": null };
+                AjaxSelectBoxFilter(tagUrl, tagData, tagTarget, targetChild = tagTargetChild, type = 'GET', defaultValue = false, allOption = true);
+            }else{
+                $(`#${advisorTarget}`).empty();
+                $(`#${advisorTarget}`).append('<option value="" selected>همه</option>');
+                $(`#${advisorTargetChild}`).empty();
+				$(`#${advisorTargetChild}`).append('<option value="" selected>همه</option>');
+                $(`#${tagTarget}`).empty();
+                $(`#${tagTarget}`).append('<option value="" selected>همه</option>');
+                $(`#${tagTargetChild}`).empty();
+                $(`#${tagTargetChild}`).append('<option value="" selected>همه</option>');
+            }
+			
+		});
+
+		$('#parentUserUsageTags')?.change(function() {
+			var parentsId = $(this).val();
+            let tagTarget = "userUsageTags";
+            if(parentsId != ""){
+                let tagData = { projectId: userUsagegprojectId, parentsId: `${parentsId}` };
+			    let tagTarget = "userUsageTags";
+                AjaxSelectBoxFilter(tagUrl, tagData, tagTarget, targetChild = null, type = 'GET', defaultValue = false, allOption = true);
+            }else{
+                $(`#${tagTarget}`).empty();
+                $(`#${tagTarget}`).append('<option value="" selected>همه</option>');
+            }
+		});
+        $('#userUsageParentAdvisorId')?.change(function () {
+			var parentId = $(this).val();
+            let advisorTarget = "userUsageAdvisor";
+			if (!StringIsNullOrEmpty(parentId)) {
+				let advisorData = { projectId: userUsagegprojectId, parentId: parentId, forChild: true };
+				AjaxSelectBoxFilter(advisorUrl, advisorData, advisorTarget, targetChild = null, type = 'GET', defaultValue = false, allOption=true);
+			}else{
+				$(`#${advisorTarget}`).empty();
+				$(`#${advisorTarget}`).append('<option value="" selected>همه</option>');
+			}
+		});
+	    
+        // user usage chart
+        let userUsageTitleData = document.getElementById('UserUsageTitle').value;
+        let userUsageValueData = document.getElementById('UserUsageValue').value;
+        let userUsageAvgData = document.getElementById('UserUsageAvg').value;
+        let userUsageTotalAvg = document.getElementById('UserUsageTotalAvg').value;
+        var userUsageisdateIsDate = false;
+        // see timetype enum
+        if ($('#userUsageTimeType').val() == 2 || $('#userUsageTimeType').val() == 1) {
+            userUsageisdateIsDate = true;
+        }
+        // see readtype enum
+        var userUsageUnit = null;
+        if ($("#userUsageReadType").val() == 0) {
+            userUsageUnit = "دقیقه";
+        }
+        // let userUsageChart = ChartMaker("UserUsageChart", userUsageTitleData, userUsageValueData, type = "bar", userUsageUnit, userUsageisdateIsDate)
+        const userUsageChart = new ChartManager("UserUsageChart", {
+            type: "bar",
+            unit: userUsageUnit,
+            isdate: userUsageisdateIsDate,
+        });
+        userUsageChart.createChartWithAvg(userUsageTitleData, userUsageValueData, userUsageAvgData, userUsageTotalAvg);
+        $("#userUsageFilterForm").submit(function (event) {
+            event.preventDefault();
+            let url = '/Admin/BookReaderManagerDashboard/Index/FilterUserUsage';
+            let formData = new FormData(this);
+            var isdate = false;
+            // see timetype enum
+            if ($('#userUsageTimeType').val() == 2 || $('#userUsageTimeType').val() == 1) {
+                isdate = true;
+            }
+            // see readtype enum
+            var unit = null;
+            if ($("#userUsageReadType").val() == 0) {
+                unit = "دقیقه";
+            }
+            userUsageChart.options.unit = unit;
+            userUsageChart.options.isdate = isdate;
+            userUsageChart.sendRequest(url, formData, true);
+            // userUsageChart = SendReqAjaxChartFilterWithFormData(url, "UserUsageChart", userUsageChart, formData, "bar", unit, isdate);  
+        });
+        // read logs per book
+        var readLogsPerBookProjectId = $('#readLogsPerBookProject').val();
+		$('#readLogsPerBookProject')?.change(function() {
+			readLogsPerBookProjectId = $(this).val();
+            let tagTarget = "parentReadLogsPerBookTags";
+			let tagTargetChild = "readLogsPerBookTags";
+            let advisorTarget = "readLogsPerBookParentAdvisorId";
+			let advisorTargetChild = "readLogsPerBookAdvisor";
+			if (readLogsPerBookProjectId) {
+			    let advisorData = { "projectId" : readLogsPerBookProjectId };
+                AjaxSelectBoxFilter(advisorUrl, advisorData, advisorTarget, advisorTargetChild, type = 'GET', defaultValue = false, allOption = true);
+				
+			    let tagData = { "projectId": readLogsPerBookProjectId, "parentsId": null };
+                AjaxSelectBoxFilter(tagUrl, tagData, tagTarget, targetChild = tagTargetChild, type = 'GET', defaultValue = false, allOption = true);
+            }else{
+                $(`#${advisorTarget}`).empty();
+                $(`#${advisorTarget}`).append('<option value="" selected>همه</option>');
+                $(`#${advisorTargetChild}`).empty();
+				$(`#${advisorTargetChild}`).append('<option value="" selected>همه</option>');
+                $(`#${tagTarget}`).empty();
+                $(`#${tagTarget}`).append('<option value="" selected>همه</option>');
+                $(`#${tagTargetChild}`).empty();
+                $(`#${tagTargetChild}`).append('<option value="" selected>همه</option>');
+            }
+		});
+		$('#parentReadLogsPerBookTags')?.change(function() {
+			var parentsId = $(this).val();
+            let tagTarget = "readLogsPerBookTags";
+            if(parentsId != ""){
+                let tagData = { projectId: readLogsPerBookProjectId, parentsId: `${parentsId}` };
+                AjaxSelectBoxFilter(tagUrl, tagData, tagTarget, targetChild = null, type = 'GET', defaultValue = false, allOption = true);
+            }
+            else{
+                $(`#${tagTarget}`).empty();
+                $(`#${tagTarget}`).append('<option value="" selected>همه</option>');
+            }
+		});
+        $('#readLogsPerBookParentAdvisorId')?.change(function () {
+			var parentId = $(this).val();
+            let advisorTarget = "readLogsPerBookAdvisor";
+			if (!StringIsNullOrEmpty(parentId)) {
+				let advisorData = { projectId: readLogsPerBookProjectId, parentId: parentId, forChild: true };
+				AjaxSelectBoxFilter(advisorUrl, advisorData, advisorTarget, targetChild = null, type = 'GET', defaultValue = false, allOption=true);
+			}
+            else{
+				$(`#${advisorTarget}`).empty();
+				$(`#${advisorTarget}`).append('<option value="" selected>همه</option>');
+			}
+		});
+        let readLogPerBookTitleData = document.getElementById('ReadLogsPerBookTitles').value;
+        let readLogPerBookValueData = document.getElementById('ReadLogsPerBookValues').value;
+        let readLogPerBookAvgData = document.getElementById('ReadLogsPerBookAverages').value;
+        let readLogPerBookTotalAvg = document.getElementById('ReadLogsPerBookTotalAvg').value;
+        var readLogsPerBookUnit = null;
+        // see readtype enum
+        if ($("#readLogsPerBookReadType").val() == 0) {
+            readLogsPerBookUnit = "دقیقه";
+        }
+        const readLogPerBookChart = new ChartManager("ReadLogsPerBookChart", {
+            type: "bar",
+            unit: readLogsPerBookUnit
+        });
+        readLogPerBookChart.createChartWithAvg(readLogPerBookTitleData, readLogPerBookValueData, readLogPerBookAvgData, readLogPerBookTotalAvg);
+        $("#ReadLogsPerBookFilterForm").submit(function (event) {
+            event.preventDefault();
+            StartLoading();
+            let url = '/Admin/BookReaderManagerDashboard/Index/FilterReadLogsPerBook';
+            let formData = new FormData(this);
+            var unit = null;
+            // see readtype enum
+            if ($("#readLogsPerBookReadType").val() == 0) {
+                unit = "دقیقه";
+            }
+            readLogPerBookChart.options.unit = unit;
+            readLogPerBookChart.sendRequest(url, formData, true);
+            // readLogPerBookChart = SendReqAjaxChartFilterWithFormData(url, "ReadLogsPerBookChart", readLogPerBookChart, formData, "bar", unit);
+        });
+        // users per
+        var usersPerProjectId = $('#usersPerProject').val();
+        $('#usersPerProject')?.change(function() {
+            usersPerProjectId = $(this).val();
+            let advisorTarget = "usersPerParentAdvisorId";
+            let advisorTargetChild = "usersPerAdvisor";
+            let tagTarget = "parentUsersPerTags";
+            let tagTargetChild = "usersPerTags";
+            if (usersPerProjectId) {
+                let advisorData = { "projectId" : usersPerProjectId };
+                AjaxSelectBoxFilter(advisorUrl, advisorData, advisorTarget, advisorTargetChild, type = 'GET', defaultValue = false, allOption = true);
+
+                let tagData = { "projectId": usersPerProjectId, "parentsId": null };
+                AjaxSelectBoxFilter(tagUrl, tagData, tagTarget, targetChild = tagTargetChild, type = 'GET', defaultValue = false, allOption = true);
+           }else{
+                $(`#${advisorTarget}`).empty();
+                $(`#${advisorTarget}`).append('<option value="" selected>همه</option>');
+                $(`#${advisorTargetChild}`).empty();
+				$(`#${advisorTargetChild}`).append('<option value="" selected>همه</option>');
+                $(`#${tagTarget}`).empty();
+                $(`#${tagTarget}`).append('<option value="" selected>همه</option>');
+                $(`#${tagTargetChild}`).empty();
+                $(`#${tagTargetChild}`).append('<option value="" selected>همه</option>');
+            }
+        });
+
+        $('#parentUsersPerTags')?.change(function() {
+            var parentsId = $(this).val();
+            let tagTarget = "usersPerTags";
+            $('usersPerTags').empty()
+            if(parentsId != ""){
+                let tagData = { "projectId": usersPerProjectId, "parentsId": `${parentsId}` };
+                AjaxSelectBoxFilter(tagUrl, tagData, tagTarget, targetChild = null, type = 'GET', defaultValue = false, allOption = true);
+            } else {
+                $(`#${tagTarget}`).empty();
+                $(`#${tagTarget}`).append('<option value="" selected>همه</option>');
+            }
+        });
+        $('#usersPerParentAdvisorId')?.change(function () {
+			var parentId = $(this).val();
+            let advisorTarget = "usersPerAdvisor";
+			if (!StringIsNullOrEmpty(parentId)) {
+				let advisorData = { projectId: usersPerProjectId, parentId: parentId, forChild: true };
+				AjaxSelectBoxFilter(advisorUrl, advisorData, advisorTarget, targetChild = null, type = 'GET', defaultValue = false, allOption=true);
+			}else{
+				$(`#${advisorTarget}`).empty();
+				$(`#${advisorTarget}`).append('<option value="" selected>همه</option>');
+			}
+		});
+
+        // users per grade chart
+        let usersPerGradeTitleData = document.getElementById('UsersPerGradeTitle').value;
+        let usersPerGradeValueData = document.getElementById('UsersPerGradeValue').value;
+        let usersPerGradeChart = ChartMaker("UsersPerGradeChart", usersPerGradeTitleData, usersPerGradeValueData, type = "bar");
+        $("#UsersPerGradeFilterForm").submit(function (event) {
+            event.preventDefault();
+            StartLoading();
+            let url = '/Admin/BookReaderManagerDashboard/Index/FilterUsersPer';
+            let formData = new FormData(this);
+            usersPerGradeChart = SendReqAjaxChartFilterWithFormData(url, "UsersPerGradeChart", usersPerGradeChart, formData, "bar");
+        });
+            // user Usages Per Hour
+        let userUsagesPerHourTitleData = document.getElementById('UserUsagesPerHourTitles').value;
+        let userUsagesPerHourValueData = document.getElementById('UserUsagesPerHourValues').value;
+        let usersUsagesPerHourChart = ChartMaker("UsersUsagesPerHourChart", userUsagesPerHourTitleData, userUsagesPerHourValueData, type = "line", null, false, backgroundColorArray = 'rgba(5, 146, 18, 0.7)', borderColorArray = 'rgba(5, 146, 18, 1)');
+            var userUsagesPerHourProjectId = $('#userUsagesPerHourProject').val();
+            $('#userUsagesPerHourProject')?.change(function() {
+                userUsagesPerHourProjectId = $(this).val();
+                let tagTarget = "userUsagesPerHourParentTags";
+                let tagTargetChild = "userUsagesPerHourTags";
+                let advisorTarget = "userUsagesPerHourParentAdvisorId";
+                let advisorTargetChild = "userUsagesPerHourAdvisor";
+                if (userUsagesPerHourProjectId) {
+                    let advisorData = { "projectId" : userUsagesPerHourProjectId };
+                    AjaxSelectBoxFilter(advisorUrl, advisorData, advisorTarget, advisorTargetChild, type = 'GET', defaultValue = false, allOption = true);
+
+                    let tagData = { "projectId": readLogsPerBookProjectId, "parentsId": null };
+                    AjaxSelectBoxFilter(tagUrl, tagData, tagTarget, targetChild = tagTargetChild, type = 'GET', defaultValue = false, allOption = true);
+                }else{
+                    $(`#${advisorTarget}`).empty();
+                    $(`#${advisorTarget}`).append('<option value="" selected>همه</option>');
+                    $(`#${advisorTargetChild}`).empty();
+                    $(`#${advisorTargetChild}`).append('<option value="" selected>همه</option>');
+                    $(`#${tagTarget}`).empty();
+                    $(`#${tagTarget}`).append('<option value="" selected>همه</option>');
+                    $(`#${tagTargetChild}`).empty();
+                    $(`#${tagTargetChild}`).append('<option value="" selected>همه</option>');
+                }
+            });
+            $('#userUsagesPerHourParentTags')?.change(function() {
+                var parentsId = $(this).val();
+                let tagTarget = "userUsagesPerHourTags";
+                if(parentsId != ""){
+                    let tagData = { projectId: userUsagesPerHourProjectId, parentsId: `${parentsId}` };
+                    AjaxSelectBoxFilter(tagUrl, tagData, tagTarget, targetChild = null, type = 'GET', defaultValue = false, allOption = true);
+                }
+                else{
+                    $(`#${tagTarget}`).empty();
+                    $(`#${tagTarget}`).append('<option value="" selected>همه</option>');
+                }
+            });
+            $('#userUsagesPerHourParentAdvisorId')?.change(function () {
+                var parentId = $(this).val();
+            let advisorTarget = "userUsagesPerHourAdvisor";
+                if (!StringIsNullOrEmpty(parentId)) {
+                    let advisorData = { projectId: userUsagesPerHourProjectId, parentId: parentId, forChild: true };
+                    AjaxSelectBoxFilter(advisorUrl, advisorData, advisorTarget, targetChild = null, type = 'GET', defaultValue = false, allOption=true);
+                }
+                else{
+                    $(`#${advisorTarget}`).empty();
+                    $(`#${advisorTarget}`).append('<option value="" selected>همه</option>');
+                }
+            });
+                $("#userUsagesPerHourFilterForm").submit(function (event) {
+                event.preventDefault();
+                StartLoading();
+                let url = '/Admin/BookReaderManagerDashboard/Index/FilterUserUsagePerHour';
+                let formData = new FormData(this);
+                usersUsagesPerHourChart = SendReqAjaxChartFilterWithFormData(url, "UsersUsagesPerHourChart", usersUsagesPerHourChart, formData, "line", null, false, backgroundColorArray = 'rgba(5, 146, 18, 0.7)', borderColorArray = 'rgba(5, 146, 18, 1)');
+            });
+        // -------- Users Usage Per Tag Chart --------------------------------------------------------------------------------------------------
+        var usersUsagePerTagProjectId = $('#usersUsagePerTagProject').val();
+        $('#usersUsagePerTagProject')?.change(function () {
+            usersUsagePerTagProjectId = $(this).val();
+            let tagTarget = "usersUsagePerTagParentTag";
+            let advisorTarget = "usersUsagePerTagParentAdvisor";
+            let advisorTargetChild = "usersUsagePerTagAdvisor";
+            if (usersUsagePerTagProjectId) {
+                let advisorData = { "projectId": usersUsagePerTagProjectId };
+                AjaxSelectBoxFilter(advisorUrl, advisorData, advisorTarget, advisorTargetChild, type = 'GET', defaultValue = false, allOption = true);
+
+                let tagData = { "projectId": usersUsagePerTagProjectId, "parentsId": null };
+                AjaxSelectBoxFilter(tagUrl, tagData, tagTarget, null, type = 'GET', defaultValue = false, allOption = false);
+            } else {
+                $(`#${advisorTarget}`).empty();
+                $(`#${advisorTarget}`).append('<option value="" selected>همه</option>');
+                $(`#${advisorTargetChild}`).empty();
+                $(`#${advisorTargetChild}`).append('<option value="" selected>همه</option>');
+            }
+        });
+        $('#usersUsagePerTagParentAdvisor')?.change(function () {
+            var parentId = $(this).val();
+            let advisorTarget = "usersUsagePerTagAdvisor";
+            if (!StringIsNullOrEmpty(parentId)) {
+                let advisorData = { projectId: readLogsPerBookProjectId, parentId: parentId, forChild: true };
+                AjaxSelectBoxFilter(advisorUrl, advisorData, advisorTarget, targetChild = null, type = 'GET', defaultValue = false, allOption = true);
+            }
+            else {
+                $(`#${advisorTarget}`).empty();
+                $(`#${advisorTarget}`).append('<option value="" selected>همه</option>');
+            }
+        });
+
+        let usersUsagePerTagTitleData = document.getElementById('usersUsagePerTagTitles').value;
+        let usersUsagePerTagValueData = document.getElementById('usersUsagePerTagValues').value;
+        let usersUsagePerTagDatasets = {
+            "مقدار مطالعه": usersUsagePerTagValueData
+        }
+        const usersUsagePerTagChart = new ChartManager("usersUsagePerTagChart", {
+            type: "bar",
+            unit: $("#usersUsagePerTagReadType").val() == 0 ? "دقیقه" : null // see readtype enum
+        });
+        usersUsagePerTagChart.createChart(usersUsagePerTagTitleData, usersUsagePerTagDatasets);
+        $("#usersUsagePerTagFilterForm").submit(function (event) {
+            event.preventDefault();
+            StartLoading();
+            let url = '/Admin/BookReaderManagerDashboard/Index/FilterUsersUsagePerTag';
+            let formData = new FormData(this);
+            usersUsagePerTagChart.options.unit = $("#usersUsagePerTagReadType").val() == 0 ? "دقیقه" : null; // see readtype enum;
+            usersUsagePerTagChart.sendRequest(url, formData);
+        });
+        // -------- User Installation Stats Chart --------------------------------------------------------------------------------------------------
+        var statsProjectId = $('#statsProject').val();
+        $('#statsProject')?.change(function() {
+            statsProjectId = $(this).val();
+            let tagTarget = "statsParentTags";
+            let tagTargetChild = "statsTags";
+            let advisorTarget = "statsParentAdvisorId";
+            let advisorTargetChild = "statsAdvisorId";
+            if (statsProjectId) {
+                let advisorData = { "projectId" : statsProjectId };
+                AjaxSelectBoxFilter(advisorUrl, advisorData, advisorTarget, advisorTargetChild, type = 'GET', defaultValue = false, allOption = true);
+
+                let tagData = { "projectId": statsProjectId, "parentsId": null };
+                AjaxSelectBoxFilter(tagUrl, tagData, tagTarget, targetChild = tagTargetChild, type = 'GET', defaultValue = false, allOption = true);
+            }else{
+                $(`#${advisorTarget}`).empty();
+                $(`#${advisorTarget}`).append('<option value="" selected>همه</option>');
+                $(`#${advisorTargetChild}`).empty();
+                $(`#${advisorTargetChild}`).append('<option value="" selected>همه</option>');
+                $(`#${tagTarget}`).empty();
+                $(`#${tagTarget}`).append('<option value="" selected>همه</option>');
+                $(`#${tagTargetChild}`).empty();
+                $(`#${tagTargetChild}`).append('<option value="" selected>همه</option>');
+            }
+        });
+        $('#statsParentTags')?.change(function() {
+            var parentsId = $(this).val();
+            let tagTarget = "statsTags";
+            if(parentsId != ""){
+                let tagData = { projectId: readLogsPerBookProjectId, parentsId: `${parentsId}` };
+                AjaxSelectBoxFilter(tagUrl, tagData, tagTarget, targetChild = null, type = 'GET', defaultValue = false, allOption = true);
+            }
+            else{
+                $(`#${tagTarget}`).empty();
+                $(`#${tagTarget}`).append('<option value="" selected>همه</option>');
+            }
+        });
+        $('#statsParentAdvisorId')?.change(function () {
+            var parentId = $(this).val();
+            let advisorTarget = "statsAdvisorId";
+            if (!StringIsNullOrEmpty(parentId)) {
+                let advisorData = { projectId: readLogsPerBookProjectId, parentId: parentId, forChild: true };
+                AjaxSelectBoxFilter(advisorUrl, advisorData, advisorTarget, targetChild = null, type = 'GET', defaultValue = false, allOption=true);
+            }
+            else{
+                $(`#${advisorTarget}`).empty();
+                $(`#${advisorTarget}`).append('<option value="" selected>همه</option>');
+            }
+        });
+            
+        let statsTitleData = document.getElementById('statsTitles').value;
+        let statsRegisteredData = document.getElementById('statsRegistereds').value;
+        let statsInstalledData = document.getElementById('statsInstalleds').value;
+        let statsDatasets = {
+            "نصب" : statsInstalledData,
+            "ثبت نام " : statsRegisteredData
+            
+        }
+        var statsTimeType = ($('#statsTimeType').val() == 2 || $('#statsTimeType').val() == 1);
+        const statsChart = new ChartManager("statsChart", {
+            type: "bar",
+            isdate: statsTimeType
+        });
+        statsChart.createChart(statsTitleData, statsDatasets);
+        $("#statsFilterForm").submit(function (event) {
+            event.preventDefault();
+            StartLoading();
+            let url = '/Admin/BookReaderManagerDashboard/Index/FilterUsersInstallationStats';
+            let formData = new FormData(this);
+            var unit = null;
+            statsChart.options.isdate = ($('#statsTimeType').val() == 2 || $('#statsTimeType').val() == 1);
+            statsChart.sendRequest(url, formData);
+        });
+    </script>
+} *@

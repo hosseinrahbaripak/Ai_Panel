@@ -1,0 +1,126 @@
+﻿@model IEnumerable<Live_Book.Domain.Role>
+
+@{
+    ViewData["Title"] = "نقش ها";
+    bool isChild = ViewBag.ParentId != 0;
+}
+<div class="row justify-content-md-center">
+    <div class="col-md-12 col-lg-12 col-12 mt-3">
+        <div class="card shadow">
+            @if (!isChild)
+            {
+                <h6 class="card-header">لیست نقش ها </h6>
+            }
+            else
+            {
+                <h6 class="card-header">لیست زیر نقش ها </h6>
+            }
+            <div class="col-4 mt-3 me-3">
+                @if (isChild){
+                    <a class="btn btn-outline-success btn-sm" onclick="OpenModal('/Admin/Roles/Add/?ParentId=@ViewBag.ParentId','افزودن زیر نقش جدید')">
+                        <i class="fa fa-plus"></i>
+                        ایجاد زیر نقش جدید
+                    </a>
+                }
+                else
+                {
+                    <a class="btn btn-outline-success btn-sm" onclick="OpenModal('/Admin/Roles/Add','افزودن نقش جدید')">
+                        <i class="fa fa-plus"></i>
+                        ایجاد نقش جدید
+                    </a>
+                }
+            </div>
+            <div class="card-body">
+                <div class="table table-responsive table-radius" id="TableDiv">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.RoleTitle)
+                                </th>
+                                <th>
+                                    نوع ادمین
+                                </th>
+                                <th>
+                                    عملیات
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.RoleTitle)
+                                    </td>
+                                    <td>
+                                        @(item.AdminType?.Title ?? "-")
+                                    </td>
+                                    <td>
+                                        @if (item.RoleTitle != "admin")
+                                        {
+                                            @if (!isChild)
+                                            {
+                                                <a class="btn btn-sm btn-primary" href="/Admin/Roles/Index?ParentId=@item.RoleId">
+                                                    زیر نقش
+                                                </a>
+                                            }
+                                            <a class="btn btn-sm btn-primary" asp-action="Index" asp-controller="RoleInPages" asp-route-RoleId="@item.RoleId">
+                                                دسترسی
+                                            </a>
+                                            @if (isChild)
+                                            {
+                                                <a class="btn btn-sm" onclick="OpenModal('/Admin/Roles/Edit/@item.RoleId?ParentId=@ViewBag.ParentId','ویرایش نقش')">
+                                                    <i class="fa fa-edit text-warning"></i>
+                                                </a>
+                                            }
+                                            else{
+                                                <a class="btn btn-sm" onclick="OpenModal('/Admin/Roles/Edit/@item.RoleId','ویرایش نقش')">
+                                                    <i class="fa fa-edit text-warning"></i>
+                                                </a>
+                                            }
+                                            <a class="btn btn-sm mouse-pointer"
+                                               onclick="DeleteFunction('/Admin/Roles/Delete',@item.RoleId)">
+                                                <i class="fa fa-trash text-danger"></i>
+                                                @Html.AntiForgeryToken()
+                                            </a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        //function Add() {
+        //    $.ajax({
+        //        url: "/Admin/Roles/Add",
+        //        type: "Get",
+        //        data: {}
+        //    }).done(function (result) {
+        //        $('#exampleModal').modal('show');
+        //        $('#exampleModalLabel').html('افزودن نقش جدید');
+        //        $('#modalbody').html(result);
+        //    });
+        //}
+        //function Edit(RoleId) {
+        //    $.ajax({
+        //        url: "/Admin/Roles/Edit/" + RoleId,
+        //        type: "Get",
+        //        data: {}
+        //    }).done(function (result) {
+        //        $('#exampleModal').modal('show');
+        //        $('#exampleModalLabel').html('ویرایش نقش');
+        //        $('#modalbody').html(result);
+        //    });
+        //}
+
+    </script>
+}

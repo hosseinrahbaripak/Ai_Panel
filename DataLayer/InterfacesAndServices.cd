@@ -1,0 +1,499 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DataLayer.Repository.BookAgeGroupRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAABIIAgAAAAAAAAAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repository\Book\BookAgeGroupRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataLayer.Repository.BookGradeRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAIQBIgAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repository\Book\BookGradeRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataLayer.Repository.BookPublisherRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABIAAEAABAAAAAAAAAAAAAQAABAAAAAA=</HashCode>
+      <FileName>Repository\Book\BookPublisherRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataLayer.Repository.ReadBookLogRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="2.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAABIAAAAEAAAAAABAAAAAAAIAEAAAAAEA=</HashCode>
+      <FileName>Repository\Book\ReadBookLogRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataLayer.Services.BookContentsRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="2.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACIBIAABAAAAAAAAAAAAAAAAgAAEAAAAAA=</HashCode>
+      <FileName>Repository\Book\BookContentsRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataLayer.Services.BookGroupRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYQAAAIAAgABIAAQAgAAAABAAEAAIAAAAAAAAEAAAA=</HashCode>
+      <FileName>Repository\Book\BookGroupRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataLayer.Services.BookPartRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="2.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAABIAAAAAACAAAAAAAAKAAAQABQABAAAA=</HashCode>
+      <FileName>Repository\Book\BookPartRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataLayer.Services.BookRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BBAAAMEAAAgARIAoAAgAAAABAAAAAIAAACAAABAQAAA=</HashCode>
+      <FileName>Repository\Book\BookRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataLayer.Services.CartRepository" Collapsed="true">
+    <Position X="5.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYIDIAgCAAABAAEAAAAAAQEAAEAAQAAAEQAAAEhAAA=</HashCode>
+      <FileName>Repository\Cart\CartRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataLayer.Repository.FrequentlyQuestionGroupRepository" Collapsed="true">
+    <Position X="6" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAIAAAABIAAAAAAAAAAAAEAAAACAgAAAAAAAAA=</HashCode>
+      <FileName>Repository\FrequentlyQuestions\FrequentlyQuestionGroupRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataLayer.Repository.FrequentlyQuestionRepository" Collapsed="true">
+    <Position X="7.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAIAAAABIBAAAAAAAAAAAEAAAACAgAAAAAAAAA=</HashCode>
+      <FileName>Repository\FrequentlyQuestions\FrequentlyQuestionRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataLayer.Services.AboutUsRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAACAAABMAAAAAAAAAAAAAAABAAAAAAAABAAAA=</HashCode>
+      <FileName>Repository\AboutUsRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataLayer.Services.AdminManageRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAIAAAABMAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Repository\AdminManageRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataLayer.Services.AgeGroupRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAIAAAABIAAAAAAAAAAAAEAAAACAgAAAAAAAIA=</HashCode>
+      <FileName>Repository\AgeGroupRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataLayer.Services.ContactUsRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAQACQBBABIAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repository\ContactUsRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataLayer.Services.GradesRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAIAAAABIAAAAAAAAAAAAEAAAACAgAAAAAAAIA=</HashCode>
+      <FileName>Repository\GradesRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataLayer.Services.PublisherRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11.5" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAIEAAABIAAAAAAAAQAAAEAAAACAgAAAAAAAIA=</HashCode>
+      <FileName>Repository\PublisherRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataLayer.Services.RoleRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="15" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>FARQAgAIAAAAhIAAgAAAAAAAABEgACAAAgAQAAAAEEE=</HashCode>
+      <FileName>Repository\RoleRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataLayer.Services.UserRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11.5" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAYAkBEIAAAgAJAAAAEAAAAQggEAAQAAAgCQAAAAEAA=</HashCode>
+      <FileName>Repository\UserRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataLayer.Repository.ApiRequestLogRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="15" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAABMAAAAAAAAAAAAEAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Repository\ApiRequestLogRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataLayer.Repository.AppVersionRepository" Collapsed="true">
+    <Position X="8.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAEAAAAAAAAAAAAAAAAAAYAAAAAAAAA=</HashCode>
+      <FileName>Repository\AppVersionRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataLayer.Repository.CartDetailsRepository" Collapsed="true">
+    <Position X="1.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repository\CartDetailsRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataLayer.Repository.ErrorLogRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAABIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repository\ErrorLogRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataLayer.Repository.GenericRepository&lt;T&gt;" Collapsed="true">
+    <Position X="3.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEYAgIAICCAAAEAAAAAAAAAAAAEIAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Repository\GenericRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataLayer.Repository.GetAllRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAABYBACAAAAAQAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Repository\GetAllRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataLayer.Repository.IpBlockRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="15" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAABAAAAAgAAAAAABAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Repository\IpBlockRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataLayer.Repository.LearnAppRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAIAAAABIBAAAAIAAAAAAEAAAACAgAAAgAAAAA=</HashCode>
+      <FileName>Repository\LearnAppRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataLayer.Repository.PublicistRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.75" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAABIAAAAAgAAAAAAEIAAACAgAAAAAAAAA=</HashCode>
+      <FileName>Repository\PublicistRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataLayer.Repository.RequestLoginRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13.25" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAACAAABIAAAAAAAAQAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Repository\RequestLoginRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataLayer.Repository.RoleInPagesService" Collapsed="true">
+    <Position X="6.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repository\RoleInPagesService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataLayer.Repository.TicketRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.75" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAIAAAABMAAAAAAAAAAAAAAAAAAQwAAAAAAAAA=</HashCode>
+      <FileName>Repository\TicketRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataLayer.Repository.UserBooksRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.75" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAEAAIAAAABYAAAAAAAAAAAAAAAAAAAgAAAIAEAAA=</HashCode>
+      <FileName>Repository\UserBooksRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataLayer.Repository.UserTagService" Collapsed="true">
+    <Position X="4" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repository\UserTagService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="DataLayer.Interfaces.IBook" Collapsed="true">
+    <Position X="1" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BBAAAMEAAAgAQAAoAAgAAAABAAAAAAAAACAAABAQAAA=</HashCode>
+      <FileName>Interfaces\Book\IBook.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataLayer.Interfaces.IBookAgeGroup" Collapsed="true">
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAIAgAAAAAAAAAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\Book\IBookAgeGroup.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataLayer.Interfaces.IBookGrade" Collapsed="true">
+    <Position X="1" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAIQAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\Book\IBookGrade.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataLayer.Interfaces.IBookPublisher" Collapsed="true">
+    <Position X="1" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAABAAAAAAAAAAAAAQAABAAAAAA=</HashCode>
+      <FileName>Interfaces\Book\IBookPublisher.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataLayer.Interfaces.IReadBookLog" Collapsed="true">
+    <Position X="2.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAIAEAAAAAEA=</HashCode>
+      <FileName>Interfaces\Book\IReadBookLog.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataLayer.Repository.IBookContent" Collapsed="true">
+    <Position X="4.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACIAIAABAAAAAAAAAAAAAAAAgAAEAAAAAA=</HashCode>
+      <FileName>Interfaces\Book\IBookContent.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataLayer.Repository.IBookGroup" Collapsed="true">
+    <Position X="2.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYQAAAIAAgAAAAAAAgAAAAAAAEAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Interfaces\Book\IBookGroup.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataLayer.Repository.IBookPart" Collapsed="true">
+    <Position X="4.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAAAAAACAAAAAAAACAAAQABQABAAAA=</HashCode>
+      <FileName>Interfaces\Book\IBookPart.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataLayer.Repository.ICart" Collapsed="true">
+    <Position X="6.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAIAgCAAAAAAEAAAAAAQEAAEAAQAAAEQAAAEhAAA=</HashCode>
+      <FileName>Interfaces\Cart\ICart.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataLayer.Interfaces.Cart.ICartDetails" Collapsed="true">
+    <Position X="8" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\Cart\ICartDetails.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataLayer.Interfaces.IFrequentlyQuestion" Collapsed="true">
+    <Position X="6.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAIAAAAAABAAAAAAAAAAAEAAAACAgAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\FrequentlyQuestions\IFrequentlyQuestion.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataLayer.Interfaces.IFrequentlyQuestionGroup" Collapsed="true">
+    <Position X="8" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAIAAAAAAAAAAAAAAAAAAEAAAACAgAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\FrequentlyQuestions\IFrequentlyQuestionGroup.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataLayer.Repository.IAboutUs" Collapsed="true">
+    <Position X="9.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAACAAAAEAAAAAAAAAAAAAAABAAAAAAAABAAAA=</HashCode>
+      <FileName>Interfaces\IAboutUs.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataLayer.Repository.IAdminManage" Collapsed="true">
+    <Position X="11.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAIAAAAAEAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IAdminManage.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataLayer.Repository.IAgeGroup" Collapsed="true">
+    <Position X="13.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAIAAAAAAAAAAAAAAAAAAEAAAACAgAAAAAAAIA=</HashCode>
+      <FileName>Interfaces\IAgeGroup.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataLayer.Repository.IContactUs" Collapsed="true">
+    <Position X="16.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAQACQBBAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IContactUs.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataLayer.Repository.IGrades" Collapsed="true">
+    <Position X="13.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAIAAAAAAAAAAAAAAAAAAEAAAACAgAAAAAAAIA=</HashCode>
+      <FileName>Interfaces\IGrades.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataLayer.Repository.IPublisher" Collapsed="true">
+    <Position X="11.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAIEAAAAAAAAAAAAAQAAAEAAAACAgAAAAAAAIA=</HashCode>
+      <FileName>Interfaces\IPublisher.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataLayer.Repository.IRole" Collapsed="true">
+    <Position X="15" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>FARQAgAIAAAAgAAAgAAAAAAAABEgACAAAgAQAAAAEEE=</HashCode>
+      <FileName>Interfaces\IRole.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataLayer.Repository.IUser" Collapsed="true">
+    <Position X="9.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAYAEBEIAAAgABAAAAEAAAAQggEAAQAAAgCQAAAAEAA=</HashCode>
+      <FileName>Interfaces\IUser.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataLayer.Interfaces.IApiRequestLog" Collapsed="true">
+    <Position X="15" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IApiRequestLog.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataLayer.Interfaces.IAppVersion" Collapsed="true">
+    <Position X="13.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAYAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IAppVersion.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataLayer.Interfaces.IErrorLog" Collapsed="true">
+    <Position X="9.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IErrorLog.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataLayer.Interfaces.IGenericRepository&lt;T&gt;" Collapsed="true">
+    <Position X="3.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEYAAIAICCAAAAAAAAAAAAAAAAEIAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IGenericRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataLayer.Interfaces.IGetAll" Collapsed="true">
+    <Position X="11.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAQBACAAAAAQAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Interfaces\IGetAll.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataLayer.Interfaces.IIpBlock" Collapsed="true">
+    <Position X="15" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IIpBlock.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataLayer.Interfaces.ILearnApp" Collapsed="true">
+    <Position X="16.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAIAAAAAABAAAAIAAAAAAEAAAACAgAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\ILearnApp.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataLayer.Interfaces.IPublicist" Collapsed="true">
+    <Position X="9.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAgAAAAAAEIAAACAgAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IPublicist.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataLayer.Interfaces.IRequestLogin" Collapsed="true">
+    <Position X="13.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAACAAAAAAAAAAAAAQAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IRequestLogin.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataLayer.Interfaces.IRoleInPages" Collapsed="true">
+    <Position X="11.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IRoleInPages.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataLayer.Interfaces.ITicket" Collapsed="true">
+    <Position X="16.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAIAAAAAAAAAAAAAAAAAAAAAAAAQwAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\ITicket.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataLayer.Interfaces.IUserBooks" Collapsed="true">
+    <Position X="11.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAEAAIAAAAAQAAAAAAAAAAAAAAAAAAAgAAAIAEAAA=</HashCode>
+      <FileName>Interfaces\IUserBooks.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataLayer.Interfaces.IUserTag" Collapsed="true">
+    <Position X="9" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IUserTag.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

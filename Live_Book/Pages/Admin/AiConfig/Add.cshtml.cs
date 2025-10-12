@@ -1,0 +1,135 @@
+using Live_Book.Application.Constants;
+using Live_Book.Application.Contracts.Persistence.EfCore;
+using Live_Book.Application.DTOs.AiConfig;
+using Live_Book.Application.Features.AiConfig.Request.Command;
+using Live_Book.Classes;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Text.Json;
+
+namespace Live_Book.Pages.Admin.AiConfig
+{
+	public class AddModel(IMediator mediator, IAiModelRepository aiModelRepository,
+		IAiConfigRepository aiConfigRepository, IAiPlatformRepository aiPlatformRepository) : PageModel
+	{
+		public string Error { get; set; }
+		[BindProperty]
+		public UpsertAiConfigDto AiConfigDto { get; set; }
+		//[BindProperty]
+		//public AiContentUpsertDto AiContentDto { get; set; }
+		[BindProperty]
+		public bool WithAiContent { get; set; }
+		public async Task<IActionResult> OnGet()
+		{
+			//await FillDropDown();
+			return Page();
+		}
+		public async Task<IActionResult> OnPostAsync()
+		{
+			ModelState.Remove("AiConfigDto.IsDelete");
+			ModelState.Remove("AiConfigDto.DateTime");
+			ModelState.Remove("AiConfigDto.Version");
+			ModelState.Remove("AiConfigDto.N");
+			ModelState.Remove("AiConfigDto.CreateBy");
+			if (!WithAiContent)
+			{
+				ModelState.Remove("AiContentDto.PartId");
+				ModelState.Remove("AiContentDto.BookId");
+				ModelState.Remove("AiContentDto.Content");
+			}
+			ModelState.Remove("AiContentDto.Part");
+			ModelState.Remove("AiContentDto.Book");
+			ModelState.Remove("AiContentDto.IsDelete");
+			ModelState.Remove("AiContentDto.DateTime");
+			if (ModelState.IsValid)
+			{
+				//var admin = await adminHelper.GetAdminLoggedIn();
+				//if (admin == null)
+				//	return Redirect(Urls.SignOut);
+				//AiConfigDto.CreateBy = admin.AdminLoginId;
+				var resAiConfig = await mediator.Send(new UpsertAiConfigRequest()
+				{
+					UpsertAiConfig = AiConfigDto
+				});
+				if (resAiConfig.ErrorId < 0)
+				{
+					Error = resAiConfig.ErrorTitle;
+					return Page();
+				}
+				//if (WithAiContent)
+				//{
+				//	AiContentDto.AiConfigId = resAiConfig.Result;
+				//	var resAdd = await mediator.Send(new UpsertAiContentRequest()
+				//	{
+				//		Model = AiContentDto
+				//	});
+				//	Error = resAdd.ErrorTitle;
+				//}
+				return Redirect(Urls.AiConfig);
+			}
+			await FillDropDown();
+			return Page();
+		}
+
+		#region Utility
+		
+		private async Task FillDropDown()
+		{
+			//var aiModels = await aiModelRepository.GetAll(x => !x.IsDelete, null, "Platforms");
+   //         var selectedAiModel = AiConfigDto?.AiModelId > 0 ? aiModels.Find(x => x.Id == AiConfigDto?.AiModelId) : null;
+   //         var childModels = aiModels.Where(x => x.ParentId != null).ToList();
+   //         var parentModels = aiModels.Where(x => x.ParentId == null).ToList();
+   //         ViewData["AiPlatforms"] = new SelectList(await aiPlatformRepository.GetAll(x => !x.IsDelete), "Id", "Title", AiConfigDto?.AiPlatformId);
+   //         ViewData["parentAiModels"] = JsonSerializer.Serialize(parentModels.Select(x => new
+   //         {
+   //             Id = x.Id,
+   //             Title = x.Title,
+   //             ParentId = 0,
+			//	PlatformIds=x.Platforms?.Select(x=> x.Id),
+   //             Selected = selectedAiModel?.ParentId
+   //         }));
+   //         ViewData["childAiModels"] = JsonSerializer.Serialize(childModels.Select(x => new
+			//{
+			//	Id = x.Id,
+			//	Title = x.Title,
+			//	ParentId = x.ParentId,
+			//	Selected = AiConfigDto?.AiModelId
+			//}));
+
+   //         //var bookGroups = await bookGroup.GetAllGroupsAsync(bc => bc.Book != null && bc.Book.Any(b => !b.IsDelete));
+			////var books = await book.GetAllBooks(x => !x.IsDelete);
+			////var bookParts = await bookPart.GetBookParts(x => !x.IsDelete);
+			////var selectedBook = AiContentDto?.BookId > 0 ? await book.FindBookById(AiContentDto.BookId) : null;
+			//var bookQuestions = await bookQuestionRepository.GetAll(x => !x.IsDelete, q=> q.OrderBy(x=> x.IsMultipleChoice).ThenBy(x=> x.Index));
+			//ViewData["BookGroup"] = new SelectList(
+			//	bookGroups, "GroupId", "GroupTitle"
+			//	//,selectedBook?.GroupId
+			//	);
+			//ViewData["Books"] = JsonSerializer.Serialize(books.Select(x => new
+			//{
+			//	Id = x.Id,
+			//	GroupId = x.GroupId,
+			//	Title = x.Name,
+			//	//Selected = AiContentDto?.BookId
+			//}));
+			//ViewData["BookParts"] = JsonSerializer.Serialize(bookParts.Select(x => new
+			//{
+			//	Id = x.PartId,
+			//	BookId = x.BookId,
+			//	Title = x.PartName,
+			//	//Selected = AiContentDto?.PartId
+			//}));
+			//ViewData["BookQuestions"] = JsonSerializer.Serialize(bookQuestions.Select(x=> new
+			//{
+			//	Id = x.Id,
+			//	PartId = x.PartId,
+			//	Question = x.Question,
+			//	Index = x.Index,
+			//	IsMultipleChoice= x.IsMultipleChoice
+			//}));
+		}
+		#endregion
+	}
+}

@@ -1,0 +1,49 @@
+﻿@*@using Utility
+@model Model.ViewModels.BookShopViewModel
+@{
+    Layout = "_ShopCardLayout";
+    ViewData["Title"] = "لیست کتاب ها";
+    int groupId = ViewBag.GroupId;
+}
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-12">
+        <div class="card shadow">
+            <h5 class="card-header">با انتخاب پایه مورد نظرت فقط کتاب های همون پایه رو ببین</h5>
+            <div class="card-body">
+                <section class="card-text">
+                    <div class="row">
+                        @foreach (var item in Model.BookCategories)
+                        {
+                            <div class="col-lg-2 book-grade-btn">
+                                <a class="btn btn-outline-primary @(item.GroupId==groupId?"bg-primary text-white":" text-primary")" asp-action="Books" asp-route-groupId="@item.GroupId">
+                                    <span class="">@item.GroupTitle</span>
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-12 mt-3">
+        <div class="">
+            <div class="row mt-2">
+                @foreach (var item in Model.Book)
+                {
+                    <div class="col-lg-3 col-md-4">
+                        <div class="card mb-4">
+                            <img class="book-img-size card-img-top" src="@("https://livebook2.mhelli.com" + ImagePath.Book + item.ImageName)" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">@item.Name</h5>
+                                <p class="card-text">@item.Price تومان</p>
+                                <a class="btn btn-primary" asp-controller="Carts" asp-action="AddToCart" asp-route-BookId="@item.Id">افزودن به سبد خرید</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+*@
