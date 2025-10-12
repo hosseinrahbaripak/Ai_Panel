@@ -1,4 +1,5 @@
-﻿using Ai_Panel.Application.Contracts.Persistence.EfCore;
+﻿
+using Ai_Panel.Application.Contracts.Persistence.EfCore;
 using Ai_Panel.Domain;
 using Ai_Panel.Persistence.Configurations;
 

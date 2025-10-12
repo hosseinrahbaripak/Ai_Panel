@@ -79,7 +79,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DataLayer\Ai_Panel.Persistence.csproj" />
-    <ProjectReference Include="..\Ai_Panel.Application\Ai_Panel.Application.csproj" />
     <ProjectReference Include="..\Ai_Panel.Infrastructure\Ai_Panel.Infrastructure.csproj" />
   </ItemGroup>
 

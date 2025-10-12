@@ -1,6 +1,7 @@
-﻿using Dapper;
-using Ai_Panel.Application.Contracts.Persistence.Dapper;
+﻿using Ai_Panel.Application.Contracts.Persistence.Dapper;
 using Ai_Panel.Application.DTOs.TestAiConfig;
+using Dapper;
+
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using System.Data;

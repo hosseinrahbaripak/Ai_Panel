@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -24,5 +24,6 @@
     <ProjectReference Include="..\Ai_Panel.Application\Ai_Panel.Application.csproj" />
     <ProjectReference Include="..\Ai_Panel.Domain\Ai_Panel.Domain.csproj" />
   </ItemGroup>
+
 
 </Project>

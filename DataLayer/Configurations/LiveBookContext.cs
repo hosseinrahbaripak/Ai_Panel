@@ -1,4 +1,5 @@
-﻿using Ai_Panel.Domain;
+﻿
+using Ai_Panel.Domain;
 using Ai_Panel.Domain.Common;
 using Microsoft.EntityFrameworkCore;
 
