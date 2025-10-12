@@ -1,6 +1,6 @@
-﻿using Live_Book.Application.DTOs.TestAiConfig;
+﻿using Ai_Panel.Application.DTOs.TestAiConfig;
 
-namespace Live_Book.Application.Contracts.Persistence.Dapper;
+namespace Ai_Panel.Application.Contracts.Persistence.Dapper;
 public interface ITestAiConfigRepositoryDp
 {
 	Task<List<TestAiConfigLogDto>> GetTestAiConfigLogs(string where, string orderBy, object parameters);

@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
-using Live_Book.Application.Contracts.Persistence.EfCore;
-using Live_Book.Application.DTOs.AiChat;
-using Live_Book.Application.Features.AiChat.Request.Command;
-using Live_Book.Domain;
+using Ai_Panel.Application.Contracts.Persistence.EfCore;
+using Ai_Panel.Application.DTOs.AiChat;
+using Ai_Panel.Application.Features.AiChat.Request.Command;
+using Ai_Panel.Domain;
 using MediatR;
 using PersianAssistant.Extensions;
 using PersianAssistant.Models;
 
-namespace Live_Book.Application.Features.AiChat.Handler.Command;
+namespace Ai_Panel.Application.Features.AiChat.Handler.Command;
 
 public class AskFromAiRequestHandler : IRequestHandler<AskFromAiRequest, ServiceMessage>
 {

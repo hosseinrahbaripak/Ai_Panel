@@ -1,20 +1,20 @@
 ﻿//using ClosedXML.Excel;
 //using ExcelDataReader;
-//using Live_Book.Application.Constants;
-//using Live_Book.Application.Contracts.Persistence.Dapper;
-//using Live_Book.Application.Contracts.Persistence.EfCore;
-//using Live_Book.Application.DTOs;
-//using Live_Book.Application.Features.AdvisorProfile.Request.Queries;
-//using Live_Book.Classes;
-//using Live_Book.Domain;
-//using Live_Book.Domain.Enum;
-//using Live_Book.Models;
+//using Ai_Panel.Application.Constants;
+//using Ai_Panel.Application.Contracts.Persistence.Dapper;
+//using Ai_Panel.Application.Contracts.Persistence.EfCore;
+//using Ai_Panel.Application.DTOs;
+//using Ai_Panel.Application.Features.AdvisorProfile.Request.Queries;
+//using Ai_Panel.Classes;
+//using Ai_Panel.Domain;
+//using Ai_Panel.Domain.Enum;
+//using Ai_Panel.Models;
 //using MediatR;
 //using Microsoft.AspNetCore.Mvc;
 //using Microsoft.AspNetCore.Mvc.Rendering;
 //using PersianAssistant.Extensions;
 
-//namespace Live_Book.Areas.AdminArea.Controllers
+//namespace Ai_Panel.Areas.AdminArea.Controllers
 //{
 //	[ApiExplorerSettings(IgnoreApi = true)]
 //    [PermissionChecker]

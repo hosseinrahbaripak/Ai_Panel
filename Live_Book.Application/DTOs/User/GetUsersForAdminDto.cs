@@ -1,9 +1,9 @@
-﻿using Live_Book.Domain;
+﻿using Ai_Panel.Domain;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 
-namespace Live_Book.Application.DTOs.User;
+namespace Ai_Panel.Application.DTOs.User;
 
 public class GetUsersForAdminDto
 {

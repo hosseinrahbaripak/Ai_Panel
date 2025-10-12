@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using Live_Book.Application.Contracts.Persistence.EfCore;
-using Live_Book.Application.DTOs.AiConfig;
-using Live_Book.Application.Features.AiConfig.Request.Queries;
+using Ai_Panel.Application.Contracts.Persistence.EfCore;
+using Ai_Panel.Application.DTOs.AiConfig;
+using Ai_Panel.Application.Features.AiConfig.Request.Queries;
 using MediatR;
 
-namespace Live_Book.Application.Features.AiConfig.Handler.Queries;
+namespace Ai_Panel.Application.Features.AiConfig.Handler.Queries;
 
 public class GetAiConfigRequestHandler : IRequestHandler<GetAiConfigRequest, UpsertAiConfigDto?>
 {

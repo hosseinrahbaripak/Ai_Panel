@@ -1,4 +1,4 @@
-﻿namespace Live_Book.Domain.Enum;
+﻿namespace Ai_Panel.Domain.Enum;
 
 public enum OfferBookToOthers
 {

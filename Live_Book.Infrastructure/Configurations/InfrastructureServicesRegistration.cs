@@ -1,10 +1,10 @@
-﻿using Live_Book.Infrastructure.Contracts;
-using Live_Book.Infrastructure.Contracts.Notification;
-using Live_Book.Infrastructure.Services;
-using Live_Book.Infrastructure.Services.Notification;
+﻿using Ai_Panel.Infrastructure.Contracts;
+using Ai_Panel.Infrastructure.Contracts.Notification;
+using Ai_Panel.Infrastructure.Services;
+using Ai_Panel.Infrastructure.Services.Notification;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Live_Book.Infrastructure.Configurations;
+namespace Ai_Panel.Infrastructure.Configurations;
 
 public static class InfrastructureServicesRegistration
 {

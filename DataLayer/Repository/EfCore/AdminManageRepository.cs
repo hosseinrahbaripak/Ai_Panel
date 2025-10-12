@@ -1,11 +1,11 @@
-﻿using Live_Book.Application.Contracts.Persistence.EfCore;
-using Live_Book.Domain;
-using Live_Book.Domain.Enum;
-using Live_Book.Persistence.Configurations;
+﻿using Ai_Panel.Application.Contracts.Persistence.EfCore;
+using Ai_Panel.Domain;
+using Ai_Panel.Domain.Enum;
+using Ai_Panel.Persistence.Configurations;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace Live_Book.Persistence.Repository.EfCore
+namespace Ai_Panel.Persistence.Repository.EfCore
 {
     public class AdminManageRepository : IAdminManage
     {

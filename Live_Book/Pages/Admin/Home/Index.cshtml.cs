@@ -1,10 +1,10 @@
-﻿using Live_Book.Application.Contracts.Persistence.EfCore;
-using Live_Book.Classes;
+﻿using Ai_Panel.Application.Contracts.Persistence.EfCore;
+using Ai_Panel.Classes;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Live_Book.Pages.Admin.Home
+namespace Ai_Panel.Pages.Admin.Home
 {
     [PermissionChecker]
     public class IndexModel : PageModel

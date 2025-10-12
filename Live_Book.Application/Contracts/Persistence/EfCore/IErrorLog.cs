@@ -1,4 +1,4 @@
-﻿namespace Live_Book.Application.Contracts.Persistence.EfCore
+﻿namespace Ai_Panel.Application.Contracts.Persistence.EfCore
 {
 	public interface IErrorLog : IAsyncDisposable
 	{

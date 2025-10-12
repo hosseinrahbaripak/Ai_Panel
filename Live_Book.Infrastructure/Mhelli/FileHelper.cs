@@ -2,7 +2,7 @@
 using System.Net.Http.Json;
 using Microsoft.AspNetCore.Http;
 
-namespace Live_Book.Infrastructure.Mhelli;
+namespace Ai_Panel.Infrastructure.Mhelli;
 public static class FileHelper
 {
 	public static async Task<bool> AddFile(string fileName, IFormFile file, string bucket = "livebook")

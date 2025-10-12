@@ -1,12 +1,12 @@
 ﻿using System.Linq.Expressions;
 using AutoMapper;
-using Live_Book.Application.Contracts.Persistence.EfCore;
-using Live_Book.Application.DTOs.AiContent;
-using Live_Book.Application.Features.AiContent.Request.Queries;
-using Live_Book.Domain;
+using Ai_Panel.Application.Contracts.Persistence.EfCore;
+using Ai_Panel.Application.DTOs.AiContent;
+using Ai_Panel.Application.Features.AiContent.Request.Queries;
+using Ai_Panel.Domain;
 using MediatR;
 
-namespace Live_Book.Application.Features.AiContent.Handler.Queries;
+namespace Ai_Panel.Application.Features.AiContent.Handler.Queries;
 
 public class GetAiContentRequestHandler : IRequestHandler<GetAiContentRequest, AiContentUpsertDto?>
 {

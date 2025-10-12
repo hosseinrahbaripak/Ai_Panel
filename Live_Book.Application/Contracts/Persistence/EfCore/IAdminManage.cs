@@ -1,7 +1,7 @@
-﻿using Live_Book.Domain;
+﻿using Ai_Panel.Domain;
 using System.Linq.Expressions;
 
-namespace Live_Book.Application.Contracts.Persistence.EfCore
+namespace Ai_Panel.Application.Contracts.Persistence.EfCore
 {
     public interface IAdminManage : IAsyncDisposable
     {

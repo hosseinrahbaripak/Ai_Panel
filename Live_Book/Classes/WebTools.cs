@@ -1,9 +1,9 @@
-﻿using Live_Book.Models;
+﻿using Ai_Panel.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
 
-namespace Live_Book.Classes
+namespace Ai_Panel.Classes
 {
     public class WebTools
     {

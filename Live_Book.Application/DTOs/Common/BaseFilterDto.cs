@@ -1,4 +1,4 @@
-﻿namespace Live_Book.Application.DTOs.Common
+﻿namespace Ai_Panel.Application.DTOs.Common
 {
     public class BaseFilterDto
     {

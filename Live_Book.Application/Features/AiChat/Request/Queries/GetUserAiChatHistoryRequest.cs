@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using PersianAssistant.Models;
 
-namespace Live_Book.Application.Features.AiChat.Request.Queries;
+namespace Ai_Panel.Application.Features.AiChat.Request.Queries;
 
 public class GetUserAiChatHistoryRequest : IRequest<ServiceMessage>
 {

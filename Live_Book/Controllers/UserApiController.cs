@@ -1,11 +1,11 @@
-﻿//using Live_Book.Application.Constants;
-//using Live_Book.Application.Contracts.Persistence.EfCore;
-//using Live_Book.Application.DTOs;
+﻿//using Ai_Panel.Application.Constants;
+//using Ai_Panel.Application.Contracts.Persistence.EfCore;
+//using Ai_Panel.Application.DTOs;
 //using Microsoft.AspNetCore.Mvc;
 //using PersianAssistant.Extensions;
 //using PersianAssistant.Models;
 
-//namespace Live_Book.Controllers
+//namespace Ai_Panel.Controllers
 //{
 //	[Route("api/[controller]")]
 //	[ApiController]

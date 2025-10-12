@@ -8,7 +8,7 @@
     }
   },
   "profiles": {
-    "Live_Book": {
+    "Ai_Panel": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

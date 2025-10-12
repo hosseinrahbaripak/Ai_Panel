@@ -1,4 +1,4 @@
-﻿namespace Live_Book.Infrastructure.Contracts.Notification;
+﻿namespace Ai_Panel.Infrastructure.Contracts.Notification;
 public interface ISmsManagerService
 {
     Task<bool> Login(string mobile, string code);

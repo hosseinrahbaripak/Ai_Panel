@@ -1,12 +1,12 @@
 ﻿using System.Data;
 using Dapper;
-using Live_Book.Application.Contracts.Persistence.Dapper;
-using Live_Book.Application.DTOs;
-using Live_Book.Application.DTOs.AiChat;
+using Ai_Panel.Application.Contracts.Persistence.Dapper;
+using Ai_Panel.Application.DTOs;
+using Ai_Panel.Application.DTOs.AiChat;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 
-namespace Live_Book.Persistence.Repository.Dapper;
+namespace Ai_Panel.Persistence.Repository.Dapper;
 public class UserAiChatLogsRepositoryDp : IUserAiChatLogsRepositoryDp
 {
     private readonly IDbConnection _db;

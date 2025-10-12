@@ -1,8 +1,8 @@
-﻿using Live_Book.Application.DTOs.AiChat;
+﻿using Ai_Panel.Application.DTOs.AiChat;
 using MediatR;
 using PersianAssistant.Models;
 
-namespace Live_Book.Application.Features.AiChat.Request.Command;
+namespace Ai_Panel.Application.Features.AiChat.Request.Command;
 
 public class AskFromAiRequest : IRequest<ServiceMessage>
 {

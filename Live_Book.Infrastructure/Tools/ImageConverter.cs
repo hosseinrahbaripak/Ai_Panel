@@ -1,4 +1,4 @@
-﻿namespace Live_Book.Application.Tools;
+﻿namespace Ai_Panel.Application.Tools;
 
 using System.IO;
 using ImageMagick;

@@ -1,9 +1,9 @@
-﻿using Live_Book.Domain;
-using Live_Book.Domain.Enum;
+﻿using Ai_Panel.Domain;
+using Ai_Panel.Domain.Enum;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Live_Book.Persistence.Configurations.Entities;
+namespace Ai_Panel.Persistence.Configurations.Entities;
 public class AdminTypeConfiguration : IEntityTypeConfiguration<AdminType>
 {
 	public void Configure(EntityTypeBuilder<AdminType> builder)

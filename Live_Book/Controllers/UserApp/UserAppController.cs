@@ -1,8 +1,8 @@
-﻿//using Live_Book.Application.Contracts.Persistence.EfCore;
+﻿//using Ai_Panel.Application.Contracts.Persistence.EfCore;
 //using MediatR;
 //using Microsoft.AspNetCore.Mvc;
 
-//namespace Live_Book.Controllers.UserApp;
+//namespace Ai_Panel.Controllers.UserApp;
 //[Route("UserApp")]
 //public class UserAppController(IUser userRepository,  book, IMediator mediator) : Controller
 //{

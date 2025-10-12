@@ -1,10 +1,10 @@
-﻿//using Live_Book.Application.Constants;
-//using Live_Book.Application.Contracts.Persistence.EfCore;
-//using Live_Book.Classes;
-//using Live_Book.Infrastructure.Contracts.Notification;
+﻿//using Ai_Panel.Application.Constants;
+//using Ai_Panel.Application.Contracts.Persistence.EfCore;
+//using Ai_Panel.Classes;
+//using Ai_Panel.Infrastructure.Contracts.Notification;
 //using Microsoft.AspNetCore.Mvc;
 
-//namespace Live_Book.Controllers
+//namespace Ai_Panel.Controllers
 //{
 //    [ApiExplorerSettings(IgnoreApi = true)]
 //    public class PaymentController : Controller 

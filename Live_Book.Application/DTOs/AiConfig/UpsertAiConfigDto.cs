@@ -1,10 +1,10 @@
-﻿using Live_Book.Domain;
+﻿using Ai_Panel.Domain;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using Live_Book.Application.DTOs.Common;
+using Ai_Panel.Application.DTOs.Common;
 using System.ComponentModel;
 
-namespace Live_Book.Application.DTOs.AiConfig;
+namespace Ai_Panel.Application.DTOs.AiConfig;
 
 public class UpsertAiConfigDto : BaseDto
 {

@@ -1,10 +1,10 @@
-﻿using Live_Book.Domain;
+﻿using Ai_Panel.Domain;
 using Microsoft.AspNetCore.Http;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Live_Book.Application.DTOs
+namespace Ai_Panel.Application.DTOs
 {
 	public class AddExcelUserViewModel
 	{

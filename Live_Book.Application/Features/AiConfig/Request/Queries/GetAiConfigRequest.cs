@@ -1,8 +1,8 @@
-﻿using Live_Book.Application.DTOs.AiConfig;
+﻿using Ai_Panel.Application.DTOs.AiConfig;
 using MediatR;
 using PersianAssistant.Models;
 
-namespace Live_Book.Application.Features.AiConfig.Request.Queries;
+namespace Ai_Panel.Application.Features.AiConfig.Request.Queries;
 
 public class GetAiConfigRequest : IRequest<UpsertAiConfigDto?>
 {

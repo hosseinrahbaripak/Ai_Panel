@@ -1,7 +1,7 @@
 ﻿using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace Live_Book.Classes
+namespace Ai_Panel.Classes
 {
     public class AddRequiredHeaderParameter : IOperationFilter
     {

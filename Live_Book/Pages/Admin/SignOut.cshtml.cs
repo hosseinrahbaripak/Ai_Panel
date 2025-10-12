@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Live_Book.Pages.Admin
+namespace Ai_Panel.Pages.Admin
 {
     [Authorize]
     public class SignOutModel : PageModel

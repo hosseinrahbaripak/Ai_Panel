@@ -1,11 +1,11 @@
-﻿using Live_Book.Application.DTOs;
-using Live_Book.Domain;
+﻿using Ai_Panel.Application.DTOs;
+using Ai_Panel.Domain;
 using System.Linq.Expressions;
 
-using Live_Book.Application.DTOs.User;
+using Ai_Panel.Application.DTOs.User;
 using PersianAssistant.Models;
 
-namespace Live_Book.Application.Contracts.Persistence.EfCore
+namespace Ai_Panel.Application.Contracts.Persistence.EfCore
 {
     public interface IUser : IAsyncDisposable
     {

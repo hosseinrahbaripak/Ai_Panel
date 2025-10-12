@@ -1,6 +1,6 @@
-﻿using Live_Book.Application.DTOs.AiChat;
+﻿using Ai_Panel.Application.DTOs.AiChat;
 
-namespace Live_Book.Application.DTOs.AiConfig;
+namespace Ai_Panel.Application.DTOs.AiConfig;
 
 public class TestAiConfigDto
 {

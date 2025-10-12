@@ -1,13 +1,13 @@
 ﻿//using System.Net;
-//using Live_Book.Application.Constants;
-//using Live_Book.Application.Contracts.Persistence.EfCore;
-//using Live_Book.Application.DTOs.AiChat;
-//using Live_Book.Application.DTOs.AiConfig;
-//using Live_Book.Application.Features.AiConfig.Request.Queries;
-//using Live_Book.Application.Features.TestAiConfig.Request.Command;
-//using Live_Book.Application.Tools;
-//using Live_Book.Classes;
-//using Live_Book.Domain;
+//using Ai_Panel.Application.Constants;
+//using Ai_Panel.Application.Contracts.Persistence.EfCore;
+//using Ai_Panel.Application.DTOs.AiChat;
+//using Ai_Panel.Application.DTOs.AiConfig;
+//using Ai_Panel.Application.Features.AiConfig.Request.Queries;
+//using Ai_Panel.Application.Features.TestAiConfig.Request.Command;
+//using Ai_Panel.Application.Tools;
+//using Ai_Panel.Classes;
+//using Ai_Panel.Domain;
 //using MediatR;
 //using Microsoft.AspNetCore.Mvc;
 //using Microsoft.AspNetCore.Mvc.Rendering;
@@ -15,7 +15,7 @@
 //using PersianAssistant.Extensions;
 //using PersianAssistant.Models;
 
-//namespace Live_Book.Areas.AdminArea.Controllers
+//namespace Ai_Panel.Areas.AdminArea.Controllers
 //{
 //    [ApiExplorerSettings(IgnoreApi = true)]
 //    [PermissionChecker]

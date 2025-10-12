@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace Live_Book.Persistence.Migrations
+namespace Ai_Panel.Persistence.Migrations
 {
     /// <inheritdoc />
     public partial class migReset : Migration

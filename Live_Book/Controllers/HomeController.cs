@@ -1,11 +1,11 @@
-﻿//using Live_Book.Application.Contracts.Persistence.EfCore;
-//using Live_Book.Domain;
-//using Live_Book.Domain.Enum;
+﻿//using Ai_Panel.Application.Contracts.Persistence.EfCore;
+//using Ai_Panel.Domain;
+//using Ai_Panel.Domain.Enum;
 //using Microsoft.AspNetCore.Authorization;
 //using Microsoft.AspNetCore.Diagnostics;
 //using Microsoft.AspNetCore.Mvc;
 
-//namespace Live_Book.Controllers
+//namespace Ai_Panel.Controllers
 //{
 //    [ApiExplorerSettings(IgnoreApi = true)]
 //    public class HomeController : Controller

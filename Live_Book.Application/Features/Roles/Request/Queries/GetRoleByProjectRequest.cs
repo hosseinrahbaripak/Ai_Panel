@@ -1,8 +1,8 @@
-﻿using Live_Book.Application.DTOs;
-using Live_Book.Domain.Enum;
+﻿using Ai_Panel.Application.DTOs;
+using Ai_Panel.Domain.Enum;
 using MediatR;
 
-namespace Live_Book.Application.Features.Roles.Request.Queries;
+namespace Ai_Panel.Application.Features.Roles.Request.Queries;
 public class GetRoleByProjectRequest : IRequest<List<IdTitle>>
 {
     public List<int> ProjectIds { get; set; }

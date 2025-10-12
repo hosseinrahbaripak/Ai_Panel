@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Live_Book.Domain
+namespace Ai_Panel.Domain
 {
 	public class ErrorLog
 	{

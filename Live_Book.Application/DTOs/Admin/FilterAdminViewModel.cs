@@ -1,4 +1,4 @@
-﻿namespace Live_Book.Application.DTOs.Admin;
+﻿namespace Ai_Panel.Application.DTOs.Admin;
 
 public class FilterAdminViewModel
 {

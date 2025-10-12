@@ -1,6 +1,6 @@
-﻿using Live_Book.Application.DTOs;
+﻿using Ai_Panel.Application.DTOs;
 
-namespace Live_Book.Application.Contracts.Persistence.Dapper;
+namespace Ai_Panel.Application.Contracts.Persistence.Dapper;
 
 public interface IUserRepositoryDp
 {

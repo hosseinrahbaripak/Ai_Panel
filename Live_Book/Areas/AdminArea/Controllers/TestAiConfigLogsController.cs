@@ -1,9 +1,9 @@
-﻿using Live_Book.Application.DTOs.TestAiConfig;
-using Live_Book.Application.Features.TestAiConfig.Request.Queries;
+﻿using Ai_Panel.Application.DTOs.TestAiConfig;
+using Ai_Panel.Application.Features.TestAiConfig.Request.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Live_Book.Areas.AdminArea.Controllers;
+namespace Ai_Panel.Areas.AdminArea.Controllers;
 
 [ApiExplorerSettings(IgnoreApi = true)]
 [Route("Admin/TestAiConfigLogs")]

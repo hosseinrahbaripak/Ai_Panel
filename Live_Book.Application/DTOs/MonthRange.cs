@@ -1,4 +1,4 @@
-﻿namespace Live_Book.Application.DTOs
+﻿namespace Ai_Panel.Application.DTOs
 {
     public class MonthRange
 	{

@@ -1,8 +1,8 @@
-﻿using Live_Book.Infrastructure.Contracts.Notification;
-using Live_Book.Infrastructure.Tools;
+﻿using Ai_Panel.Infrastructure.Contracts.Notification;
+using Ai_Panel.Infrastructure.Tools;
 using Microsoft.Extensions.Configuration;
 
-namespace Live_Book.Infrastructure.Services.Notification;
+namespace Ai_Panel.Infrastructure.Services.Notification;
 public class SmsManagerService(IConfiguration configuration) : ISmsManagerService
 {
     public async Task<bool> Login(string mobile, string code)

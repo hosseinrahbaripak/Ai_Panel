@@ -1,8 +1,8 @@
-﻿using Live_Book.Domain;
-using Live_Book.Domain.Common;
+﻿using Ai_Panel.Domain;
+using Ai_Panel.Domain.Common;
 using Microsoft.EntityFrameworkCore;
 
-namespace Live_Book.Persistence.Configurations
+namespace Ai_Panel.Persistence.Configurations
 {
     public class LiveBookContext : DbContext
     {

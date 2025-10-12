@@ -1,12 +1,12 @@
-﻿//using Live_Book.Application.Constants;
-//using Live_Book.Application.Contracts.Persistence.EfCore;
-//using Live_Book.Classes;
-//using Live_Book.Domain;
-//using Live_Book.Domain.Enum;
+﻿//using Ai_Panel.Application.Constants;
+//using Ai_Panel.Application.Contracts.Persistence.EfCore;
+//using Ai_Panel.Classes;
+//using Ai_Panel.Domain;
+//using Ai_Panel.Domain.Enum;
 //using Microsoft.AspNetCore.Mvc;
 //using Microsoft.AspNetCore.Mvc.Rendering;
 
-//namespace Live_Book.Areas.AdminArea.Controllers
+//namespace Ai_Panel.Areas.AdminArea.Controllers
 //{
 //    [ApiExplorerSettings(IgnoreApi = true)]
 //    [PermissionChecker]

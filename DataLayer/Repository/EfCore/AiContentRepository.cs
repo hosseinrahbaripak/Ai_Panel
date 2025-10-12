@@ -1,8 +1,8 @@
-﻿using Live_Book.Application.Contracts.Persistence.EfCore;
-using Live_Book.Domain;
-using Live_Book.Persistence.Configurations;
+﻿using Ai_Panel.Application.Contracts.Persistence.EfCore;
+using Ai_Panel.Domain;
+using Ai_Panel.Persistence.Configurations;
 
-namespace Live_Book.Persistence.Repository.EfCore;
+namespace Ai_Panel.Persistence.Repository.EfCore;
 
 public class AiContentRepository : GenericRepository<AiContent>, IAiContentRepository
 {

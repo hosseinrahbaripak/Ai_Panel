@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace Live_Book.Application.DTOs.AiConfig;
+namespace Ai_Panel.Application.DTOs.AiConfig;
 public class AddAiConfigToQuestionDto
 {
 	[Required]

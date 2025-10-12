@@ -1,16 +1,16 @@
-﻿using Live_Book.Application.Contracts.Persistence.EfCore;
-using Live_Book.Application.DTOs;
-using Live_Book.Domain;
-using Live_Book.Persistence.Configurations;
+﻿using Ai_Panel.Application.Contracts.Persistence.EfCore;
+using Ai_Panel.Application.DTOs;
+using Ai_Panel.Domain;
+using Ai_Panel.Persistence.Configurations;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
-using Live_Book.Application.DTOs.User;
-using Live_Book.Application.Tools;
+using Ai_Panel.Application.DTOs.User;
+using Ai_Panel.Application.Tools;
 using PersianAssistant.Extensions;
 using ResponseManager = PersianAssistant.Extensions.ResponseManager;
 using ServiceMessage = PersianAssistant.Models.ServiceMessage;
 
-namespace Live_Book.Persistence.Repository.EfCore
+namespace Ai_Panel.Persistence.Repository.EfCore
 {
     public class UserRepository 
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace Live_Book.Classes
+namespace Ai_Panel.Classes
 {
     public class SettingMethod
     {

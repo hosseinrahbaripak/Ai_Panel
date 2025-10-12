@@ -101,8 +101,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Live_Book.Domain\Live_Book.Domain.csproj" />
-    <ProjectReference Include="..\Live_Book.Infrastructure\Live_Book.Infrastructure.csproj" />
+    <ProjectReference Include="..\Ai_Panel.Domain\Ai_Panel.Domain.csproj" />
+    <ProjectReference Include="..\Ai_Panel.Infrastructure\Ai_Panel.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

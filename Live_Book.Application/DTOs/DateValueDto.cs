@@ -1,7 +1,7 @@
-﻿using Live_Book.Application.Enum;
-using Live_Book.Application.Tools;
+﻿using Ai_Panel.Application.Enum;
+using Ai_Panel.Application.Tools;
 using System.Globalization;
-namespace Live_Book.Application.DTOs;
+namespace Ai_Panel.Application.DTOs;
 
 public class DateValueDto
 {

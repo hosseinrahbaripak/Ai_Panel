@@ -1,6 +1,6 @@
-﻿using Live_Book.Application.DTOs.AiChat;
+﻿using Ai_Panel.Application.DTOs.AiChat;
 
-namespace Live_Book.Application.DTOs.TestAiConfig;
+namespace Ai_Panel.Application.DTOs.TestAiConfig;
 public class TestAiConfigFilter : UserAiChatLogsFilter
 {
 	public int AiModelId { get; set; }

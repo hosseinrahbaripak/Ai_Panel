@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Live_Book", "Live_Book\Live_Book.csproj", "{6DB6C8EE-7329-4B32-B409-D1E4CBE5CC5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ai_Panel", "Ai_Panel\Ai_Panel.csproj", "{6DB6C8EE-7329-4B32-B409-D1E4CBE5CC5F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Live_Book.Persistence", "DataLayer\Live_Book.Persistence.csproj", "{786563B7-1511-47F3-8621-2BAC7CEB761A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ai_Panel.Persistence", "DataLayer\Ai_Panel.Persistence.csproj", "{786563B7-1511-47F3-8621-2BAC7CEB761A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{0D19DB82-49A3-4CAF-8FCD-A63284F7A8D9}"
 EndProject
@@ -17,11 +17,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{193B5355-0
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{51C848C0-EAA2-457B-9DAA-650AEC7C1051}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Live_Book.Application", "Live_Book.Application\Live_Book.Application.csproj", "{A5894AA4-27A9-418E-AF9C-697AEFACD6D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ai_Panel.Application", "Ai_Panel.Application\Ai_Panel.Application.csproj", "{A5894AA4-27A9-418E-AF9C-697AEFACD6D0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Live_Book.Domain", "Live_Book.Domain\Live_Book.Domain.csproj", "{A91511FF-65DF-4164-A25E-03F65CFC285B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ai_Panel.Domain", "Ai_Panel.Domain\Ai_Panel.Domain.csproj", "{A91511FF-65DF-4164-A25E-03F65CFC285B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Live_Book.Infrastructure", "Live_Book.Infrastructure\Live_Book.Infrastructure.csproj", "{9A39EFC8-D4DC-4A64-B8C9-F06FE14C0252}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ai_Panel.Infrastructure", "Ai_Panel.Infrastructure\Ai_Panel.Infrastructure.csproj", "{9A39EFC8-D4DC-4A64-B8C9-F06FE14C0252}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

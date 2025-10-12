@@ -1,9 +1,9 @@
-﻿using Live_Book.Application.Contracts.Persistence.Dapper;
-using Live_Book.Application.DTOs.AiChat;
-using Live_Book.Application.Features.AiChat.Request.Queries;
+﻿using Ai_Panel.Application.Contracts.Persistence.Dapper;
+using Ai_Panel.Application.DTOs.AiChat;
+using Ai_Panel.Application.Features.AiChat.Request.Queries;
 using MediatR;
 
-namespace Live_Book.Application.Features.AiChat.Handler.Queries;
+namespace Ai_Panel.Application.Features.AiChat.Handler.Queries;
 public class GetUserAiChatLogsRequestHandler : IRequestHandler<GetUserAiChatLogsRequest, AiChatDashboardDto>
 {
 	private readonly IUserAiChatLogsRepositoryDp _userAiChatLogsRepositoryDp;

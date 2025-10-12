@@ -1,4 +1,4 @@
-﻿namespace Live_Book.Infrastructure.Contracts;
+﻿namespace Ai_Panel.Infrastructure.Contracts;
 public interface ISsoService
 {
 	Task<string> GetToken();

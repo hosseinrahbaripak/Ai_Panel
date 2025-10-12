@@ -1,10 +1,10 @@
-﻿using Live_Book.Application.DTOs;
-using Live_Book.Application.DTOs.AiChat;
-using Live_Book.Application.Features.AiChat.Request.Queries;
+﻿using Ai_Panel.Application.DTOs;
+using Ai_Panel.Application.DTOs.AiChat;
+using Ai_Panel.Application.Features.AiChat.Request.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Live_Book.Areas.AdminArea.Controllers;
+namespace Ai_Panel.Areas.AdminArea.Controllers;
 [ApiExplorerSettings(IgnoreApi = true)]
 [Route("Admin/UserAiChatLogsDashboard")]
 [PermissionChecker]

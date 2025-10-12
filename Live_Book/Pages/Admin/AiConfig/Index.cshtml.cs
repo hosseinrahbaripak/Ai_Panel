@@ -1,8 +1,8 @@
-using Live_Book.Application.Contracts.Persistence.EfCore;
+using Ai_Panel.Application.Contracts.Persistence.EfCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Live_Book.Pages.Admin.AiConfig
+namespace Ai_Panel.Pages.Admin.AiConfig
 {
     public class IndexModel(IAiConfigRepository aiConfigRepository) : PageModel
     {

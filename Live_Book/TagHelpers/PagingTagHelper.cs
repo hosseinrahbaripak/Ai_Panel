@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
-namespace Live_Book.TagHelpers
+namespace Ai_Panel.TagHelpers
 {
 	[HtmlTargetElement("div", Attributes = "page-model")]
     public class PagingTagHelper : TagHelper

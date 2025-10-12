@@ -1,4 +1,4 @@
-﻿namespace Live_Book.Models
+﻿namespace Ai_Panel.Models
 {
     public static class CustomClaimTypes
     {

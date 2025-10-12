@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System.ComponentModel;
 
-namespace Live_Book.Application.DTOs.AiChat;
+namespace Ai_Panel.Application.DTOs.AiChat;
 public class AiChatLogDto
 {
 	[DisplayName("نام")]

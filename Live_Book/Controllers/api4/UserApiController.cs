@@ -1,12 +1,12 @@
-﻿//using Live_Book.Application.Contracts.Persistence.EfCore;
-//using Live_Book.Application.DTOs.AppLogin;
-//using Live_Book.Application.Features.AppLogin.Request.Command;
+﻿//using Ai_Panel.Application.Contracts.Persistence.EfCore;
+//using Ai_Panel.Application.DTOs.AppLogin;
+//using Ai_Panel.Application.Features.AppLogin.Request.Command;
 //using MediatR;
 //using Microsoft.AspNetCore.Mvc;
 //using PersianAssistant.Extensions;
 //using PersianAssistant.Models;
 
-//namespace Live_Book.Controllers.api4
+//namespace Ai_Panel.Controllers.api4
 //{
 //	[Route("api4/[controller]")]
 //	[ApiController]

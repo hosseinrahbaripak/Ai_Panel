@@ -1,7 +1,7 @@
-﻿using Live_Book.Domain;
-using static Live_Book.TagHelpers.PagingTagHelper;
+﻿using Ai_Panel.Domain;
+using static Ai_Panel.TagHelpers.PagingTagHelper;
 
-namespace Live_Book.Models
+namespace Ai_Panel.Models
 {
 	public class BookIndexModel
     {

@@ -1,8 +1,8 @@
-﻿using Live_Book.Application.DTOs.AiContent;
+﻿using Ai_Panel.Application.DTOs.AiContent;
 using MediatR;
 using PersianAssistant.Models;
 
-namespace Live_Book.Application.Features.AiContent.Request.Command;
+namespace Ai_Panel.Application.Features.AiContent.Request.Command;
 
 public class UpsertAiContentRequest : IRequest<ServiceMessage>
 {

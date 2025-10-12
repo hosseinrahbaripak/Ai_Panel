@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Live_Book.Application.DTOs
+namespace Ai_Panel.Application.DTOs
 {
     public class AdminPostUserModel
     {

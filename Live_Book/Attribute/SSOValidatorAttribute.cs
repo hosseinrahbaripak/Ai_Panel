@@ -1,8 +1,8 @@
-﻿using Live_Book.Infrastructure.Contracts;
+﻿using Ai_Panel.Infrastructure.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace Live_Book.Attribute;
+namespace Ai_Panel.Attribute;
 public class SSOValidatorAttribute : System.Attribute,  IAsyncAuthorizationFilter
 {
     private ISsoService _ssoService;

@@ -21,8 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Live_Book.Application\Live_Book.Application.csproj" />
-    <ProjectReference Include="..\Live_Book.Domain\Live_Book.Domain.csproj" />
+    <ProjectReference Include="..\Ai_Panel.Application\Ai_Panel.Application.csproj" />
+    <ProjectReference Include="..\Ai_Panel.Domain\Ai_Panel.Domain.csproj" />
   </ItemGroup>
 
 </Project>

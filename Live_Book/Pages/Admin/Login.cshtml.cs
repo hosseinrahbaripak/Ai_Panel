@@ -1,9 +1,9 @@
 ﻿using DNTCaptcha.Core;
-using Live_Book.Application.Constants;
-using Live_Book.Application.Contracts.Persistence.EfCore;
-using Live_Book.Application.DTOs;
-using Live_Book.Application.Tools;
-using Live_Book.Models;
+using Ai_Panel.Application.Constants;
+using Ai_Panel.Application.Contracts.Persistence.EfCore;
+using Ai_Panel.Application.DTOs;
+using Ai_Panel.Application.Tools;
+using Ai_Panel.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Options;
 using System.Security.Claims;
 
-namespace Live_Book.Pages.Admin
+namespace Ai_Panel.Pages.Admin
 {
     public class LoginModel : PageModel
     {

@@ -1,6 +1,6 @@
-﻿using Live_Book.Application.DTOs;
-using Live_Book.Application.Enum;
-using Live_Book.Domain.Enum;
+﻿using Ai_Panel.Application.DTOs;
+using Ai_Panel.Application.Enum;
+using Ai_Panel.Domain.Enum;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using PersianAssistant.Extensions;
@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.IO.Compression;
 using System.Reflection;
-namespace Live_Book.Application.Tools
+namespace Ai_Panel.Application.Tools
 {
 	public static class StaticFileHelper
 	{

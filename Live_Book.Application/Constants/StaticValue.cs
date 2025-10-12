@@ -1,4 +1,4 @@
-﻿namespace Live_Book.Application.Constants
+﻿namespace Ai_Panel.Application.Constants
 {
     public class PersianPageTitle
     {

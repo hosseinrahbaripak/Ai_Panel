@@ -1,15 +1,15 @@
 ﻿//using AutoMapper;
 //using DocumentFormat.OpenXml.Spreadsheet;
-//using Live_Book.Application.Constants;
-//using Live_Book.Application.Contracts.Persistence.EfCore;
-//using Live_Book.Application.DTOs.AiChat;
-//using Live_Book.Application.DTOs.BookQuestion;
-//using Live_Book.Application.Features.AiChat.Request.Command;
-//using Live_Book.Application.Features.AiChat.Request.Queries;
-//using Live_Book.Application.Tools;
-//using Live_Book.Classes;
-//using Live_Book.Domain;
-//using Live_Book.Infrastructure.Tools;
+//using Ai_Panel.Application.Constants;
+//using Ai_Panel.Application.Contracts.Persistence.EfCore;
+//using Ai_Panel.Application.DTOs.AiChat;
+//using Ai_Panel.Application.DTOs.BookQuestion;
+//using Ai_Panel.Application.Features.AiChat.Request.Command;
+//using Ai_Panel.Application.Features.AiChat.Request.Queries;
+//using Ai_Panel.Application.Tools;
+//using Ai_Panel.Classes;
+//using Ai_Panel.Domain;
+//using Ai_Panel.Infrastructure.Tools;
 //using MediatR;
 //using Microsoft.AspNetCore.Mvc;
 //using Newtonsoft.Json;
@@ -17,7 +17,7 @@
 //using PersianAssistant.Models;
 //using System.Net;
 
-//namespace Live_Book.Controllers.api
+//namespace Ai_Panel.Controllers.api
 //{
 //    [Route("api/[controller]")]
 //    [ApiController]

@@ -1,6 +1,6 @@
-﻿using Live_Book.Application.Tools;
+﻿using Ai_Panel.Application.Tools;
 
-namespace Live_Book.Application.DTOs.AiChat;
+namespace Ai_Panel.Application.DTOs.AiChat;
 public class AiChatDashboardDto
 {
 	public List<AiChatLogDto> AiChatLogs { get; set; }

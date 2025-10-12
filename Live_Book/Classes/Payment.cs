@@ -1,6 +1,6 @@
-﻿using Live_Book.Application.Constants;
+﻿using Ai_Panel.Application.Constants;
 
-namespace Live_Book.Classes
+namespace Ai_Panel.Classes
 {
 	public class PaymentHelper
     {

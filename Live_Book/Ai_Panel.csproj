@@ -78,9 +78,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DataLayer\Live_Book.Persistence.csproj" />
-    <ProjectReference Include="..\Live_Book.Application\Live_Book.Application.csproj" />
-    <ProjectReference Include="..\Live_Book.Infrastructure\Live_Book.Infrastructure.csproj" />
+    <ProjectReference Include="..\DataLayer\Ai_Panel.Persistence.csproj" />
+    <ProjectReference Include="..\Ai_Panel.Application\Ai_Panel.Application.csproj" />
+    <ProjectReference Include="..\Ai_Panel.Infrastructure\Ai_Panel.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

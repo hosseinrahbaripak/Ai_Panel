@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using Live_Book.Application.Constants;
-using Live_Book.Application.Contracts.Persistence.EfCore;
-using Live_Book.Application.Features.AiConfig.Request.Command;
+using Ai_Panel.Application.Constants;
+using Ai_Panel.Application.Contracts.Persistence.EfCore;
+using Ai_Panel.Application.Features.AiConfig.Request.Command;
 using MediatR;
 using PersianAssistant.Extensions;
 using PersianAssistant.Models;
 
-namespace Live_Book.Application.Features.AiConfig.Handler.Command;
+namespace Ai_Panel.Application.Features.AiConfig.Handler.Command;
 
 public class UpsertAiConfigRequestHandler : IRequestHandler<UpsertAiConfigRequest, ServiceMessage>
 {

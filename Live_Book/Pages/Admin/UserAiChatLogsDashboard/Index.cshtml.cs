@@ -1,13 +1,13 @@
-using Live_Book.Application.Contracts.Persistence.EfCore;
-using Live_Book.Application.DTOs;
-using Live_Book.Application.DTOs.AiChat;
-using Live_Book.Application.Enum;
-using Live_Book.Application.Features.AiChat.Request.Queries;
+using Ai_Panel.Application.Contracts.Persistence.EfCore;
+using Ai_Panel.Application.DTOs;
+using Ai_Panel.Application.DTOs.AiChat;
+using Ai_Panel.Application.Enum;
+using Ai_Panel.Application.Features.AiChat.Request.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace Live_Book.Pages.Admin.UserAiChatLogsDashboard;
+namespace Ai_Panel.Pages.Admin.UserAiChatLogsDashboard;
 
 [PermissionChecker]
 public class IndexModel(IMediator mediator,  IUser userRepository, IUserAiChatLogsRepository UACLRepository) : PageModel

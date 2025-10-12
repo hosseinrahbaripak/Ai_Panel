@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
-using Live_Book.Application.DTOs.Common;
-using Live_Book.Domain;
+using Ai_Panel.Application.DTOs.Common;
+using Ai_Panel.Domain;
 
-namespace Live_Book.Application.DTOs.AiContent;
+namespace Ai_Panel.Application.DTOs.AiContent;
 
 public class AiContentUpsertDto : BaseDto
 {

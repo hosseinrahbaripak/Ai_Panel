@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using PersianAssistant.Models;
 
-namespace Live_Book.Application.Features.AiContent.Request.Command;
+namespace Ai_Panel.Application.Features.AiContent.Request.Command;
 public class DeleteAiContentRequest : IRequest<ServiceMessage>
 {
 	public int Id { get; set; }

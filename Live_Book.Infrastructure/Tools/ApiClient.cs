@@ -2,7 +2,7 @@
 using Newtonsoft.Json.Serialization;
 using System.Net;
 using System.Text;
-namespace Live_Book.Infrastructure.Tools;
+namespace Ai_Panel.Infrastructure.Tools;
 public class ApiClient
 {
 	private string Url { get; set; }

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace Live_Book.Application.DTOs.AiChat;
+namespace Ai_Panel.Application.DTOs.AiChat;
 
 public class AiChatApiDto
 {

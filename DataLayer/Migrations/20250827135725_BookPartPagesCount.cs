@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Live_Book.Persistence.Migrations
+namespace Ai_Panel.Persistence.Migrations
 {
     /// <inheritdoc />
     public partial class BookPartPagesCount : Migration

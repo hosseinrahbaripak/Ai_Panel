@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace Live_Book.Application.Tools
+namespace Ai_Panel.Application.Tools
 {
 	public static class PasswordManager
 	{

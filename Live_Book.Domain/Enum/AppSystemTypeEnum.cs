@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Live_Book.Domain.Enum;
+namespace Ai_Panel.Domain.Enum;
 
 public enum AppSystemTypeEnum : byte
 {

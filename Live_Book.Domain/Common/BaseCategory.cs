@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Live_Book.Domain.Common
+namespace Ai_Panel.Domain.Common
 {
     /// <summary>
     ///  For model that has Title column

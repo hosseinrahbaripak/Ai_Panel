@@ -1,6 +1,6 @@
-﻿using Live_Book.Domain.Enum;
+﻿using Ai_Panel.Domain.Enum;
 
-namespace Live_Book.Classes;
+namespace Ai_Panel.Classes;
 
 public class AdminLoggedIn
 {

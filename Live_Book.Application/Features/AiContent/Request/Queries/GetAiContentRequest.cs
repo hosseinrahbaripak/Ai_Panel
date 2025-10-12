@@ -1,7 +1,7 @@
-﻿using Live_Book.Application.DTOs.AiContent;
+﻿using Ai_Panel.Application.DTOs.AiContent;
 using MediatR;
 
-namespace Live_Book.Application.Features.AiContent.Request.Queries;
+namespace Ai_Panel.Application.Features.AiContent.Request.Queries;
 
 public class GetAiContentRequest : IRequest<AiContentUpsertDto?>
 {

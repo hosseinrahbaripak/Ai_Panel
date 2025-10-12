@@ -1,4 +1,4 @@
-﻿namespace Live_Book.Infrastructure.Models.Sso;
+﻿namespace Ai_Panel.Infrastructure.Models.Sso;
 public class GetProjectTokenResponseDto
 {
 	public string Title { get; set; }

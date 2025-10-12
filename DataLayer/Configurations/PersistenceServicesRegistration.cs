@@ -1,12 +1,12 @@
-﻿using Live_Book.Application.Contracts.Persistence.Dapper;
-using Live_Book.Application.Contracts.Persistence.EfCore;
-using Live_Book.Persistence.Repository.Dapper;
-using Live_Book.Persistence.Repository.EfCore;
+﻿using Ai_Panel.Application.Contracts.Persistence.Dapper;
+using Ai_Panel.Application.Contracts.Persistence.EfCore;
+using Ai_Panel.Persistence.Repository.Dapper;
+using Ai_Panel.Persistence.Repository.EfCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Live_Book.Persistence.Configurations;
+namespace Ai_Panel.Persistence.Configurations;
 
 public static class PersistenceServicesRegistration
 {

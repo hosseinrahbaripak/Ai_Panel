@@ -1,19 +1,19 @@
 ﻿using AspNetCoreRateLimit;
 using DNTCaptcha.Core;
-using Live_Book.Application.Configurations;
-using Live_Book.Application.Constants;
-using Live_Book.Application.Tools;
-using Live_Book.Classes;
-using Live_Book.Domain;
-using Live_Book.Domain.Enum;
-using Live_Book.Infrastructure.Configurations;
-using Live_Book.Persistence.Configurations;
+using Ai_Panel.Application.Configurations;
+using Ai_Panel.Application.Constants;
+using Ai_Panel.Application.Tools;
+using Ai_Panel.Classes;
+using Ai_Panel.Domain;
+using Ai_Panel.Domain.Enum;
+using Ai_Panel.Infrastructure.Configurations;
+using Ai_Panel.Persistence.Configurations;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
-using Text = Live_Book.Application.Constants.Text;
+using Text = Ai_Panel.Application.Constants.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 var myAllowSpecificOrigins = "_myAllowSpecificOrigins";

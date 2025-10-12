@@ -1,13 +1,13 @@
 ﻿using System.Linq.Expressions;
 using System.Transactions;
-using Live_Book.Application.Constants;
-using Live_Book.Application.Contracts.Persistence.EfCore;
-using Live_Book.Application.Features.AiContent.Request.Command;
+using Ai_Panel.Application.Constants;
+using Ai_Panel.Application.Contracts.Persistence.EfCore;
+using Ai_Panel.Application.Features.AiContent.Request.Command;
 using MediatR;
 using PersianAssistant.Extensions;
 using PersianAssistant.Models;
 
-namespace Live_Book.Application.Features.AiContent.Handler.Command;
+namespace Ai_Panel.Application.Features.AiContent.Handler.Command;
 public class DeleteAiContentRequestHandler : IRequestHandler<DeleteAiContentRequest, ServiceMessage>
 {
 	private readonly IAiContentRepository _aiContentRepository;

@@ -1,4 +1,4 @@
-﻿namespace Live_Book.Application.Enum
+﻿namespace Ai_Panel.Application.Enum
 {
 	public enum TimeType
 	{

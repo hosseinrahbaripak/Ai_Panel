@@ -1,11 +1,11 @@
-﻿using Live_Book.Infrastructure.Contracts;
-using Live_Book.Infrastructure.Models.Sso;
-using Live_Book.Infrastructure.Tools;
+﻿using Ai_Panel.Infrastructure.Contracts;
+using Ai_Panel.Infrastructure.Models.Sso;
+using Ai_Panel.Infrastructure.Tools;
 using MHelliClass.Infrastructure.Model.Sso;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 
-namespace Live_Book.Infrastructure.Services;
+namespace Ai_Panel.Infrastructure.Services;
 public class SsoService(IMemoryCache memoryCache, IConfiguration configuration) : ISsoService
 {
 	public async Task<string> GetToken()

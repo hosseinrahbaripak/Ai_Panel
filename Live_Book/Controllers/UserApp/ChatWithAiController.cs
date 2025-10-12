@@ -1,9 +1,9 @@
-﻿//using Live_Book.Application.Constants;
-//using Live_Book.Application.Contracts.Persistence.EfCore;
-//using Live_Book.Application.DTOs.AiChat;
-//using Live_Book.Application.Features.AiChat.Request.Command;
-//using Live_Book.Application.Features.AiChat.Request.Queries;
-//using Live_Book.Classes;
+﻿//using Ai_Panel.Application.Constants;
+//using Ai_Panel.Application.Contracts.Persistence.EfCore;
+//using Ai_Panel.Application.DTOs.AiChat;
+//using Ai_Panel.Application.Features.AiChat.Request.Command;
+//using Ai_Panel.Application.Features.AiChat.Request.Queries;
+//using Ai_Panel.Classes;
 //using MediatR;
 //using Microsoft.AspNetCore.Mvc;
 //using Newtonsoft.Json;
@@ -11,7 +11,7 @@
 //using PersianAssistant.Models;
 //using System.Net;
 
-//namespace Live_Book.Controllers.UserApp
+//namespace Ai_Panel.Controllers.UserApp
 //{
 //    [Route("ChatWithAi")]
 //    public class ChatWithAiController(IMediator mediator, IUser user, IErrorLog log, IBookPart part, IUserBooks userBooks, WebTools webTools,

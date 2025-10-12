@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Live_Book.Application.Configurations
+namespace Ai_Panel.Application.Configurations
 {
     public static class ApplicationServicesRegistration
     {

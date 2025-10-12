@@ -1,10 +1,10 @@
-﻿using Live_Book.Application.Contracts.Persistence.EfCore;
-using Live_Book.Classes;
+﻿using Ai_Panel.Application.Contracts.Persistence.EfCore;
+using Ai_Panel.Classes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace Live_Book
+namespace Ai_Panel
 {
     public class PermissionCheckerAttribute : AuthorizeAttribute, IAsyncAuthorizationFilter
     {

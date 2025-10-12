@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Live_Book.Classes
+namespace Ai_Panel.Classes
 {
 	public static class SessionExtension
     {

@@ -1,4 +1,4 @@
-﻿namespace Live_Book.Application.DTOs.AiChat;
+﻿namespace Ai_Panel.Application.DTOs.AiChat;
 
 public class UpsertUserAiChatLogDto
 {

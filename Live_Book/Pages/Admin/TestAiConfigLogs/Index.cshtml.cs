@@ -1,12 +1,12 @@
-﻿using Live_Book.Application.Contracts.Persistence.EfCore;
-using Live_Book.Application.DTOs.TestAiConfig;
-using Live_Book.Application.Features.TestAiConfig.Request.Queries;
+﻿using Ai_Panel.Application.Contracts.Persistence.EfCore;
+using Ai_Panel.Application.DTOs.TestAiConfig;
+using Ai_Panel.Application.Features.TestAiConfig.Request.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Text.Json;
 
-namespace Live_Book.Pages.Admin.TestAiConfigLogs;
+namespace Ai_Panel.Pages.Admin.TestAiConfigLogs;
 
 [PermissionChecker]
 public class IndexModel(

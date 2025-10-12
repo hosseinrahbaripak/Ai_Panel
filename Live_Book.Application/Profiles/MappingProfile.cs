@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
-using Live_Book.Application.Constants;
-using Live_Book.Application.DTOs;
-using Live_Book.Application.DTOs.AiChat;
-using Live_Book.Application.DTOs.AiConfig;
-using Live_Book.Application.DTOs.AiContent;
+using Ai_Panel.Application.Constants;
+using Ai_Panel.Application.DTOs;
+using Ai_Panel.Application.DTOs.AiChat;
+using Ai_Panel.Application.DTOs.AiConfig;
+using Ai_Panel.Application.DTOs.AiContent;
 
-using Live_Book.Application.Tools;
-using Live_Book.Domain;
+using Ai_Panel.Application.Tools;
+using Ai_Panel.Domain;
 
-namespace Live_Book.Application.Profiles;
+namespace Ai_Panel.Application.Profiles;
 
 public class MappingProfile : Profile
 {

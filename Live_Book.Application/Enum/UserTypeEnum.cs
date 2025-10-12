@@ -1,6 +1,6 @@
-﻿using Live_Book.Domain.Enum;
+﻿using Ai_Panel.Domain.Enum;
 
-namespace Live_Book.Application.Enum;
+namespace Ai_Panel.Application.Enum;
 public enum UserTypeEnum
 {
 	Student,

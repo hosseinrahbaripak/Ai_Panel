@@ -1,6 +1,6 @@
-﻿using Live_Book.Application.Enum;
+﻿using Ai_Panel.Application.Enum;
 
-namespace Live_Book.Application.DTOs
+namespace Ai_Panel.Application.DTOs
 {
 	public class UsersFilter
 	{

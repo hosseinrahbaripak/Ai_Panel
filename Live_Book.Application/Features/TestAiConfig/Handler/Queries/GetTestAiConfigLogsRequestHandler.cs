@@ -1,10 +1,10 @@
 ﻿using System.Diagnostics.Eventing.Reader;
-using Live_Book.Application.Contracts.Persistence.Dapper;
-using Live_Book.Application.DTOs.TestAiConfig;
-using Live_Book.Application.Features.TestAiConfig.Request.Queries;
+using Ai_Panel.Application.Contracts.Persistence.Dapper;
+using Ai_Panel.Application.DTOs.TestAiConfig;
+using Ai_Panel.Application.Features.TestAiConfig.Request.Queries;
 using MediatR;
 
-namespace Live_Book.Application.Features.TestAiConfig.Handler.Queries;
+namespace Ai_Panel.Application.Features.TestAiConfig.Handler.Queries;
 public class GetTestAiConfigLogsRequestHandler(ITestAiConfigRepositoryDp TACRepository) : IRequestHandler<GetTestAiConfigLogsRequest, TestAiConfigDashboardDto>
 {
 	public async Task<TestAiConfigDashboardDto> Handle(GetTestAiConfigLogsRequest request, CancellationToken cancellationToken)

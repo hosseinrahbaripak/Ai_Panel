@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Live_Book.Pages
+namespace Ai_Panel.Pages
 {
     public class UnderConstructionModel : PageModel
     {

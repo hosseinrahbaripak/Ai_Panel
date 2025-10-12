@@ -1,15 +1,15 @@
-using Live_Book.Application.Constants;
-using Live_Book.Application.Contracts.Persistence.EfCore;
-using Live_Book.Application.DTOs.AiConfig;
-using Live_Book.Application.Features.AiConfig.Request.Command;
-using Live_Book.Classes;
+using Ai_Panel.Application.Constants;
+using Ai_Panel.Application.Contracts.Persistence.EfCore;
+using Ai_Panel.Application.DTOs.AiConfig;
+using Ai_Panel.Application.Features.AiConfig.Request.Command;
+using Ai_Panel.Classes;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Text.Json;
 
-namespace Live_Book.Pages.Admin.AiConfig
+namespace Ai_Panel.Pages.Admin.AiConfig
 {
 	public class AddModel(IMediator mediator, IAiModelRepository aiModelRepository,
 		IAiConfigRepository aiConfigRepository, IAiPlatformRepository aiPlatformRepository) : PageModel

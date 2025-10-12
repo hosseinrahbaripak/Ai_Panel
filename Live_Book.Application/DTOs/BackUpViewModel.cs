@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Live_Book.Application.DTOs
+namespace Ai_Panel.Application.DTOs
 {
     public class BackUpViewModel
     {

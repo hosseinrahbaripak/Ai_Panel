@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.IO.Compression;
 
-namespace Live_Book.Infrastructure.Tools
+namespace Ai_Panel.Infrastructure.Tools
 {
     internal static class StaticFileHelper
     {

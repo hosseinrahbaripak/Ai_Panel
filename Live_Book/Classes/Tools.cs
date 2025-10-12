@@ -3,18 +3,18 @@
 //using ClosedXML.Excel;
 //using DocumentFormat.OpenXml.Spreadsheet;
 //using GoogleRecaptcha.Models;
-//using Live_Book.Application.Contracts.Persistence.EfCore;
-//using Live_Book.Application.DTOs;
-//using Live_Book.Application.Tools;
-//using Live_Book.Domain;
-//using Live_Book.Domain.Enum;
-//using Live_Book.Models;
+//using Ai_Panel.Application.Contracts.Persistence.EfCore;
+//using Ai_Panel.Application.DTOs;
+//using Ai_Panel.Application.Tools;
+//using Ai_Panel.Domain;
+//using Ai_Panel.Domain.Enum;
+//using Ai_Panel.Models;
 //using Microsoft.CodeAnalysis;
 //using Newtonsoft.Json;
 //using PersianAssistant.Extensions;
 
 
-//namespace Live_Book.Classes
+//namespace Ai_Panel.Classes
 //{
 //    public static class ExcelHelper
 //    {

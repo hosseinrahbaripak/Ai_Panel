@@ -1,11 +1,11 @@
 ﻿using Dapper;
-using Live_Book.Application.Contracts.Persistence.Dapper;
-using Live_Book.Application.DTOs.TestAiConfig;
+using Ai_Panel.Application.Contracts.Persistence.Dapper;
+using Ai_Panel.Application.DTOs.TestAiConfig;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using System.Data;
 
-namespace Live_Book.Persistence.Repository.Dapper;
+namespace Ai_Panel.Persistence.Repository.Dapper;
 public class TestAiConfigRepositoryDp : ITestAiConfigRepositoryDp
 {
 	private readonly IDbConnection _db;

@@ -1,7 +1,7 @@
-﻿using Live_Book.Application.DTOs;
-using Live_Book.Application.DTOs.AiChat;
+﻿using Ai_Panel.Application.DTOs;
+using Ai_Panel.Application.DTOs.AiChat;
 
-namespace Live_Book.Application.Contracts.Persistence.Dapper;
+namespace Ai_Panel.Application.Contracts.Persistence.Dapper;
 public interface IUserAiChatLogsRepositoryDp
 {
 	Task<List<IdTitleTimeBased>> GetAiChatsCount(object parameters);

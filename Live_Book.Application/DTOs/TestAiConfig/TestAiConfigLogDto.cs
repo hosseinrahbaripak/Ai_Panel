@@ -1,8 +1,8 @@
-﻿using Live_Book.Application.DTOs.AiChat;
+﻿using Ai_Panel.Application.DTOs.AiChat;
 using System.ComponentModel;
 using System.Text.Json;
 
-namespace Live_Book.Application.DTOs.TestAiConfig;
+namespace Ai_Panel.Application.DTOs.TestAiConfig;
 public class TestAiConfigLogDto : AiChatLogDto
 {
 	[DisplayName("بیشترین تعداد کلمات خروجی")]

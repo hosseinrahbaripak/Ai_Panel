@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Live_Book.Domain
+namespace Ai_Panel.Domain
 {
 	public class Pages
 	{
