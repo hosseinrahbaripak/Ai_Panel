@@ -77,8 +77,8 @@ builder.Services.AddSingleton<WebTools>();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(option =>
                 {
-                    //option.LoginPath = "/Admin/Login";
-                    //option.LogoutPath = "/Admin/SignOut";
+                    option.LoginPath = "/Admin/Login";
+                    option.LogoutPath = "/Admin/SignOut";
                     option.ExpireTimeSpan = TimeSpan.FromDays(3);
                     option.Cookie.HttpOnly = true;
                 });
@@ -179,9 +179,9 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 app.MapControllers();
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
     name: "areas",

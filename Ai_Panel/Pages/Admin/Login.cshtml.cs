@@ -46,7 +46,7 @@ namespace Ai_Panel.Pages.Admin
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToPage("/Admin/Home/Index");
+                return RedirectToPage("/");
             }
             ReturnUrl = returnUrl;
             return Page();
@@ -70,82 +70,77 @@ namespace Ai_Panel.Pages.Admin
                 ModelState.AddModelError(_captchaOptions.CaptchaComponent.CaptchaInputName, SystemMessages.CaptchaError);
                 return Page();
             }
-            var admin = await _adminManage.FirstOrDefault(x => x.UserName == Login.UserName.ToLower());
-            if (admin == null)
+            //var admin = await _adminManage.FirstOrDefault(x => x.UserName == Login.UserName.ToLower());
+
+
+            var pass = "12345";
+            if (Login.Password != pass)
             {
                 ModelState.AddModelError("Login.UserName", "اطلاعات صحیح نیست");
                 return Page();
             }
             else
             {
-                var pass = Login.Password.GeneratePass(admin.Key);
-                if (pass.Item2 != admin.Password)
+                try
                 {
-                    ModelState.AddModelError("Login.UserName", "اطلاعات صحیح نیست");
-                    return Page();
-                }
-                else
-                {
-                    try
+                    //int? adminProfileId = await _adminManage.GetAdminProfileId(admin.LoginID);
+                    //var pages = await _roleInPages.GetAll(x => x.RoleId == admin.RoleId, null, "Pages");
+                    var clamis = new List<Claim>
+                        {
+                            new Claim(CustomClaimTypes.AdminLoginId,"admin"),
+                            //new Claim(CustomClaimTypes.UserName,admin.UserName),
+                            //new Claim(CustomClaimTypes.Email,admin.Email),
+                            //new Claim(CustomClaimTypes.RoleId,admin.RoleId.ToString()),
+                            //new Claim(CustomClaimTypes.AdminType,admin.Role.AdminTypeId?.ToString() ?? 0.ToString()),
+                            //new Claim(CustomClaimTypes.IsSuperAdmin,admin.IsSuperAdmin.ToString()),
+                            //new Claim(CustomClaimTypes.Pages,string.Join(",",pages.Select(x=>x.Pages.PageAddress))),
+                            //new Claim(CustomClaimTypes.AdminProfileId, adminProfileId.ToString() ?? string.Empty)
+                        };
+
+                    var identity = new ClaimsIdentity(clamis, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                    var principal = new ClaimsPrincipal(identity);
+
+                    var properties = new AuthenticationProperties
                     {
-                        int? adminProfileId = await _adminManage.GetAdminProfileId(admin.LoginID);
-                        var pages = await _roleInPages.GetAll(x => x.RoleId == admin.RoleId, null, "Pages");
-                        var clamis = new List<Claim>
+                        IsPersistent = Login.RememberMe,
+                    };
+
+                    await HttpContext.SignInAsync(principal, properties);
+
+                    if (!string.IsNullOrEmpty(ReturnUrl))
+                    {
+                        if (Url.IsLocalUrl(ReturnUrl))
                         {
-                            new Claim(CustomClaimTypes.AdminLoginId,admin.LoginID.ToString()),
-                            new Claim(CustomClaimTypes.UserName,admin.UserName),
-                            new Claim(CustomClaimTypes.Email,admin.Email),
-                            new Claim(CustomClaimTypes.RoleId,admin.RoleId.ToString()),
-                            new Claim(CustomClaimTypes.AdminType,admin.Role.AdminTypeId?.ToString() ?? 0.ToString()),
-                            new Claim(CustomClaimTypes.IsSuperAdmin,admin.IsSuperAdmin.ToString()),
-                            new Claim(CustomClaimTypes.Pages,string.Join(",",pages.Select(x=>x.Pages.PageAddress))),
-                            new Claim(CustomClaimTypes.AdminProfileId, adminProfileId.ToString() ?? string.Empty)
-                        };
-
-                        var identity = new ClaimsIdentity(clamis, CookieAuthenticationDefaults.AuthenticationScheme);
-
-                        var principal = new ClaimsPrincipal(identity);
-
-                        var properties = new AuthenticationProperties
-                        {
-                            IsPersistent = Login.RememberMe,
-                        };
-
-                        await HttpContext.SignInAsync(principal, properties);
-
-                        if (!string.IsNullOrEmpty(ReturnUrl))
-                        {
-                            if (Url.IsLocalUrl(ReturnUrl))
-                            {
-                                return Redirect(ReturnUrl);
-                            }
+                            return Redirect(ReturnUrl);
                         }
                     }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e);
-                    }
-
-                    return RedirectToPage("/Admin/Home/Index");
                 }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+
+                return RedirectToPage("/");
             }
-            //برای ساخت ادمین جدید از این طریق استفاده می شود
-            //var password = login.Password.GeneratePass();
-            //_Context.Add(new Model.AdminLogin()
-            //{
-            //    Key = password.Item1,
-            //    Password = password.Item2,
-            //    UserName = login.UserName
-            //});
-
-            //var user = _Context.GetAdminForLogin
-            //    (login.UserName.ToLower(), login.Password);
-
-            //if (user == null)
-            //{
-            //    ModelState.AddModelError("UserName", "اطلاعات صحیح نیست");
-            //    return View(login);
-            //}
         }
+        //برای ساخت ادمین جدید از این طریق استفاده می شود
+        //var password = login.Password.GeneratePass();
+        //_Context.Add(new Model.AdminLogin()
+        //{
+        //    Key = password.Item1,
+        //    Password = password.Item2,
+        //    UserName = login.UserName
+        //});
+
+        //var user = _Context.GetAdminForLogin
+        //    (login.UserName.ToLower(), login.Password);
+
+        //if (user == null)
+        //{
+        //    ModelState.AddModelError("UserName", "اطلاعات صحیح نیست");
+        //    return View(login);
+        //}
+
     }
 }

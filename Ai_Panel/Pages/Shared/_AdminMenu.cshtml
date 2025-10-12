@@ -37,10 +37,10 @@
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
 					<li class="nav-item">
-						<a class="nav-link text-dark" href="@Urls.AdminHome@ActionPage.Index">خانه</a>
+						<a class="dropdown-item" asp-page="@Urls.AiConfig@ActionPage.Index">تنظیمات و کانفیگ</a>
 					</li>
 
-					<li class="nav-item dropdown">
+					@* <li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" id="dropdownMenuButton2" role="button" data-bs-toggle="dropdown" aria-expanded="true">
 							هوش مصنوعی
 						</a>
@@ -64,7 +64,7 @@
 							<li> <a class="dropdown-item" asp-controller="FrequentlyQuestion" asp-action="Index">سوالات متداول</a></li>
 							<li> <a class="dropdown-item" asp-controller="LearnApp" asp-action="Index">آموزش اپ</a></li>
 						</ul>
-					</li>
+					</li> *@
 				</ul>
 			</div>
 		</div>
