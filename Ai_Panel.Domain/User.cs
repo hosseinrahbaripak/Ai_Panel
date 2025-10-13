@@ -28,7 +28,7 @@ namespace Ai_Panel.Domain
         [MaxLength(5)]
         [Display(Name = "کد فعالسازی")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
-        public string ActiveCode { get; set; }
+        public string? ActiveCode { get; set; }
 
         [MaxLength(11)]
         [Display(Name = "شماره همراه")]
