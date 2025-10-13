@@ -1,0 +1,31 @@
+name: Build and Test Docker Image
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+  
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        run: |
+          docker build -t ai_panel_test -f ./Dockerfile .
+
+      - name: Test Docker container
+        run: |
+          docker run --rm ai_panel_test dotnet --version
+
+      - name: List published files
+        run: |
+          docker run --rm ai_panel_test ls /app
