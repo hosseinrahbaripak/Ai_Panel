@@ -1,0 +1,13 @@
+﻿@page
+@model Ai_Panel.Pages.Admin.TestAiModel
+@{
+}
+<form method="post">
+    <input type="text" name="prompt" placeholder="Enter prompt..." />
+    <button type="submit">Send to AI</button>
+</form>
+
+@if (Model.AiResponse != null)
+{
+    <p>AI Response: @Model.AiResponse</p>
+}

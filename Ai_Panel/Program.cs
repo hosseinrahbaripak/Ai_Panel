@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using Text = Ai_Panel.Application.Constants.Text;
+using Ai_Panel.Application.Services.Ai;
 
 var builder = WebApplication.CreateBuilder(args);
 var myAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -27,6 +28,8 @@ builder.Services.AddCors(options =>
 			builder.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
 		});
 });
+
+builder.Services.AddHttpClient<IAiApiClient, AiApiClient>();
 
 builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
