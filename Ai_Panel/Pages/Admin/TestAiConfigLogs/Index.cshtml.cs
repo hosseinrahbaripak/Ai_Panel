@@ -10,8 +10,8 @@ namespace Ai_Panel.Pages.Admin.TestAiConfigLogs;
 
 [PermissionChecker]
 public class IndexModel(
-	IMediator mediator,  IAdminManage adminManage,
-	ITestAiConfigRepository TACRepository, IAiModelRepository aiModelRepository
+	IMediator mediator,
+	 IAiModelRepository aiModelRepository
 ) : PageModel
 {
 	public TestAiConfigDashboardDto TestAiConfigLogsDto { get; set; }

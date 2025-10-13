@@ -16,15 +16,11 @@ namespace Ai_Panel.Pages.Admin
     public class LoginModel : PageModel
     {
         #region Ctor 
-        private readonly IAdminManage _adminManage;
-        private readonly IRoleInPages _roleInPages;
         private readonly IDNTCaptchaValidatorService _validatorService;
         private readonly DNTCaptchaOptions _captchaOptions;
 
-        public LoginModel(IAdminManage adminManage, IRoleInPages roleInPages, IDNTCaptchaValidatorService validatorService, IOptions<DNTCaptchaOptions> options)
+        public LoginModel( IDNTCaptchaValidatorService validatorService, IOptions<DNTCaptchaOptions> options)
         {
-            _adminManage = adminManage;
-            _roleInPages = roleInPages;
             _validatorService = validatorService;
             _captchaOptions = options == null ? throw new ArgumentNullException(nameof(options)) : options.Value;
         }

@@ -13,12 +13,11 @@ namespace Ai_Panel.Application.Features.AiContent.Handler.Command;
 public class UpsertAiContentRequestHandler : IRequestHandler<UpsertAiContentRequest,ServiceMessage>
 {
     private readonly IMapper _mapper;
-    private readonly IAiContentRepository _aiContentRepository;
 
-    public UpsertAiContentRequestHandler(IMapper mapper, IAiContentRepository aiContentRepository)
+
+    public UpsertAiContentRequestHandler(IMapper mapper)
     {
         _mapper = mapper;
-        _aiContentRepository = aiContentRepository;
     }
     public async Task<ServiceMessage> Handle(UpsertAiContentRequest request, CancellationToken cancellationToken)
     {

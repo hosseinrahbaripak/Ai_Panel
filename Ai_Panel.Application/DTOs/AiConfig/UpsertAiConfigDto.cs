@@ -21,7 +21,7 @@ public class UpsertAiConfigDto : BaseDto
 
     [DisplayName("مدل هوش مصنوعی")]
 	[Required(ErrorMessage = "لطفا {0} را انتخاب کنید")]
-	public int AiModelId { get; set; }
+	public int? AiModelId { get; set; }
 
     [MaxLength(2000)]
 	[DisplayName("پرامپت")]

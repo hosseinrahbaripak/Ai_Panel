@@ -8,7 +8,6 @@ namespace Ai_Panel
 {
     public class PermissionCheckerAttribute : AuthorizeAttribute, IAsyncAuthorizationFilter
     {
-        private IRoleInPages _roleInPages;
 
         public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
         {

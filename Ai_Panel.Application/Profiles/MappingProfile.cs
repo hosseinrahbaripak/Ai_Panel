@@ -22,8 +22,6 @@ public class MappingProfile : Profile
 		CreateMap<UpsertAiConfigDto, AiConfig>().ForMember(dest => dest.Stop, opt => opt.MapFrom(src => src.Stop.Split('،', StringSplitOptions.None) ?? Enumerable.Empty<string>()))
 			.ReverseMap().ForMember(dest => dest.Stop, opt => opt.MapFrom(src => src.Stop.Any() ? string.Join("،", src.Stop) : null));
 
-		CreateMap<AiContent, AiContentUpsertDto>().ReverseMap();
-		CreateMap<TestAiConfig, TestAiConfigDto>().ReverseMap();
 
 
 	}

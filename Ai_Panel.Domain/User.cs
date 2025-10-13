@@ -47,12 +47,6 @@ namespace Ai_Panel.Domain
 
         public string? PassKey { get; set; }
 
-        [MaxLength(10)]
-        [Display(Name = "کد ملی")]
-        public string? NationalCode { get; set; }
-
-        [Display(Name = "جنسیت")]
-        public int? Gender { get; set; }
 
         public int Status { get; set; }
 
@@ -64,12 +58,6 @@ namespace Ai_Panel.Domain
 
         public bool IsDelete { get; set; }
         public bool HasAccessToAiChat { get; set; }
-
-
-		[DefaultValue(null)]
-		public int? AdminId { get; set; }
-		[ForeignKey(nameof(AdminId))]
-		public AdminLogin? Admin { get; set; }
 
 		public List<UserSession> UserSessions { get; set; }
 

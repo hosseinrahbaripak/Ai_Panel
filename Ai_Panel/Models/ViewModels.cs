@@ -14,8 +14,4 @@ namespace Ai_Panel.Models
         public PagingInfo PagingInfo { get; set; }
     }
 
-    public class FullInfoUserPaging
-    {
-        public List<RequestLogin>? RequestLogins { get; set; }
-    }
 }

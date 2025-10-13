@@ -40,13 +40,13 @@
 											<option disabled selected>لطفا موردی را انتخاب کنید</option>
 										</select>
 									</div>
-									<div class="col-lg-3 col-6">
+									@* <div class="col-lg-3 col-6">
 										<label class="">مدل</label>
 										<select class="form-select custom-select" id="AiModelTypes" asp-for="AiConfigDto.AiModelId" onchange="aiChengedAlert();">
 											<option disabled selected>لطفا موردی را انتخاب کنید</option>
 										</select>
 										<span class="text-danger" asp-validation-for="AiConfigDto.AiModelId"></span>
-									</div>
+									</div> *@
 									<div class="col-lg-4 col-12 mt-1">
 										<label class="">خلاقیت در پاسخگویی : </label>
 										<span id="rangeValue2" class="font-weight-bold ms-2">AiConfigDto?.Temperature</span>

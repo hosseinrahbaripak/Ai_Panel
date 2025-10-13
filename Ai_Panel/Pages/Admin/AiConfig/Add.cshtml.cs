@@ -17,13 +17,13 @@ namespace Ai_Panel.Pages.Admin.AiConfig
 		public string Error { get; set; }
 		[BindProperty]
 		public UpsertAiConfigDto AiConfigDto { get; set; }
-		//[BindProperty]
-		//public AiContentUpsertDto AiContentDto { get; set; }
 		[BindProperty]
+		//public AiContentUpsertDto AiContentDto { get; set; }
+		//[BindProperty]
 		public bool WithAiContent { get; set; }
 		public async Task<IActionResult> OnGet()
 		{
-			//await FillDropDown();
+			await FillDropDown();
 			return Page();
 		}
 		public async Task<IActionResult> OnPostAsync()

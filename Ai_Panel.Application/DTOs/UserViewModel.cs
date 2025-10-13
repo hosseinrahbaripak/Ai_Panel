@@ -66,7 +66,6 @@ namespace Ai_Panel.Application.DTOs
 	public class FullInfoUser
 	{
 		public Domain.User User { get; set; }
-		public List<RequestLogin> RequestLogins { get; set; }
 		public int RequestLoginsCount { get; set; }
 		public int BookReadLogsCount { get; set; }
 	}

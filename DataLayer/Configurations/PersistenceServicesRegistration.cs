@@ -25,17 +25,10 @@ public static class PersistenceServicesRegistration
         #region --IOC--EfCore
         services.AddScoped<IErrorLog, ErrorLogRepository>();
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-        services.AddScoped<IRole, RoleRepository>();
-        services.AddScoped<IAdminManage, AdminManageRepository>();
-        services.AddScoped<IAboutUs, AboutUsRepository>();
         services.AddScoped<IApiRequestLog, ApiRequestLogRepository>();
-        services.AddScoped<IRoleInPages, RoleInPagesService>();
         services.AddScoped<IUserAiChatLogsRepository, UserAiChatLogsRepository>();
-        services.AddScoped<IAdminTypeRepository, AdminTypeRepository>();
         services.AddScoped<IAiConfigRepository, AiConfigRepository>();
         services.AddScoped<IAiModelRepository, AiModelRepository>();
-        services.AddScoped<IAiContentRepository, AiContentRepository>();
-        services.AddScoped<ITestAiConfigRepository, TestAiConfigRepository>();
         services.AddScoped<IAiPlatformRepository, AiPlatformRepository>();
         #endregion
 

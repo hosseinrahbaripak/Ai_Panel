@@ -7,10 +7,12 @@ namespace Ai_Panel.Domain;
 
 public class AiConfig : BaseCategory
 {
-	[MaxLength(50)]
+	[Key]
+    public int Id { get; set; }
+
+    [MaxLength(50)]
 	[DisplayName("نسخه")]
 	public string Version { get; set; }
-
     public int? AiPlatformId { get; set; }
     [ForeignKey(nameof(AiPlatformId))]
     public AiPlatform? AiPlatform { get; set; }
@@ -22,9 +24,6 @@ public class AiConfig : BaseCategory
 	[Required(ErrorMessage = "لطفا {0} را وارد کنید")]
 	[DisplayName("پرامپت")]
 	public string Prompt { get; set; }
-
-	[DisplayName("پیام آغازین")]
-	public string FirstMessage { get; set; }
 
 	[Range(0, 2)]
 	public float Temperature { get; set; }
@@ -41,10 +40,4 @@ public class AiConfig : BaseCategory
 	[Range(-2, 2)]
 	public float FrequencyPenalty { get; set; }
 
-	[ForeignKey(nameof(CreateBy))]
-	public AdminLogin AdminCreated { get; set; }
-
-	[ForeignKey(nameof(UpdateBy))]
-	public AdminLogin AdminUpdeted { get; set; }
 }
-// ==> https://medium.com/nerd-for-tech/model-parameters-in-openai-api-161a5b1f8129

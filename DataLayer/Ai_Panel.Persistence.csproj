@@ -25,5 +25,9 @@
     <ProjectReference Include="..\Ai_Panel.Domain\Ai_Panel.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 
 </Project>

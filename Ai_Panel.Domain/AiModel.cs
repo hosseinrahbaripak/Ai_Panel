@@ -15,5 +15,4 @@ public class AiModel
     public AiModel? Parent { get; set; }
     public bool IsDelete { get; set; }
     public List<AiPlatform> Platforms { get; set; }
-    public List<TestAiConfig>? TestAiConfigs { get; set; }
 }

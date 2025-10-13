@@ -10,11 +10,7 @@ using PersianAssistant.Models;
 namespace Ai_Panel.Application.Features.AiContent.Handler.Command;
 public class DeleteAiContentRequestHandler : IRequestHandler<DeleteAiContentRequest, ServiceMessage>
 {
-	private readonly IAiContentRepository _aiContentRepository;
-	public DeleteAiContentRequestHandler(IAiContentRepository aiContentRepository)
-	{
-		_aiContentRepository = aiContentRepository;
-	}
+
 	public async Task<ServiceMessage> Handle(DeleteAiContentRequest request, CancellationToken cancellationToken)
 	{
 		//try
