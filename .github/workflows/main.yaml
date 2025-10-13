@@ -29,5 +29,5 @@ jobs:
 
 
       - name: List published files
-        run: |
-          docker run --rm ai_panel_test ls /app
+        run: docker run --rm --entrypoint ls ai_panel_test /app
+
