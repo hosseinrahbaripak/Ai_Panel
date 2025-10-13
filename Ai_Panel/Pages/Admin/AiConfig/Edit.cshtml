@@ -191,39 +191,12 @@
 
 									</div>
 								</div>
-								<div class="row">
-									<button class="btn btn-outline-primary pt-2" onclick="chatBookSelectTrigger()">
-										انتخاب فصل کتاب
-										<i class="fa fa-angle-down" id="chatBookSelectTriggerIcon"></i>
-									</button>
-									<div id="chatBookSelect" style="display:none;" class="mt-3">
-										<div class="col-12 mb-2">
-											<label class="">پایه</label>
-											<select class="form-select custom-select" asp-items="ViewBag.BookGroup" id="bookGroupId" onchange="bookGroupChange()">
-												<option disabled selected>لطفا موردی را انتخاب کنید</option>
-											</select>
-											<span class="text-danger"></span>
-										</div>
-										<div class="col-12 mb-2">
-											<label class="">کتاب</label>
-											<select class="form-select custom-select" id="bookSelectBox" onchange="bookChange()">
-												<option disabled selected>لطفا موردی را انتخاب کنید</option>
-											</select>
-										</div>
-										<div class="col-12 mb-2">
-											<label class="">فصل</label>
-											<select class="form-select custom-select" id="bookPartsSelectBox" onchange="partChange(); chatBookSelectTrigger();">
-												<option disabled selected>لطفا موردی را انتخاب کنید</option>
-											</select>
-										</div>
-									</div>
-								</div>
 								<div class="col-lg-12 col-6">
 									@* <input type="hidden" value="@(Model.LastOrDefault()?.Id ?? 0)" id="LastMsgId" /> *@
 									<div class="direct-chat direct-chat-primary mt-3">
 										<div class="card-header ui-sortable-handle row">
 											<div class="col-1">
-												<img src="~/images/1cfc25cf-41bf-41cb-916b-f2d889933703_page-0001.png" alt="turtle"/>
+												<img src="~/images/supporter.jpg" alt="turtle"/>
 											</div>
 											<h5 class="card-title col-10 text-center" id="chat-head">تست هوش مصنوعی</h5>
 											<div class="col-1">
@@ -238,7 +211,7 @@
 													<div class="direct-chat-infos clearfix">
 														<span class="direct-chat-name float-left">دستیار آموزشی</span>
 													</div>
-													<img class="direct-chat-img" src="/images/1cfc25cf-41bf-41cb-916b-f2d889933703_page-0001.png" alt=".">
+													<img class="direct-chat-img" src="/images/supporter.jpg" alt=".">
 													<div class="direct-chat-text">
 														<p>
 															برای دیدن سوالات، ابتدا فصل کتاب را مشخص کنید.
