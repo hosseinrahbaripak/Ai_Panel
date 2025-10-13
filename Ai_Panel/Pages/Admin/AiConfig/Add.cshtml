@@ -30,7 +30,9 @@
 									</div>
 									<div class="col-lg-3 col-6">
 										<label class="">پلتفرم</label>
-										<select class="form-select custom-select" id="AiPlatform" asp-for="AiConfigDto.AiPlatformId" asp-items="ViewBag.AiPlatforms" onchange="changeAiPlatforms(); aiChengedAlert();">
+										<select class="form-select custom-select" id="AiPlatform" asp-for="AiConfigDto.AiPlatformId" asp-items="ViewBag.AiPlatforms"
+										onchange="changeAiPlatforms(); aiChengedAlert();"
+										>
 											<option disabled selected>لطفا موردی را انتخاب کنید</option>
 										</select>
 									</div>
@@ -40,13 +42,13 @@
 											<option disabled selected>لطفا موردی را انتخاب کنید</option>
 										</select>
 									</div>
-									@* <div class="col-lg-3 col-6">
+									<div class="col-lg-3 col-6">
 										<label class="">مدل</label>
 										<select class="form-select custom-select" id="AiModelTypes" asp-for="AiConfigDto.AiModelId" onchange="aiChengedAlert();">
 											<option disabled selected>لطفا موردی را انتخاب کنید</option>
 										</select>
 										<span class="text-danger" asp-validation-for="AiConfigDto.AiModelId"></span>
-									</div> *@
+									</div>
 									<div class="col-lg-4 col-12 mt-1">
 										<label class="">خلاقیت در پاسخگویی : </label>
 										<span id="rangeValue2" class="font-weight-bold ms-2">AiConfigDto?.Temperature</span>
@@ -69,6 +71,10 @@
 										<label class=""> جلوگیری از تکرار کلمه در جمله : </label>
 										<span id="rangeValue1" class="font-weight-bold ms-2">AiConfigDto?.FrequencyPenalty</span>
 										<input type="range" class="form-range" min="-2" max="2" step="0.1" id="customRange1" asp-for="AiConfigDto.FrequencyPenalty">
+										@* @if(AiConfigDto.FrequencyPenalty != null) *@
+										@* { *@
+										@* 	Console.WriteLine(AiConfigDto); *@
+										@* } *@
 										<span class="text-danger" asp-validation-for="AiConfigDto.FrequencyPenalty"></span>
 									</div>
 									@* <div class="col-lg-3 col-12">
@@ -96,39 +102,41 @@
 									<span class="text-danger" asp-validation-for="AiConfigDto.Prompt"></span>
 								</div>
 								<div class="col-lg-12 col-md-12 col-12 mt-1">
-									<label class="" asp-for="AiConfigDto.FirstMessage"> پیام آغازین
-										<span class="btn btn-outline-primary rounded-circle hintContainer p-0">؟
+									<label class="" asp-for="AiConfigDto.FirstMessage">
+										پیام آغازین
+										<span class="btn btn-outline-primary rounded-circle hintContainer p-0">
+											؟
 											<div class="hint">
 												<p>
 													پارامترهای قابل استفاده شامل موارد زیر است که باید حتماً داخل {{ }} قرار گیرد مانند {{Question}}
 												</p>
 												<ul>
 													<li>
-														متن سوال : 
+														متن سوال :
 														<span class="copy-text">{{Question}}</span>
 													</li>
 													<li>
-														متن پاسخ : 
+														متن پاسخ :
 														<span class="copy-text">{{Answer}}</span>
 													</li>
 													<li>
-														متن توضیحات اضافی سوال : 
+														متن توضیحات اضافی سوال :
 														<span class="copy-text">{{Content}}</span>
 													</li>
 													<li>
-														نام کاربری کاربر : 
+														نام کاربری کاربر :
 														<span class="copy-text">{{User}}</span>
 													</li>
 													<li>
-														پایه کاربر : 
+														پایه کاربر :
 														<span class="copy-text">{{UserGrade}}</span>
 													</li>
 													<li>
-														نام کتاب : 
+														نام کتاب :
 														<span class="copy-text">{{Book}}</span>
 													</li>
 													<li class="succes">
-														نام فصل : 
+														نام فصل :
 														<span class="copy-text">{{Part}}</span>
 													</li>
 												</ul>
@@ -138,40 +146,6 @@
 									<textarea asp-for="AiConfigDto.FirstMessage" id="FirstMessage" class="form-control" rows="4" placeholder="اولین پیام کاربر  را وارد کنید..."></textarea>
 									<span class="text-danger" asp-validation-for="AiConfigDto.FirstMessage"></span>
 								</div>
-								@* <div class="mt-3">
-									<div class="form-check form-switch form-check-reverse">
-										<label class="form-check-label" for="WithAiContent">همراه محتوا</label>
-										<input class="form-check-input" type="checkbox" role="switch" id="WithAiContent" asp-for="WithAiContent">
-									</div>
-								</div>
-								<div class="row" id="AiContent" class="@(Model.WithAiContent ? "" : "d-none")">
-									<label class="mt-2">محتوا کتاب</label>
-									<div class="col-lg-3 col-md-3 col-3 mb-1">
-										<label class="">پایه</label>
-										<select class="form-select custom-select" asp-items="ViewBag.BookGroup" id="bookGroupId" onchange="bookGroupChange()">
-											<option disabled selected>لطفا موردی را انتخاب کنید</option>
-										</select>
-										<span class="text-danger"></span>
-									</div>
-									<div class="col-lg-3 col-md-3 col-3 mb-1">
-										<label class="">کتاب</label>
-										<select class="form-select custom-select" id="bookSelectBox" onchange="bookChange()" asp-for="AiContentDto.BookId">
-											<option disabled selected>لطفا موردی را انتخاب کنید</option>
-										</select>
-										<span class="text-danger" asp-validation-for="AiContentDto.BookId"></span>
-									</div>
-									<div class="col-lg-3 col-md-3 col-3 mb-1">
-										<label class="">فصل</label>
-										<select class="form-select custom-select" id="bookPartsSelectBox" asp-for="AiContentDto.PartId">
-											<option disabled selected>لطفا موردی را انتخاب کنید</option>
-										</select>
-										<span class="text-danger" asp-validation-for="AiContentDto.PartId"></span>
-									</div>
-									<div class="col-lg-12 col-md-12 col-12 mb-1">
-										<textarea class="form-control" id="BookContent" rows="15" asp-for="AiContentDto.Content"></textarea>
-									</div>
-									<span class="text-danger" asp-validation-for="AiContentDto.Content"></span>
-								</div> *@
 								<div class="col-lg-12 col-md-12 col-12 mt-2">
 									<div class="d-grid gap-2">
 										<button class="btn btn-primary" type="submit">ثبت</button>
@@ -185,7 +159,6 @@
 									<div id="chat-overlay-head" class="card-header ui-sortable-handle">
 									</div>
 									<div id="chat-overlay-body">
-
 									</div>
 								</div>
 								<div class="col-lg-12 col-6">
@@ -193,7 +166,7 @@
 									<div class="direct-chat direct-chat-primary mt-3">
 										<div class="card-header ui-sortable-handle row">
 											<div class="col-1">
-												<img src="~/images/supporter.jpg" alt="turtle"/>
+												<img src="~/images/supporter.jpg" alt="turtle" />
 											</div>
 											<h5 class="card-title col-10 pt-2 text-center" id="chat-head">تست هوش مصنوعی</h5>
 											<div class="col-1">
@@ -239,10 +212,8 @@
 		</div>
 	</div>
 </div>
-
 @section Scripts
 {
-
 	<script>
 		$('#AiContent').toggle($('#WithAiContent').is(':checked'));
 		$('#WithAiContent').on('change', function() {
@@ -252,11 +223,17 @@
 
 		var parentsData = @Html.Raw(ViewBag.parentAiModels);
 		var childsData = @Html.Raw(ViewBag.childAiModels);
+
+		console.log("parentsData",parentsData)
+
+
 		var aiType = document.getElementById('AiType');
 		var aiModelTypes = document.getElementById('AiModelTypes');
 		function changeAiPlatforms() {
 			var selectedPlatform = Number($('#AiPlatform').val());
+			console.log("selectedPlatform",selectedPlatform)
 			const AiModelChildern = parentsData.filter(item => item.PlatformIds.includes(selectedPlatform));
+			console.log("AiModelChildern",AiModelChildern)
 			let options = aiType.getElementsByTagName('option');
 			for (var i = options.length; i--;) {
 				aiType.removeChild(options[i]);
@@ -271,6 +248,7 @@
 			}
 		}
 		function changeAiModels() {
+			alert("aaaaaaaa")
 			var selectedAi = Number($('#AiType').val());
 			const AiModelChildern = childsData.filter(item => item.ParentId === selectedAi);
 			let options = aiModelTypes.getElementsByTagName('option');
@@ -288,131 +266,30 @@
 		}
 
 
-		const books = @Html.Raw(ViewBag.Books);
-		const bookParts = @Html.Raw(ViewBag.BookParts);
-		const bookSelectBox = document.getElementById('bookSelectBox');
-		const bookPartsSelectBox = document.getElementById('bookPartsSelectBox');
 		const sendMessageBtn = document.getElementById("SendMessageBtn");
 		const messageInput = document.getElementById("Message");
-		const questionIdInput = document.getElementById("QuestionId");
+		
 
 		const overlay = document.getElementById("chat-overlay");
 		const overlayHead = document.getElementById("chat-overlay-head");
 		const overlayBody = document.getElementById("chat-overlay-body");
 		const chatHead = document.getElementById("chat-head");
-		function bookGroupChange() {
-			var selectedBookGroup = Number($('#bookGroupId').val());
-			const booksChildern = books.filter(item => item.GroupId === selectedBookGroup);
-			let options = bookSelectBox.getElementsByTagName('option');
-			for (var i = options.length; i--;) {
-				bookSelectBox.removeChild(options[i]);
-			}
-			var selectedBook = 0;
-			for (const element of booksChildern) {
-				let newOption = new Option(`${element.Title}`, `${element.Id}`);
-				selectedBook = element?.Selected ?? 0;
-				if(element.Id == selectedBook){
-					newOption.setAttribute("selected", "selected");
-				}
-				bookSelectBox.add(newOption, undefined);
-			}
-			let defaultOption = new Option('لطفا موردی را انتخاب کنید', '0');
-			defaultOption.setAttribute("disabled", "true");
-			if(selectedBook == 0){
-				defaultOption.setAttribute("selected", "selected");
-			}
-			bookSelectBox.add(defaultOption, undefined);
-			bookChange();
-		}
-		function bookChange() {
-			var selectedBook = Number($('#bookSelectBox').val());
-			const bookPartsChildern = bookParts.filter(item => item.BookId === selectedBook);
-			let options = bookPartsSelectBox.getElementsByTagName('option');
-			for (var i = options.length; i--;) {
-				bookPartsSelectBox.removeChild(options[i]);
-			}
-			var selectedPart = 0;
-			for (const element of bookPartsChildern) {
-				let newOption = new Option(`${element.Title}`, `${element.Id}`);
-				selectedPart = element?.Selected ?? 0;
-				if(element.Id == selectedPart){
-					newOption.setAttribute("selected", "selected");
-				}
-				bookPartsSelectBox.add(newOption, undefined);
-			}
-			let defaultOption = new Option('لطفا موردی را انتخاب کنید', '0');
-			defaultOption.setAttribute("disabled", "true");
-			if(selectedPart == 0){
-				defaultOption.setAttribute("selected", "selected");
-			}
-			bookPartsSelectBox.add(defaultOption, undefined);
-		}
-		var id = 0;	
+		
+		var id = 0;
 		let username = "123";
 		let dateTime = "";
 		const chatBackBtn = document.getElementById("chatBackBtn");
 		chatBackBtn.addEventListener("click", function(){
 			$(overlay).show(300);
 		});
-		function partChange(){
-			$(overlay).hide(300);
-			chatBackBtn.classList.add("disabled");
-			let selected = bookPartsSelectBox.value;
-			if(Number(selected) > 0){
-				chatTrigger("disable");
-				let selectedPartText = bookPartsSelectBox.options[bookPartsSelectBox.selectedIndex].text;
-				let selectedPart = Number($('#bookPartsSelectBox').val());
-				let haveData = bookQuestions.some(item => item.PartId === selectedPart);
-				let aiResponse = haveData ? "عالیه، حالا سوال خودت رو انتخاب کن تا بتونم تو حلش کمکت کنم" : "متاسفانه سوالی برای این فصل موجود نیست.";
-				createMessage(`s${id}`, selectedPartText, aiResponse, dateTime, username);
-				if(haveData){
-					setTimeout(function() {
-						showQuestions(selectedPart, selectedPartText);
-					}, 3000);
-				}
-				id++;
-			}
-		}
-		var bookQuestions = @Html.Raw(ViewBag.BookQuestions);
-		function showQuestions(selectedPart, selectedPartText) {
-			chatBackBtn.classList.add("disabled");
-			const questionsChildren = bookQuestions.filter(item => item.PartId === selectedPart);
-			overlayHead.innerHTML = `<h5 class="card-title text-center">سوالات "${selectedPartText}"</h5>`;
-			overlayBody.innerHTML = "";
-			const questionsContainer = document.createElement("div");
-			questionsContainer.className = "questions-container";
-			for (const element of questionsChildren) {
-				const button = document.createElement("button");
-				button.addEventListener("click", () => {
-					resetTestDateTimeBegging();
-				});
-				let questionType = element.IsMultipleChoice ? "تستی": "تشریحی";
-				let questionTitle = `سوال ${questionType} شماره ${toPersianDigits(element.Index)}`;
-				button.type = "button";
-				button.className = "btn";
-				button.innerHTML = `<span>${questionTitle}</span> ${element.Question}`;
-				button.value = element.Id;
-				button.addEventListener("click", function() {
-					chatBackBtn.classList.remove("disabled");
-					questionIdInput.value = this.value;
-					chatHead.textContent = questionTitle;
-					$(overlay).hide(300);
-					chatTrigger("enable");
-					messageInput.value =questionTitle;
-					sendMessageBtn.click();
-					id++;
-				});
-				questionsContainer.appendChild(button);
-			}    
-			overlayBody.appendChild(questionsContainer);
-			$(overlay).show(300);
-		}
+		
+		
 		function chatTrigger(action){
 			if(action === "enable"){
 				if (sendMessageBtn.disabled) {
 					sendMessageBtn.classList.remove("disabled");
 					sendMessageBtn.removeAttribute("disabled");
-				}	
+				}
 				if (messageInput.disabled) {
 					messageInput.removeAttribute("disabled");
 				}
@@ -430,8 +307,9 @@
 		}
 		changeAiPlatforms();
 		changeAiModels();
-		bookGroupChange();
-		bookChange();
+		
+		
 
 	</script>
+
 }

@@ -18,8 +18,6 @@ namespace Ai_Panel.Pages.Admin.AiConfig
 		[BindProperty]
 		public UpsertAiConfigDto AiConfigDto { get; set; }
 		[BindProperty]
-		//public AiContentUpsertDto AiContentDto { get; set; }
-		//[BindProperty]
 		public bool WithAiContent { get; set; }
 		public async Task<IActionResult> OnGet()
 		{
@@ -77,58 +75,26 @@ namespace Ai_Panel.Pages.Admin.AiConfig
 		
 		private async Task FillDropDown()
 		{
-			//var aiModels = await aiModelRepository.GetAll(x => !x.IsDelete, null, "Platforms");
-   //         var selectedAiModel = AiConfigDto?.AiModelId > 0 ? aiModels.Find(x => x.Id == AiConfigDto?.AiModelId) : null;
-   //         var childModels = aiModels.Where(x => x.ParentId != null).ToList();
-   //         var parentModels = aiModels.Where(x => x.ParentId == null).ToList();
-   //         ViewData["AiPlatforms"] = new SelectList(await aiPlatformRepository.GetAll(x => !x.IsDelete), "Id", "Title", AiConfigDto?.AiPlatformId);
-   //         ViewData["parentAiModels"] = JsonSerializer.Serialize(parentModels.Select(x => new
-   //         {
-   //             Id = x.Id,
-   //             Title = x.Title,
-   //             ParentId = 0,
-			//	PlatformIds=x.Platforms?.Select(x=> x.Id),
-   //             Selected = selectedAiModel?.ParentId
-   //         }));
-   //         ViewData["childAiModels"] = JsonSerializer.Serialize(childModels.Select(x => new
-			//{
-			//	Id = x.Id,
-			//	Title = x.Title,
-			//	ParentId = x.ParentId,
-			//	Selected = AiConfigDto?.AiModelId
-			//}));
-
-   //         //var bookGroups = await bookGroup.GetAllGroupsAsync(bc => bc.Book != null && bc.Book.Any(b => !b.IsDelete));
-			////var books = await book.GetAllBooks(x => !x.IsDelete);
-			////var bookParts = await bookPart.GetBookParts(x => !x.IsDelete);
-			////var selectedBook = AiContentDto?.BookId > 0 ? await book.FindBookById(AiContentDto.BookId) : null;
-			//var bookQuestions = await bookQuestionRepository.GetAll(x => !x.IsDelete, q=> q.OrderBy(x=> x.IsMultipleChoice).ThenBy(x=> x.Index));
-			//ViewData["BookGroup"] = new SelectList(
-			//	bookGroups, "GroupId", "GroupTitle"
-			//	//,selectedBook?.GroupId
-			//	);
-			//ViewData["Books"] = JsonSerializer.Serialize(books.Select(x => new
-			//{
-			//	Id = x.Id,
-			//	GroupId = x.GroupId,
-			//	Title = x.Name,
-			//	//Selected = AiContentDto?.BookId
-			//}));
-			//ViewData["BookParts"] = JsonSerializer.Serialize(bookParts.Select(x => new
-			//{
-			//	Id = x.PartId,
-			//	BookId = x.BookId,
-			//	Title = x.PartName,
-			//	//Selected = AiContentDto?.PartId
-			//}));
-			//ViewData["BookQuestions"] = JsonSerializer.Serialize(bookQuestions.Select(x=> new
-			//{
-			//	Id = x.Id,
-			//	PartId = x.PartId,
-			//	Question = x.Question,
-			//	Index = x.Index,
-			//	IsMultipleChoice= x.IsMultipleChoice
-			//}));
+            var aiModels = await aiModelRepository.GetAll(x => !x.IsDelete, null, "Platforms");
+            var selectedAiModel = AiConfigDto?.AiModelId > 0 ? aiModels.Find(x => x.Id == AiConfigDto?.AiModelId) : null;
+			var childModels = aiModels.Where(x => x.ParentId != null).ToList();
+			var parentModels = aiModels.Where(x => x.ParentId == null).ToList();
+			ViewData["AiPlatforms"] = new SelectList(await aiPlatformRepository.GetAll(x => !x.IsDelete), "Id", "Title", AiConfigDto?.AiPlatformId);
+			ViewData["parentAiModels"] = JsonSerializer.Serialize(parentModels.Select(x => new
+			{
+				Id = x.Id,
+				Title = x.Title,
+				ParentId = 0,
+				PlatformIds = x.Platforms?.Select(x => x.Id),
+				Selected = selectedAiModel?.ParentId
+			}));
+			ViewData["childAiModels"] = JsonSerializer.Serialize(childModels.Select(x => new
+			{
+				Id = x.Id,
+				Title = x.Title,
+				ParentId = x.ParentId,
+				Selected = AiConfigDto?.AiModelId
+			}));
 		}
 		#endregion
 	}
