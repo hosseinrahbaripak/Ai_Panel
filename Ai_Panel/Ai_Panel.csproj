@@ -12,6 +12,8 @@
     <Compile Remove="Areas\AdminArea\Models\**" />
     <Compile Remove="Areas\AdminArea\Views\BackUpManage\**" />
     <Compile Remove="Areas\AdminArea\Views\TestAiConfig\**" />
+    <Compile Remove="Components\**" />
+    <Compile Remove="Pages\Shared\Partial\**" />
     <Compile Remove="Views\Cart\**" />
     <Compile Remove="Views\Components\**" />
     <Compile Remove="wwwroot\content\**" />
@@ -20,6 +22,8 @@
     <Content Remove="Areas\AdminArea\Models\**" />
     <Content Remove="Areas\AdminArea\Views\BackUpManage\**" />
     <Content Remove="Areas\AdminArea\Views\TestAiConfig\**" />
+    <Content Remove="Components\**" />
+    <Content Remove="Pages\Shared\Partial\**" />
     <Content Remove="Views\Cart\**" />
     <Content Remove="Views\Components\**" />
     <Content Remove="wwwroot\content\**" />
@@ -28,6 +32,8 @@
     <EmbeddedResource Remove="Areas\AdminArea\Models\**" />
     <EmbeddedResource Remove="Areas\AdminArea\Views\BackUpManage\**" />
     <EmbeddedResource Remove="Areas\AdminArea\Views\TestAiConfig\**" />
+    <EmbeddedResource Remove="Components\**" />
+    <EmbeddedResource Remove="Pages\Shared\Partial\**" />
     <EmbeddedResource Remove="Views\Cart\**" />
     <EmbeddedResource Remove="Views\Components\**" />
     <EmbeddedResource Remove="wwwroot\content\**" />
@@ -36,6 +42,8 @@
     <None Remove="Areas\AdminArea\Models\**" />
     <None Remove="Areas\AdminArea\Views\BackUpManage\**" />
     <None Remove="Areas\AdminArea\Views\TestAiConfig\**" />
+    <None Remove="Components\**" />
+    <None Remove="Pages\Shared\Partial\**" />
     <None Remove="Views\Cart\**" />
     <None Remove="Views\Components\**" />
     <None Remove="wwwroot\content\**" />
@@ -83,8 +91,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Components\" />
-    <Folder Include="Pages\Shared\Partial\" />
     <Folder Include="Views\Shared\Components\UserReadLogsViewComponent\" />
     <Folder Include="wwwroot\excel\export\" />
     <Folder Include="wwwroot\excel\import\" />

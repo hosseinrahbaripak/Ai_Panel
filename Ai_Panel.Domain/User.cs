@@ -60,6 +60,5 @@ namespace Ai_Panel.Domain
         public bool HasAccessToAiChat { get; set; }
 
 		public List<UserSession> UserSessions { get; set; }
-
     }
 }

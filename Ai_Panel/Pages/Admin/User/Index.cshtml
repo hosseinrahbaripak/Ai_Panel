@@ -1,0 +1,77 @@
+﻿@page
+@model Ai_Panel.Pages.Admin.User.IndexModel
+@{
+}
+
+<div class="row justify-content-md-center">
+	<div class="col-md-12 col-lg-12 col-12 mt-3">
+		<div class="card shadow">
+			<h6 class="card-header">لیست نسخه ها</h6>
+			<div class="col-4 me-3 mt-3">
+				<a class="btn btn-outline-success btn-sm" asp-page="">
+					<i class="fa fa-plus"></i>
+					ایجاد کاربر جدید
+				</a>
+			</div>
+			<div class="card-body">
+				<div class="table-responsive table">
+					<table class="table-hover table-bordered table">
+						<thead>
+							<tr>
+								<th>
+									نام و نام خانوادگی
+								</th>
+								<th>
+									شماره همراه
+								</th>
+								<th>
+									تاریخ ورود
+								</th>
+
+								<th>
+									عملیات
+								</th>
+							</tr>
+						</thead>
+						@if (Model.Users.Any())
+						{
+							<tbody>
+								@foreach (var user in Model.Users)
+								{
+									<tr>
+										<td>
+											@user.FullName
+										</td>
+										<td>
+											@user.MobileNumber
+										</td>
+										<td>
+											@user.DateTime
+										</td>
+
+
+										<td>
+											@* <a class="btn btn-sm" asp-page="@Urls.AiConfig@ActionPage.Edit" asp-route-id="@user.Id"> *@
+												<i class="fa fa-edit text-warning"></i>
+											@* </a> *@
+											@* <a class="btn btn-sm" asp-route="AddAiConfigToBookQuestions" asp-route-id="@item.Id"> *@
+												<i class="fa fa-link text-success"></i>
+											@* </a> *@
+											@* <a class="btn btn-sm mouse-pointer" onclick="DeleteFunction('/Admin/AppVersion/Delete', @item.Id)"> *@
+												<i class="fa fa-trash text-danger"></i>
+											@* </a> *@
+										</td>
+
+									</tr>
+								}
+
+							</tbody>
+						}
+
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+@Html.AntiForgeryToken()

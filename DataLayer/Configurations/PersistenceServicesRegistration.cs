@@ -31,7 +31,7 @@ public static class PersistenceServicesRegistration
         services.AddScoped<IAiModelRepository, AiModelRepository>();
         services.AddScoped<IAiPlatformRepository, AiPlatformRepository>();
         #endregion
-
+        services.AddScoped<IUser, UserRepository>();
         #region --IOC--Dapper
         services.AddScoped<IUserRepositoryDp, UserRepositoryDp>();
         services.AddScoped<IUserAiChatLogsRepositoryDp, UserAiChatLogsRepositoryDp>();
