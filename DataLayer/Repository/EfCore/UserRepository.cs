@@ -56,27 +56,25 @@ namespace Ai_Panel.Persistence.Repository.EfCore
         //    }
         //    return await _db.Users.IgnoreQueryFilters().Where(x => x.IsDelete == true).Where(where).CountAsync();
         //}
-        //public async Task<User> FirstOrDefault(Expression<Func<User, bool>> @where = null, bool include = false)
-        //{
-        //    if (where == null)
-        //    {
-        //        return null;
-        //    }
+        public async Task<User> FirstOrDefault(Expression<Func<User, bool>> @where = null, bool include = false)
+        {
+            if (where == null)
+            {
+                return null;
+            }
 
-        //    if (include)
-        //    {
-        //        var user = await _db.Users.Where(x => x.IsDelete == false).Include(x => x.Carts).Include(x => x.Project).Include(x => x.Advisor)
-        //            .FirstOrDefaultAsync(where);
-        //        if (user != null) { user.Gender = user.Gender == null || user.Gender == 0 ? 3 : user.Gender; }
-        //        return user;
-        //    }
-        //    else
-        //    {
-        //        var user = await _db.Users.Where(x => x.IsDelete == false).FirstOrDefaultAsync(where);
-        //        if (user != null) { user.Gender = user.Gender == null || user.Gender == 0 ? 3 : user.Gender; }
-        //        return user;
-        //    }
-        //}
+            if (include)
+            {
+                var user = await _db.Users.Where(x => x.IsDelete == false)
+                    .FirstOrDefaultAsync(where);
+                return user;
+            }
+            else
+            {
+                var user = await _db.Users.Where(x => x.IsDelete == false).FirstOrDefaultAsync(where);
+                return user;
+            }
+        }
         public async Task<bool> Any(Expression<Func<User, bool>> where = null)
         {
             return await _db.Users.AnyAsync(where);

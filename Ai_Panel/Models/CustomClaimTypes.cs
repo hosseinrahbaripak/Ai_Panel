@@ -2,7 +2,7 @@
 {
     public static class CustomClaimTypes
     {
-        public const string AdminLoginId = "AdminLoginId";
+        public const string UserId = "AdminLoginId";
         public const string UserName = "FirstName";
         public const string Email = "Email";
         public const string RoleId = "RoleId";

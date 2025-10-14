@@ -18,11 +18,13 @@ namespace Ai_Panel.Pages.Admin
         #region Ctor 
         private readonly IDNTCaptchaValidatorService _validatorService;
         private readonly DNTCaptchaOptions _captchaOptions;
+        private readonly IUser _user;
 
-        public LoginModel( IDNTCaptchaValidatorService validatorService, IOptions<DNTCaptchaOptions> options)
+        public LoginModel( IDNTCaptchaValidatorService validatorService, IOptions<DNTCaptchaOptions> options , IUser user)
         {
             _validatorService = validatorService;
             _captchaOptions = options == null ? throw new ArgumentNullException(nameof(options)) : options.Value;
+            _user = user;
         }
 
         #endregion
@@ -66,11 +68,16 @@ namespace Ai_Panel.Pages.Admin
                 ModelState.AddModelError(_captchaOptions.CaptchaComponent.CaptchaInputName, SystemMessages.CaptchaError);
                 return Page();
             }
-            //var admin = await _adminManage.FirstOrDefault(x => x.UserName == Login.UserName.ToLower());
 
+            var user = await _user.FirstOrDefault(x => x.MobileNumber == Login.MobileNumber);
+            if (user == null)
+            {
+                ModelState.AddModelError("Login.UserName", "اطلاعات صحیح نیست");
+                return Page();
+            }
 
-            var pass = "12345";
-            if (Login.Password != pass)
+            var pass = Login.Password.GeneratePass(user.PassKey).Item2;
+            if (user.Password != pass)
             {
                 ModelState.AddModelError("Login.UserName", "اطلاعات صحیح نیست");
                 return Page();
@@ -79,18 +86,11 @@ namespace Ai_Panel.Pages.Admin
             {
                 try
                 {
-                    //int? adminProfileId = await _adminManage.GetAdminProfileId(admin.LoginID);
-                    //var pages = await _roleInPages.GetAll(x => x.RoleId == admin.RoleId, null, "Pages");
                     var clamis = new List<Claim>
                         {
-                            new Claim(CustomClaimTypes.AdminLoginId,"admin"),
-                            //new Claim(CustomClaimTypes.UserName,admin.UserName),
-                            //new Claim(CustomClaimTypes.Email,admin.Email),
-                            //new Claim(CustomClaimTypes.RoleId,admin.RoleId.ToString()),
-                            //new Claim(CustomClaimTypes.AdminType,admin.Role.AdminTypeId?.ToString() ?? 0.ToString()),
-                            //new Claim(CustomClaimTypes.IsSuperAdmin,admin.IsSuperAdmin.ToString()),
-                            //new Claim(CustomClaimTypes.Pages,string.Join(",",pages.Select(x=>x.Pages.PageAddress))),
-                            //new Claim(CustomClaimTypes.AdminProfileId, adminProfileId.ToString() ?? string.Empty)
+                            new Claim(CustomClaimTypes.UserId,user.UserId.ToString()),
+                            new Claim(CustomClaimTypes.UserName ,user.FirstName),
+                            new Claim(CustomClaimTypes.Email,user.Email),
                         };
 
                     var identity = new ClaimsIdentity(clamis, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -120,23 +120,5 @@ namespace Ai_Panel.Pages.Admin
                 return RedirectToPage("/");
             }
         }
-        //برای ساخت ادمین جدید از این طریق استفاده می شود
-        //var password = login.Password.GeneratePass();
-        //_Context.Add(new Model.AdminLogin()
-        //{
-        //    Key = password.Item1,
-        //    Password = password.Item2,
-        //    UserName = login.UserName
-        //});
-
-        //var user = _Context.GetAdminForLogin
-        //    (login.UserName.ToLower(), login.Password);
-
-        //if (user == null)
-        //{
-        //    ModelState.AddModelError("UserName", "اطلاعات صحیح نیست");
-        //    return View(login);
-        //}
-
     }
 }

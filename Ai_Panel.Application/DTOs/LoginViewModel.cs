@@ -7,7 +7,7 @@ namespace Ai_Panel.Application.DTOs
         [Display(Name = "نام کاربری")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         [MaxLength(200)]
-        public string UserName { get; set; }
+        public string MobileNumber { get; set; }
 
         [Display(Name = "کلمه عبور")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]

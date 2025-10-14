@@ -11,7 +11,7 @@ namespace Ai_Panel.Application.Contracts.Persistence.EfCore
   //      Task<int> GetUserReadLogsCount(DateTime? start, DateTime? end, Expression<Func<User, bool>> where = null);
   //      Task<int> GetCount(Expression<Func<User, bool>> where = null);
   //      Task<int> GetCountDeleted(Expression<Func<User, bool>> where = null);
-  //      Task<User> FirstOrDefault(Expression<Func<User, bool>> where = null, bool include = false);
+        Task<User> FirstOrDefault(Expression<Func<User, bool>> where = null, bool include = false);
         Task<bool> Any(Expression<Func<User, bool>> where = null);
   //      Task<int> Add(User user);
         Task Upsert(User users);
