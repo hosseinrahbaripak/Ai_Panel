@@ -89,3 +89,22 @@ public class Cost
     public double Request_cost { get; set; }
     public double Embedding_cost { get; set; }
 }
+
+public class UserAskAiDto
+{
+    public int UserId { get; set; }
+    public int AiPlatformId { get; set; }
+    public string AiStr { get; set; }
+    public int AiId { get; set; }
+    public int AiModelId { get; set; }
+    public string AiModelStr { get; set; }
+    public int MaxTokens { get; set; }
+    public string BookContent { get; set; }
+    public string Prompt { get; set; }
+    public string FirstMessage { get; set; }
+    public float TopP { get; set; }
+    public float PresencePenalty { get; set; }
+    public float FrequencyPenalty { get; set; }
+    public float Temperature { get; set; }
+    public string StopStr { get; set; }
+}
