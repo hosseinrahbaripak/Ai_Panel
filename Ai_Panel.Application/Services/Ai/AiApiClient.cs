@@ -3,23 +3,29 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json.Nodes;
 using Ai_Panel.Application.DTOs.AiChat;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using PersianAssistant.Models;
 
 namespace Ai_Panel.Application.Services.Ai
 {
+    
     public class AiApiClient : IAiApiClient
     {
+        private readonly IConfiguration _configuration;
         private readonly HttpClient _httpClient;
-        private readonly string _apiKey = "";
-
-        public AiApiClient(HttpClient httpClient)
+        private readonly string _apiKey;
+        public AiApiClient(HttpClient httpClient , IConfiguration configuration)
         {
             _httpClient = httpClient;
+            _configuration = configuration;
+            _apiKey = _configuration["AVAL_AI_KEY"];
+
         }
 
         public async Task<ServiceMessage> GetChatCompletionAsync(ChatCompletionDto dto)
         {
+            
             var requestBody = new
             {
                 model = dto.Model,
