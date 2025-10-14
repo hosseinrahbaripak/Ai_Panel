@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.Json.Nodes;
 using Ai_Panel.Application.DTOs.AiChat;
 using Newtonsoft.Json;
+using PersianAssistant.Models;
 
 namespace Ai_Panel.Application.Services.Ai
 {
@@ -17,7 +18,7 @@ namespace Ai_Panel.Application.Services.Ai
             _httpClient = httpClient;
         }
 
-        public async Task<string?> GetChatCompletionAsync(ChatCompletionDto dto)
+        public async Task<ServiceMessage> GetChatCompletionAsync(ChatCompletionDto dto)
         {
             var requestBody = new
             {
@@ -43,11 +44,48 @@ namespace Ai_Panel.Application.Services.Ai
             request.Headers.Add("Authorization", $"Bearer {_apiKey}");
 
             var response = await _httpClient.SendAsync(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+            {
+                string ErrorTitle = ErrorHandling(response.StatusCode);
+                return new ServiceMessage()
+                {
+                    ErrorId = -1,
+                    ErrorTitle = ErrorTitle,
+                    Result = null
+                };
+            }
             response.EnsureSuccessStatusCode();
-
             var content = await response.Content.ReadAsStringAsync();
             var json = JsonNode.Parse(content);
-            return json?["choices"]?[0]?["message"]?["content"]?.ToString();
+            string AiResponse = json?["choices"]?[0]?["message"]?["content"]?.ToString();
+            return new ServiceMessage()
+            {
+                ErrorId = 0,
+                ErrorTitle = null,
+                Result = AiResponse
+            };
+        }
+        private string ErrorHandling(HttpStatusCode statusCode)
+        {
+            switch (statusCode)
+            {
+                case HttpStatusCode.NotFound:
+                    return "api مورد نظر یافت نشد";
+                case HttpStatusCode.Unauthorized:
+                    return "کلید API شما اشتباه است.";
+                case HttpStatusCode.Forbidden:
+                    return "شما اجازه دسترسی به این منبع را ندارید.";
+                case HttpStatusCode.BadRequest:
+                    return "درخواست شما نامعتبر است.";
+                case HttpStatusCode.TooManyRequests:
+                    return "شما از محدودیت نرخ خود فراتر رفته‌اید.";
+                case HttpStatusCode.InternalServerError:
+                    return "خطایی در سرور رخ داده است";
+                default:
+                    return "";
+            }
+
+
         }
     }
 }

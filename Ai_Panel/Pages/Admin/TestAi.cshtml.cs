@@ -17,13 +17,13 @@ namespace Ai_Panel.Pages.Admin
         }
 
         [BindProperty]
-        public TestModel testModel {  get; set; }
+        public TestModel testModel { get; set; }
 
         public void OnGet()
         {
         }
 
-        public string? AiResponse { get; set; }
+        public string AiResponse { get; set; }
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -36,12 +36,13 @@ namespace Ai_Panel.Pages.Admin
             ChatCompletionDto chatCompletionDetail = new ChatCompletionDto()
             {
                 Prompt = testModel.Prompt,
-                Message=testModel.Message,
-                BaseUrl= "https://api.avalai.ir/v1/chat/completions",
-                Model= "gpt-4o"
+                Message = testModel.Message,
+                BaseUrl = "https://api.avalai.ir/v1/chat/completions",
+                Model = "gpt-4o"
             };
             // کال API
-            AiResponse = await _aiApiClient.GetChatCompletionAsync(chatCompletionDetail);
+            var res = await _aiApiClient.GetChatCompletionAsync(chatCompletionDetail);
+            AiResponse = res.Result;
 
             return Page();
         }
@@ -49,6 +50,6 @@ namespace Ai_Panel.Pages.Admin
 }
 public class TestModel
 {
-    public string Prompt {  get; set; }
+    public string Prompt { get; set; }
     public string Message { get; set; }
 }

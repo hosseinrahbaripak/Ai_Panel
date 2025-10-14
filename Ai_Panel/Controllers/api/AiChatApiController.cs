@@ -25,20 +25,20 @@ namespace Ai_Panel.Controllers.api
         {
             try
             {
+                string[] StopArr = model.StopStr.Split(',', StringSplitOptions.RemoveEmptyEntries);
                 ChatCompletionDto chatCompletionDetail = new ChatCompletionDto()
                 {
                     Prompt = model.Prompt,
                     Message = model.Message,
                     BaseUrl = "https://api.avalai.ir/v1/chat/completions",
-                    Model = "gpt-4o"
+                    Model = model.AiModel,
+                    MaxTokens = model.MaxTokens,
+                    FrequencyPenalty = model.FrequencyPenalty,
+                    PresencePenalty = model.PresencePenalty,
+                    Stop = StopArr
                 };
                 var res = await aiApiClient.GetChatCompletionAsync(chatCompletionDetail);
-                return new ServiceMessage()
-                {
-                    ErrorId = 0,
-                    ErrorTitle = null,
-                    Result = res
-                };
+                return res;
             }
             catch (Exception e)
             {

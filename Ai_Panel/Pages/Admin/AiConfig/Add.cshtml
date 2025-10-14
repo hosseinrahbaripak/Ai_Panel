@@ -31,20 +31,19 @@
 									<div class="col-lg-3 col-6">
 										<label class="">پلتفرم</label>
 										<select class="form-select custom-select" id="AiPlatform" asp-for="AiConfigDto.AiPlatformId" asp-items="ViewBag.AiPlatforms"
-										onchange="changeAiPlatforms(); aiChengedAlert();"
-										>
+												onchange="changeAiPlatforms();">
 											<option disabled selected>لطفا موردی را انتخاب کنید</option>
 										</select>
 									</div>
 									<div class="col-lg-3 col-6">
 										<label class="">هوش مصنوعی</label>
-										<select class="form-select custom-select" id="AiType" onchange="changeAiModels(); aiChengedAlert();">
+										<select class="form-select custom-select" id="AiType" onchange="changeAiModels();">
 											<option disabled selected>لطفا موردی را انتخاب کنید</option>
 										</select>
 									</div>
 									<div class="col-lg-3 col-6">
 										<label class="">مدل</label>
-										<select class="form-select custom-select" id="AiModelTypes" asp-for="AiConfigDto.AiModelId" onchange="aiChengedAlert();">
+										<select class="form-select custom-select" id="AiModelTypes" asp-for="AiConfigDto.AiModelId">
 											<option disabled selected>لطفا موردی را انتخاب کنید</option>
 										</select>
 										<span class="text-danger" asp-validation-for="AiConfigDto.AiModelId"></span>
@@ -215,13 +214,13 @@
 
 		const sendMessageBtn = document.getElementById("SendMessageBtn");
 		const messageInput = document.getElementById("Message");
-		
+
 
 		const overlay = document.getElementById("chat-overlay");
 		const overlayHead = document.getElementById("chat-overlay-head");
 		const overlayBody = document.getElementById("chat-overlay-body");
 		const chatHead = document.getElementById("chat-head");
-		
+
 		var id = 0;
 		let username = "123";
 		let dateTime = "";
@@ -229,8 +228,8 @@
 		chatBackBtn.addEventListener("click", function(){
 			$(overlay).show(300);
 		});
-		
-		
+
+
 		function chatTrigger(action){
 			if(action === "enable"){
 				if (sendMessageBtn.disabled) {
@@ -254,8 +253,8 @@
 		}
 		changeAiPlatforms();
 		changeAiModels();
-		
-		
+
+
 
 	</script>
 

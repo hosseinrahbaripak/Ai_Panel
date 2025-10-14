@@ -41,22 +41,22 @@ public class AskHelliGptDto
 }
 public class AskHelliGptDtoV2
 {
-	public string ai { get; set; }
-	public List<MessageHelliGptDto> messages { get; set; }
-	public string model { get; set; }
-	public string prompt { get; set; }
-	public int n { get; set; }
-	public float temperature { get; set; }
-	public int max_tokens { get; set; }
-	public float top_p { get; set; }
-	public string[] stop { get; set; }
-	public float presence_penalty { get; set; }
-	public float frequency_penalty { get; set; }
+    public string ai { get; set; }
+    public List<MessageHelliGptDto> messages { get; set; }
+    public string model { get; set; }
+    public string prompt { get; set; }
+    public int n { get; set; }
+    public float temperature { get; set; }
+    public int max_tokens { get; set; }
+    public float top_p { get; set; }
+    public string[] stop { get; set; }
+    public float presence_penalty { get; set; }
+    public float frequency_penalty { get; set; }
 }
 public class MessageHelliGptDto
 {
     public string Role { get; set; }
-	public List<ContentHelliGptDto> Content { get; set; }
+    public List<ContentHelliGptDto> Content { get; set; }
 }
 [JsonPolymorphic(TypeDiscriminatorPropertyName = "Type")]
 [JsonDerivedType(typeof(TextContentHelliGptDto), typeDiscriminator: "text")]
@@ -67,11 +67,11 @@ public class ContentHelliGptDto
 }
 public class TextContentHelliGptDto : ContentHelliGptDto
 {
-	public string Text { get; set; }
+    public string Text { get; set; }
 }
 public class ImageContentHelliGptDto : ContentHelliGptDto
 {
-	public string Image_Url { get; set; }
+    public string Image_Url { get; set; }
 }
 public class ChatHistoryDto
 {
@@ -92,9 +92,7 @@ public class Cost
 
 public class UserAskAiDto
 {
-    public int AiPlatformId { get; set; }
-    public int AiTypeId { get; set; }
-    public int AiModelId { get; set; }
+    public string AiModel { get; set; }
     public float Temperature { get; set; }
     public float PresencePenalty { get; set; }
     public float TopP { get; set; }
