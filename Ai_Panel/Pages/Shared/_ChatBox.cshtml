@@ -1,0 +1,115 @@
+﻿@using System.Security.Claims;
+@{
+	var id = User.FindFirst(CustomClaimTypes.UserId);
+
+}
+<div class="direct-chat direct-chat-primary mt-3">
+	<div class="card-header ui-sortable-handle row">
+		<div class="col-1">
+			<img src="~/images/supporter.jpg" alt="turtle" />
+		</div>
+		<h5 class="card-title col-10 pt-2 text-center" id="chat-head">تست هوش مصنوعی</h5>
+		<div class="col-1">
+			<button class="btn rounded-circle disabled" id="chatBackBtn">
+				<i class="fa fa-arrow-left"></i>
+			</button>
+		</div>
+	</div>
+	<div class="" style="display: block;">
+		<div class="row direct-chat-messages" id="chatbody">
+			<div class="direct-chat-msg float-end mb-3">
+				<div class="direct-chat-infos clearfix">
+					<span class="direct-chat-name float-left">دستیار هوش مصنوعی</span>
+				</div>
+				<img class="direct-chat-img" src="/images/supporter.jpg" alt=".">
+				<div class="direct-chat-text">
+					<p>
+						سوالات خود را مطرح نمایید
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="card-footer fix-chatMessage-Bottom-inside">
+		<form method="post" id="SendMessageForm">
+			<div class="input-group">
+				<input type="hidden" id="QuestionId" name="QuestionId">
+				<input type="hidden" name="TestDateTimeBegging" value="@DateTime.UtcNow.AddHours(3.5)"
+					id="TestDateTimeBegging">
+				<input type="text" id="Message" name="Message" placeholder="سوال خودت رو بپرس ..."
+					class="form-control shadow-none" autocomplete="off" style="height:45px;">
+				<button id="SendMessageBtn" type="button" class="btn btn-appblue shadow-none" style="height:45px;">
+					<i class="fa fa-send"></i>
+				</button>
+			</div>
+		</form>
+	</div>
+</div>
+<div class="modal fade" id="validationModal" tabindex="-1" aria-labelledby="validationModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="validationModalLabel">خطای اعتبارسنجی</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				برای شروع باید مقادیر پلتفرم ، هوش مصنوعی و مدل ،پرامپت و متن پیام را وارد نمایید را پر کنید
+			</div>
+			<div class="modal-footer">  
+				<button type="button" class="btn btn-primary" data-bs-dismiss="modal">باشه</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		const SendMessageBtn = document.getElementById("SendMessageBtn");
+		const validationModal = new bootstrap.Modal(document.getElementById('validationModal'));
+		var userId = "@id";
+		SendMessageBtn.addEventListener("click", () => {
+			const AiPlatform = document.getElementById("AiPlatform").value; //select box
+			const AiType = document.getElementById("AiType").value; // like chat gpt , gemeni , deepseek
+			const AiModel = document.getElementById("AiModelTypes").value; // gpt-4o , gpt-4o-mini
+			const Temperature = document.getElementById("customRange2").value;
+			const PresencePenalty = document.getElementById("customRange3").value;
+			const TopP = document.getElementById("customRange4").value;
+			const FrequencyPenalty = document.getElementById("customRange1").value;
+			const MaxTokens = document.getElementById("MaxTokens").value;
+			const Stop = document.getElementById("stop").value;
+			const Prompt = document.getElementById("Prompt").value;
+			const Message = document.getElementById("Message").value;
+			if (AiPlatform === "لطفا موردی را انتخاب کنید" || AiType === "0" || AiModel === "0" || Message === "" || Prompt === "") {
+				validationModal.show();
+				return
+			}
+			const body = {
+				AiPlatformId: parseInt(AiPlatform),
+				AiTypeId: parseInt(AiType),
+				AiModelId: parseInt(AiModel),
+				Temperature: parseFloat(Temperature),
+				PresencePenalty: parseFloat(PresencePenalty),
+				TopP: parseFloat(TopP),
+				FrequencyPenalty: parseFloat(FrequencyPenalty),
+				MaxTokens: Number(MaxTokens),
+				StopStr: Stop,
+				Prompt: Prompt,
+				Message: Message
+			};
+
+
+			fetch('/api/AiChatApi/Ask', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(body),
+				// credentials: 'include'
+			})
+				.then(res => res.json())
+				.then(data => console.log(data));
+		})
+
+	});
+</script>

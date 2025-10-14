@@ -7,18 +7,18 @@ namespace Ai_Panel.Classes
     {
         public void Apply(OpenApiOperation operation, OperationFilterContext context)
         {
-            operation.Parameters ??= new List<OpenApiParameter>(); 
-            operation.Parameters.Add(new OpenApiParameter()
-            {
-                Name = "token",
-                In = ParameterLocation.Header, 
-                Required = false,  
-                Description = "user login token", 
-                Schema = new OpenApiSchema
-                {
-                    Type = "string", 
-                }
-            });
+            //operation.Parameters ??= new List<OpenApiParameter>(); 
+            //operation.Parameters.Add(new OpenApiParameter()
+            //{
+            //    Name = "token",
+            //    In = ParameterLocation.Header, 
+            //    Required = false,  
+            //    Description = "user login token", 
+            //    Schema = new OpenApiSchema
+            //    {
+            //        Type = "string", 
+            //    }
+            //});
         }
     }
 }

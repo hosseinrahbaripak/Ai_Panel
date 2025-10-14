@@ -92,19 +92,15 @@ public class Cost
 
 public class UserAskAiDto
 {
-    public int UserId { get; set; }
     public int AiPlatformId { get; set; }
-    public string AiStr { get; set; }
-    public int AiId { get; set; }
+    public int AiTypeId { get; set; }
     public int AiModelId { get; set; }
-    public string AiModelStr { get; set; }
+    public float Temperature { get; set; }
+    public float PresencePenalty { get; set; }
+    public float TopP { get; set; }
+    public float FrequencyPenalty { get; set; }
     public int MaxTokens { get; set; }
-    public string BookContent { get; set; }
     public string Prompt { get; set; }
     public string Message { get; set; }
-    public float TopP { get; set; }
-    public float PresencePenalty { get; set; }
-    public float FrequencyPenalty { get; set; }
-    public float Temperature { get; set; }
     public string StopStr { get; set; }
 }

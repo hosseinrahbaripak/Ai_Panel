@@ -71,20 +71,11 @@
 										<label class=""> جلوگیری از تکرار کلمه در جمله : </label>
 										<span id="rangeValue1" class="font-weight-bold ms-2">AiConfigDto?.FrequencyPenalty</span>
 										<input type="range" class="form-range" min="-2" max="2" step="0.1" id="customRange1" asp-for="AiConfigDto.FrequencyPenalty">
-										@* @if(AiConfigDto.FrequencyPenalty != null) *@
-										@* { *@
-										@* 	Console.WriteLine(AiConfigDto); *@
-										@* } *@
 										<span class="text-danger" asp-validation-for="AiConfigDto.FrequencyPenalty"></span>
 									</div>
-									@* <div class="col-lg-3 col-12">
-									<label class="">تعداد جواب</label>
-									<input class="form-control" type="number" asp-for="@Model.AiConfigDto.N" />
-									<span class="text-danger"></span>
-									</div> *@
 									<div class="col-lg-4 col-6">
 										<label class="">بیشترین تعداد کلمات خروجی</label>
-										<input asp-for="AiConfigDto.MaxTokens" class="form-control" type="number" max="10000" min="5" />
+										<input asp-for="AiConfigDto.MaxTokens" class="form-control" id="MaxTokens" type="number" max="10000" min="5" />
 										<span class="text-danger" asp-validation-for="AiConfigDto.MaxTokens"></span>
 									</div>
 									<div class="col-lg-4 col-12">
@@ -104,7 +95,7 @@
 								<div class="col-lg-12 col-md-12 col-12 mt-1">
 									<label class="" asp-for="AiConfigDto.FirstMessage">
 										پیام آغازین
-										<span class="btn btn-outline-primary rounded-circle hintContainer p-0">
+										@* <span class="btn btn-outline-primary rounded-circle hintContainer p-0">
 											؟
 											<div class="hint">
 												<p>
@@ -141,7 +132,7 @@
 													</li>
 												</ul>
 											</div>
-										</span>
+										</span> *@
 									</label>
 									<textarea asp-for="AiConfigDto.FirstMessage" id="FirstMessage" class="form-control" rows="4" placeholder="اولین پیام کاربر  را وارد کنید..."></textarea>
 									<span class="text-danger" asp-validation-for="AiConfigDto.FirstMessage"></span>
@@ -162,47 +153,7 @@
 									</div>
 								</div>
 								<div class="col-lg-12 col-6">
-									@* <input type="hidden" value="@(Model.LastOrDefault()?.Id ?? 0)" id="LastMsgId" /> *@
-									<div class="direct-chat direct-chat-primary mt-3">
-										<div class="card-header ui-sortable-handle row">
-											<div class="col-1">
-												<img src="~/images/supporter.jpg" alt="turtle" />
-											</div>
-											<h5 class="card-title col-10 pt-2 text-center" id="chat-head">تست هوش مصنوعی</h5>
-											<div class="col-1">
-												<button class="btn rounded-circle disabled" id="chatBackBtn">
-													<i class="fa fa-arrow-left"></i>
-												</button>
-											</div>
-										</div>
-										<div class="" style="display: block;">
-											<div class="row direct-chat-messages" id="chatbody">
-												<div class="direct-chat-msg float-end mb-3">
-													<div class="direct-chat-infos clearfix">
-														<span class="direct-chat-name float-left">دستیار هوش مصنوعی</span>
-													</div>
-													<img class="direct-chat-img" src="/images/supporter.jpg" alt=".">
-													<div class="direct-chat-text">
-														<p>
-															سوالات خود را مطرح نمایید
-														</p>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="card-footer fix-chatMessage-Bottom-inside">
-											<form method="post" id="SendMessageForm">
-												<div class="input-group">
-													<input type="hidden" id="QuestionId" name="QuestionId">
-													<input type="hidden" name="TestDateTimeBegging" value="@DateTime.UtcNow.AddHours(3.5)" id="TestDateTimeBegging">
-													<input type="text" id="Message" name="Message" placeholder="سوال خودت رو بپرس ..." class="form-control shadow-none" autocomplete="off" style="height:45px;" disabled>
-													<button id="SendMessageBtn" onclick="SendFormDataMessageInPanel('SendMessageForm','/Admin/AiConfig/Add/AskAi')" type="submit" class="btn btn-appblue disabled shadow-none" style="height:45px;">
-														<i class="fa fa-send"></i>
-													</button>
-												</div>
-											</form>
-										</div>
-									</div>
+									<partial name="_ChatBox" />
 								</div>
 							</div>
 						</div>
@@ -223,9 +174,6 @@
 
 		var parentsData = @Html.Raw(ViewBag.parentAiModels);
 		var childsData = @Html.Raw(ViewBag.childAiModels);
-
-		console.log("parentsData",parentsData)
-
 
 		var aiType = document.getElementById('AiType');
 		var aiModelTypes = document.getElementById('AiModelTypes');

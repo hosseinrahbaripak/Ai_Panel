@@ -1,82 +1,38 @@
-﻿using AutoMapper;
-using Ai_Panel.Application.Constants;
-using Ai_Panel.Application.Contracts.Persistence.EfCore;
+﻿using Ai_Panel.Application.Contracts.Persistence.EfCore;
 using Ai_Panel.Application.DTOs.AiChat;
-using Ai_Panel.Application.Features.AiChat.Request.Command;
-using Ai_Panel.Application.Features.AiChat.Request.Queries;
-using Ai_Panel.Application.Tools;
 using Ai_Panel.Classes;
-using Ai_Panel.Domain;
-using Ai_Panel.Infrastructure.Tools;
+using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using PersianAssistant.Extensions;
 using PersianAssistant.Models;
-using System.Net;
 
 namespace Ai_Panel.Controllers.api
 {
     [Route("api/[controller]")]
     [ApiController]
+    [IgnoreAntiforgeryToken]
     public class AiChatApiController(
         IMediator mediator, WebTools webTools, IErrorLog log, IUser user,
         IMapper mapper, IAiPlatformRepository aiPlatform) : ControllerBase
     {
-        //[Route("GetHistory")]
-        //[HttpGet]
-        //public async Task<ActionResult<ServiceMessage>> GetHistory(int partId, int? questionId)
-        //{
-        //    try
-        //    {
-        //        var token = webTools.GetToken();
-        //        if (string.IsNullOrEmpty(token))
-        //            return ResponseManager.DataError(SystemMessages.TokenError);
-
-        //        var user1 = await user.GetByToken(token);
-        //        if (user1 == null || user1.Id == 0)
-        //            return ResponseManager.SessionExpire();
-
-        //        var userHasAiAccess = await user.Any(x => x.UserId == user1.UserId && x.HasAccessToAiChat);
-        //        if (!userHasAiAccess)
-        //            return ResponseManager.DataError(SystemMessages.UserAiAccessDenied);
-
-        //        var bookPart = await part.GetPartById(partId);
-        //        if (bookPart == null)
-        //            return ResponseManager.DataError(SystemMessages.BookPartNotFound);
-
-        //        var userHasAccessToBook = await userBooks.CheckUserHas(user1.UserId, bookPart.BookId);
-        //        if (!userHasAccessToBook)
-        //            return ResponseManager.DataError(SystemMessages.HasNoPermissionForBook);
-
-        //        BookQuestion question = null;
-        //        if (questionId != null)
-        //        {
-        //            question = await bookQuestion.Get((int)questionId);
-        //            if (question == null)
-        //                return ResponseManager.DataError(SystemMessages.QuestionNotFound);
-        //            if (question.PartId != partId)
-        //                return ResponseManager.DataError(SystemMessages.QuestionInBookPartNotFound);
-        //        }
-        //        var model = await mediator.Send(new GetUserAiChatHistoryRequest()
-        //        {
-        //            //PartId = partId,
-        //            QuestionId = questionId ?? 0,
-        //            AiConfigId = question?.AiConfigId ?? 0,
-        //            UserId = user1.UserId,
-        //        });
-        //        return model;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        await log.Add(e.Message, e.InnerException?.Message ?? "", "Get History In Api AiChat");
-        //        return ResponseManager.ServerError();
-        //    }
-        //}
-
+        [Authorize]
         [Route("Ask")]
         [HttpPost]
         public async Task<ActionResult<ServiceMessage>> Ask(UserAskAiDto model)
+        {
+            return new ServiceMessage()
+            {
+                ErrorId = 0,
+                ErrorTitle = null,
+                Result = null
+            };
+        }
+
+        [Authorize]
+        [Route("tses")]
+        [HttpGet]
+        public async Task<ActionResult<ServiceMessage>> Tset()
         {
             return new ServiceMessage()
             {
