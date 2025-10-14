@@ -63,13 +63,12 @@
 	</div>
 </div>
 
-<div class="toast-container position-fixed bottom-0 end-0 p-3 bg-whit">
+<div class="toast-container position-fixed bottom-0 end-0 p-3" style="background-color:#ffffff">
 	<div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
 		<div class="toast-header">
 			<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="بستن"></button>
 		</div>
 		<div class="toast-body" id="toast-body">
-			عملیات با موفقیت انجام شد 🎉
 		</div>
 	</div>
 </div>
@@ -134,7 +133,6 @@
 				Prompt: Prompt,
 				Message: Message
 			};
-			chatbody.insertAdjacentHTML("beforeend", UserChatBody.replace("$msg",Message));
 			console.log(body)
 			fetch('/api/AiChatApi/Ask', {
 				method: 'POST',
@@ -145,7 +143,9 @@
 			})
 				.then(res => res.json())
 				.then(data =>{
+					console.log(data);
 					if(data.errorId === 0){
+						chatbody.insertAdjacentHTML("beforeend", UserChatBody.replace("$msg",Message));
 						chatbody.insertAdjacentHTML("beforeend", AiChatBody.replace("$msg", data.result));
 						document.getElementById("Message").value = "";
 							chatbody.scrollTo({
@@ -154,6 +154,7 @@
 							});
 					}
 					else{
+						document.getElementById("Message").value = "";
 						toastBody.innerText = data.errorTitle;
 						toast.show();
 					}
