@@ -12,9 +12,9 @@ namespace Ai_Panel.Application.Contracts.Persistence.EfCore
   //      Task<int> GetCount(Expression<Func<User, bool>> where = null);
   //      Task<int> GetCountDeleted(Expression<Func<User, bool>> where = null);
   //      Task<User> FirstOrDefault(Expression<Func<User, bool>> where = null, bool include = false);
-  //      Task<bool> Any(Expression<Func<User, bool>> where = null);
+        Task<bool> Any(Expression<Func<User, bool>> where = null);
   //      Task<int> Add(User user);
-  //      Task Upsert(User users);
+        Task Upsert(User users);
   //      Task Delete(int userId);
   //      Task Delete(User user);
   //      Task<string> CreateToken(int userId);

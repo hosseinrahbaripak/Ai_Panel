@@ -8,7 +8,7 @@
 		<div class="card shadow">
 			<h6 class="card-header">لیست نسخه ها</h6>
 			<div class="col-4 me-3 mt-3">
-				<a class="btn btn-outline-success btn-sm" asp-page="">
+				<a class="btn btn-outline-success btn-sm" asp-page="add">
 					<i class="fa fa-plus"></i>
 					ایجاد کاربر جدید
 				</a>
@@ -25,7 +25,7 @@
 									شماره همراه
 								</th>
 								<th>
-									تاریخ ورود
+									تاریخ ایجاد
 								</th>
 
 								<th>
@@ -46,7 +46,7 @@
 											@user.MobileNumber
 										</td>
 										<td>
-											@user.DateTime
+											@user.DateTime.ToPersianDate()
 										</td>
 
 

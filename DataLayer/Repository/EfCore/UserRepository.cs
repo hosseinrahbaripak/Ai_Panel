@@ -30,36 +30,7 @@ namespace Ai_Panel.Persistence.Repository.EfCore
                 .Where(where)
                 .OrderByDescending(u => u.DateTime).Skip(skip).Take(take).ToListAsync();
         }
-        //public async Task<List<GetUsersForAdminDto>> GetAllForAdmin(Expression<Func<User, bool>> where = null, int skip = 0, int take = Int32.MaxValue)
-        //{
-        //    var data = _db.Users.Include(x => x.UserSessions).Include(x => x.UserTags)!.ThenInclude(y => y.Tag).OrderByDescending(x => x.DateTime).AsQueryable();
-        //    if (where != null)
-        //        data = data.Where(where);
 
-        //    data = data.Skip(skip).Take(take);
-        //    var model = data.Select(x => new GetUsersForAdminDto()
-        //    {
-        //        UserId = x.UserId,
-        //        IsDelete = x.IsDelete,
-        //        Grade = x.Grade,
-        //        HelliCode = x.HelliCode,
-        //        MobileNumber = x.MobileNumber,
-        //        Gender = x.Gender,
-        //        DateTime = x.DateTime,
-        //        FirstName = x.FirstName,
-        //        LastName = x.LastName,
-        //        UserTags = x.UserTags,
-        //        ProjectId = x.ProjectId,
-        //        ProjectProfile = x.Project,
-        //        AdvisorId = x.AdvisorId,
-        //        AdvisorProfile = x.Advisor,
-        //        UpdateDateTime = x.UpdateDateTime,
-        //        Name = x.Name,
-        //        FirstLoginToApp = x.UserSessions.OrderBy(u => u.DateTime).FirstOrDefault() != null ? x.UserSessions.OrderBy(u => u.DateTime).First().DateTime : null,
-        //        LastLoginToApp = x.UserSessions.OrderBy(u => u.DateTime).LastOrDefault() != null ? x.UserSessions.OrderBy(u => u.DateTime).Last().DateTime : null,
-        //    });
-        //    return await model.ToListAsync();
-        //}
         //public async Task<List<User>> GetAllDeleted(Expression<Func<User, bool>> where = null, int skip = 0, int take = int.MaxValue)
         //{
         //    if (where == null)
@@ -106,10 +77,10 @@ namespace Ai_Panel.Persistence.Repository.EfCore
         //        return user;
         //    }
         //}
-        //public async Task<bool> Any(Expression<Func<User, bool>> where = null)
-        //{
-        //    return await _db.Users.AnyAsync(where);
-        //}
+        public async Task<bool> Any(Expression<Func<User, bool>> where = null)
+        {
+            return await _db.Users.AnyAsync(where);
+        }
         //public async Task<int> Add(User user)
         //{
         //    try
@@ -127,28 +98,28 @@ namespace Ai_Panel.Persistence.Repository.EfCore
 
         //    return 0;
         //}
-        //public async Task Upsert(User user)
-        //{
-        //    try
-        //    {
-        //        if (user.UserId == 0)
-        //        {
-        //            user.DateTime = DateTime.UtcNow.AddHours(3.5);
-        //            user.Status = 1;
-        //            user.ActiveCode = 5.GenerateCode();
-        //            await _db.Users.AddAsync(user);
-        //        }
-        //        else
-        //        {
-        //            _db.Users.Update(user);
-        //        }
-        //    }
-        //    catch (Exception e)
-        //    {
+        public async Task Upsert(User user)
+        {
+            try
+            {
+                if (user.UserId == 0)
+                {
+                    user.DateTime = DateTime.UtcNow.AddHours(3.5);
+                    user.Status = 1;
+                    user.ActiveCode = 5.GenerateCode();
+                    await _db.Users.AddAsync(user);
+                }
+                else
+                {
+                    _db.Users.Update(user);
+                }
+            }
+            catch (Exception e)
+            {
 
-        //    }
-        //    await _db.SaveChangesAsync();
-        //}
+            }
+            await _db.SaveChangesAsync();
+        }
         //public async Task Delete(int userId)
         //{
         //    var user = await FirstOrDefault(u => u.UserId == userId);
@@ -352,277 +323,277 @@ namespace Ai_Panel.Persistence.Repository.EfCore
         //public async Task MyQuery()
         ////List<string> HelliCodes)
         //{
-            //int KomyteId = 1;
-            //int BonyadId = 2;
-            //int ShahrdaryId = 7;
-            //int HekmatId = 6;
-            //int MoassehId = 5;
-            ////var projectProfiles = _db.ProjectProfiles.ToListAsync();
-            //var KomyteUsers = await _db.Users.Where(
-            //	x => x.UserTagId == 1 || x.UserTagId == 4 || x.UserTagId == 13 || x.UserTagId == 14 || x.UserTagId == 15)
-            //	.ToListAsync();
-            //var BonyadUsers = await _db.Users.Where(x => x.UserTagId == 17).ToListAsync();
-            //var ShahrdaryUsers = await _db.Users.Where(x => x.UserTagId == 7).ToListAsync();
-            //var HekmatUsers = await _db.Users.Where(x => x.UserTagId == 9).ToListAsync();
-            //var MoassehUsers = await _db.Users.Where(x => x.UserTagId == 5 || x.UserTagId == 8 || x.UserTagId == 12 || x.UserTagId == 16).ToListAsync();
-            //foreach (var KomyteUser in KomyteUsers)
-            //{
-            //	KomyteUser.ProjectId = KomyteId;
-            //	//_db.Users.Update(KomyteUser);
-            //}
-            //foreach (var BonyadUser in BonyadUsers)
-            //{
-            //	BonyadUser.ProjectId = BonyadId;
-            //	//_db.Users.Update(BonyadUser);
-            //}
-            //foreach (var ShahrdaryUser in ShahrdaryUsers)
-            //{
-            //	ShahrdaryUser.ProjectId = ShahrdaryId;
-            //	//_db.Users.Update(ShahrdaryUser);
-            //}
-            //foreach (var HekmatUser in HekmatUsers)
-            //{
-            //	HekmatUser.ProjectId = HekmatId;
-            //	//_db.Users.Update(HekmatUser);
-            //}
-            //foreach (var MoassehUser in MoassehUsers)
-            //{
-            //	MoassehUser.ProjectId = MoassehId;
-            //	//_db.Users.Update(MoassehUser);
-            //}
+        //int KomyteId = 1;
+        //int BonyadId = 2;
+        //int ShahrdaryId = 7;
+        //int HekmatId = 6;
+        //int MoassehId = 5;
+        ////var projectProfiles = _db.ProjectProfiles.ToListAsync();
+        //var KomyteUsers = await _db.Users.Where(
+        //	x => x.UserTagId == 1 || x.UserTagId == 4 || x.UserTagId == 13 || x.UserTagId == 14 || x.UserTagId == 15)
+        //	.ToListAsync();
+        //var BonyadUsers = await _db.Users.Where(x => x.UserTagId == 17).ToListAsync();
+        //var ShahrdaryUsers = await _db.Users.Where(x => x.UserTagId == 7).ToListAsync();
+        //var HekmatUsers = await _db.Users.Where(x => x.UserTagId == 9).ToListAsync();
+        //var MoassehUsers = await _db.Users.Where(x => x.UserTagId == 5 || x.UserTagId == 8 || x.UserTagId == 12 || x.UserTagId == 16).ToListAsync();
+        //foreach (var KomyteUser in KomyteUsers)
+        //{
+        //	KomyteUser.ProjectId = KomyteId;
+        //	//_db.Users.Update(KomyteUser);
+        //}
+        //foreach (var BonyadUser in BonyadUsers)
+        //{
+        //	BonyadUser.ProjectId = BonyadId;
+        //	//_db.Users.Update(BonyadUser);
+        //}
+        //foreach (var ShahrdaryUser in ShahrdaryUsers)
+        //{
+        //	ShahrdaryUser.ProjectId = ShahrdaryId;
+        //	//_db.Users.Update(ShahrdaryUser);
+        //}
+        //foreach (var HekmatUser in HekmatUsers)
+        //{
+        //	HekmatUser.ProjectId = HekmatId;
+        //	//_db.Users.Update(HekmatUser);
+        //}
+        //foreach (var MoassehUser in MoassehUsers)
+        //{
+        //	MoassehUser.ProjectId = MoassehId;
+        //	//_db.Users.Update(MoassehUser);
+        //}
 
-            //_db.SaveChanges();
+        //_db.SaveChanges();
 
-            //var usersWithOutHelliCode = await _db.Users.Where(x => !x.IsDelete && (x.HelliCode == null || x.HelliCode == "")).ToListAsync();
-            //int bug = 0;
-            //int take = 5000;
-            //var pages = (usersWithOutHelliCode.Count / take) + 1;
-            //for (int i = 1; i <= pages; i++)
-            //{
-            //    int skip = Utility.CalcSkip(i, 5000);
-            //    foreach (var user in usersWithOutHelliCode.Skip(skip).Take(take))
-            //    {
-            //        //var anyMobile = await _db.Users.AnyAsync(x => !x.IsDelete && x.UserId != user.UserId && (x.MobileNumber == user.MobileNumber) && (x.HelliCode == user.HelliCode));
-            //        //if (anyMobile)
-            //        //{
-            //        //    bug++;
-            //        //    continue;
-            //        //}
-            //        user.HelliCode = user.MobileNumber;
-            //        _db.Update(user);
-            //    }
-            //    await _db.SaveChangesAsync();
-            //}
-            //var usersHasProblem = new List<Tuple<string, string>>();
-            //foreach (var helliCode in HelliCodes)
-            //{
-            //    try
-            //    {
-            //        var user = await _db.Users.Where(x => x.HelliCode == helliCode && x.IsDelete == false).ToListAsync();
-            //        if (user.Count() > 1)
-            //        {
-            //            usersHasProblem.Add(new Tuple<string, string>(helliCode, "many users exist with this helli code"));
-            //            continue;
-            //        }
-            //        else
-            //        {
-            //            var userBook = await _db.UserBooks.FirstOrDefaultAsync(x => x.BookId == 122 && x.UserId == user.First().UserId);
-            //            if (userBook != null)
-            //            {
-            //                _db.UserBooks.Remove(userBook);
-            //                _db.SaveChanges();
-            //            }
-            //            UserBook book = new UserBook()
-            //            {
-            //                UserId = user.First().UserId,
-            //                BookId = 2192
-            //            };
-            //            _db.UserBooks.Add(book);
-            //            _db.SaveChanges();
+        //var usersWithOutHelliCode = await _db.Users.Where(x => !x.IsDelete && (x.HelliCode == null || x.HelliCode == "")).ToListAsync();
+        //int bug = 0;
+        //int take = 5000;
+        //var pages = (usersWithOutHelliCode.Count / take) + 1;
+        //for (int i = 1; i <= pages; i++)
+        //{
+        //    int skip = Utility.CalcSkip(i, 5000);
+        //    foreach (var user in usersWithOutHelliCode.Skip(skip).Take(take))
+        //    {
+        //        //var anyMobile = await _db.Users.AnyAsync(x => !x.IsDelete && x.UserId != user.UserId && (x.MobileNumber == user.MobileNumber) && (x.HelliCode == user.HelliCode));
+        //        //if (anyMobile)
+        //        //{
+        //        //    bug++;
+        //        //    continue;
+        //        //}
+        //        user.HelliCode = user.MobileNumber;
+        //        _db.Update(user);
+        //    }
+        //    await _db.SaveChangesAsync();
+        //}
+        //var usersHasProblem = new List<Tuple<string, string>>();
+        //foreach (var helliCode in HelliCodes)
+        //{
+        //    try
+        //    {
+        //        var user = await _db.Users.Where(x => x.HelliCode == helliCode && x.IsDelete == false).ToListAsync();
+        //        if (user.Count() > 1)
+        //        {
+        //            usersHasProblem.Add(new Tuple<string, string>(helliCode, "many users exist with this helli code"));
+        //            continue;
+        //        }
+        //        else
+        //        {
+        //            var userBook = await _db.UserBooks.FirstOrDefaultAsync(x => x.BookId == 122 && x.UserId == user.First().UserId);
+        //            if (userBook != null)
+        //            {
+        //                _db.UserBooks.Remove(userBook);
+        //                _db.SaveChanges();
+        //            }
+        //            UserBook book = new UserBook()
+        //            {
+        //                UserId = user.First().UserId,
+        //                BookId = 2192
+        //            };
+        //            _db.UserBooks.Add(book);
+        //            _db.SaveChanges();
 
-            //        }
-            //    }
-            //    catch (Exception e)
-            //    {
-            //        usersHasProblem.Add(new Tuple<string, string>(helliCode, e.Message));
-            //    }
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        usersHasProblem.Add(new Tuple<string, string>(helliCode, e.Message));
+        //    }
 
-            //}
-
-
-
-            //try
-            //{
-            //    string numbers = "";
-            //    for (int i = 3; i < 18; i++)
-            //    {
-            //        int skip = i * 2000;
-            //        //var users = await _db.Users.Where(x => x.MobileNumber.StartsWith("0") == false).ToListAsync();
-            //var users = await _db.Users.Where(x => x.MobileNumber.StartsWith("0") && x.MobileNumber.Length != 11).ToListAsync();
-            //foreach (var user in users)
-            //{
-            //    user.IsDelete = true;
-            //    await Upsert(user);
-            //}
-            //        if (users.Count > 0)
-            //        {
-            //            foreach (var user in users)
-            //            {
-            //                user.MobileNumber = user.MobileNumber.TrimStart('+');
-            //                if (user.MobileNumber.Length > 10)
-            //                {
-            //                    numbers += user.MobileNumber + "-";
-            //                    var notePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "User.txt");
-            //                    if (File.Exists(notePath))
-            //                    {
-            //                        await File.WriteAllTextAsync(notePath, numbers);
-            //                    }
-            //                }
-            //                else
-            //                {
-            //                    user.MobileNumber = "0" + user.MobileNumber;
-            //                    await Upsert(user);
-            //                }
-            //            }
-            //        }
-            //        else
-            //        {
-
-            //        }
-            //    }
-            //}
-            //catch (Exception e)
-            //{
-            //    var ee = e.Message;
-            //}
-
-
-            ////پیدا کردن کاربر های تکراری و حذف ان ها
-            //var users = await _db.Users.Where(x => x.IsDelete == false).GroupBy(x => x.HelliCode).Where(x => x.Count() > 1).Select(x => x.Key).ToListAsync();
-            //var notePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Users.txt");
-            //if (!File.Exists(notePath))
-            //{
-            //    return;
-            //}
-            //var numbers = "";
-            //foreach (var item in users)
-            //{
-            //    numbers += item + "\r";
-            //    await File.WriteAllTextAsync(notePath, numbers);
-            //}
-
-            //foreach (var item in users)
-            //{
-            //    var user = await _db.Users.Where(x => x.MobileNumber == item).ToListAsync();
-            //    //if (user.Count() == 2)
-            //    //{
-            //    //    if (user.First().HelliCode == user.Last().HelliCode)
-            //    //    {
-            //    //        if (user.Last().IsDelete == true)
-            //    //        {
-
-            //    //        }
-            //    //        if (user.First().IsDelete == false)
-            //    //        {
-
-            //    //        }
-
-            //    //        var logs = _db.BookReadLogs.Where(x => x.UserId == user.First().UserId);
-            //    //        foreach (var log in logs)
-            //    //        {
-            //    //            log.UserId = user.Last().UserId;
-            //    //            _db.Update(log);
-            //    //            await _db.SaveChangesAsync();
-            //    //        }
-            //    //        var books = _db.UserBooks.Where(x => x.UserId == user.First().UserId).ToList();
-            //    //        _db.UserBooks.RemoveRange(books);
-            //    //        _db.Users.Remove(user.First());
-            //    //        await _db.SaveChangesAsync();
-            //    //    }
-            //    //}
-            //    //user.FirstOrDefault().IsDelete = true;
-            //    //await Upsert(user.FirstOrDefault());
-            //}
-
-
-            // یافتن کاربر های کلا ویرایش شده
-            //var res = await _db.AdminAction.Where(x => x.TypeId == 1 && x.Action == "ویرایش").ToListAsync();
-            //var rs2 = res.GroupBy(x => x.ObjectId);
-            //foreach (var item in rs2)
-            //{
-            //    if (item.Count() >= 2)
-            //    {
-            //        if (item.FirstOrDefault()?.Data != item.LastOrDefault()?.Data)
-            //        {
-            //            var lastUserData = DataConvertor.DeserializePostedUser(item?.FirstOrDefault()?.Data);
-            //            var newUserData = DataConvertor.DeserializePostedUser(item?.LastOrDefault()?.Data);
-            //            if (lastUserData.FirstName + " " + lastUserData.LastName != newUserData.FirstName + " " + newUserData.LastName)
-            //            {
-            //                var user = await FirstOrDefault(x => x.UserId == lastUserData.UserId);
-            //                var userbooks = await _db.UserBooks.Where(x => x.UserId == lastUserData.UserId).ToListAsync();
-            //                user.FirstName = lastUserData.FirstName;
-            //                user.LastName = lastUserData.LastName;
-            //                user.Name = lastUserData.FirstName + " " + lastUserData.LastName;
-            //                user.Grade = lastUserData.Grade;
-            //                user.Gender = lastUserData.Gender;
-            //                user.HelliCode = lastUserData.HelliCode;
-            //                user.MobileNumber = lastUserData.MobileNumber;
-            //                _db.RemoveRange(userbooks);
-            //                var usernewbooks = new List<UserBook>();
-            //                foreach (var book in lastUserData?.BooksId ?? new List<int>())
-            //                {
-            //                    usernewbooks.Add(new UserBook()
-            //                    {
-            //                        BookId = book,
-            //                        UserId = lastUserData.UserId
-            //                    });
-            //                }
-            //                await _db.AddRangeAsync(usernewbooks);
-            //                await Upsert(user);
-            //            }
-            //        }
-            //    }
-            //}
+        //}
 
 
 
-            // کسایی که از نسخه های قبلی اپ استفاده میکنن
-            //var date = new DateTime(2023, 04, 28);
-            //var res = await _db.BookReadLogs.Where(x => x.VersionType != "1.2.4" && x.DateReadBook >= date)
-            //    .ToListAsync();
+        //try
+        //{
+        //    string numbers = "";
+        //    for (int i = 3; i < 18; i++)
+        //    {
+        //        int skip = i * 2000;
+        //        //var users = await _db.Users.Where(x => x.MobileNumber.StartsWith("0") == false).ToListAsync();
+        //var users = await _db.Users.Where(x => x.MobileNumber.StartsWith("0") && x.MobileNumber.Length != 11).ToListAsync();
+        //foreach (var user in users)
+        //{
+        //    user.IsDelete = true;
+        //    await Upsert(user);
+        //}
+        //        if (users.Count > 0)
+        //        {
+        //            foreach (var user in users)
+        //            {
+        //                user.MobileNumber = user.MobileNumber.TrimStart('+');
+        //                if (user.MobileNumber.Length > 10)
+        //                {
+        //                    numbers += user.MobileNumber + "-";
+        //                    var notePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "User.txt");
+        //                    if (File.Exists(notePath))
+        //                    {
+        //                        await File.WriteAllTextAsync(notePath, numbers);
+        //                    }
+        //                }
+        //                else
+        //                {
+        //                    user.MobileNumber = "0" + user.MobileNumber;
+        //                    await Upsert(user);
+        //                }
+        //            }
+        //        }
+        //        else
+        //        {
 
-            //  دسترسی دانش آموزان که به کتاب پایه های دیگه دسترسی دارن این آیدی ها برای پایه ششم تنظیم شده
-            //var user = await _db.UserBooks.Include(x=>x.User).OrderBy(x => x.Id).Where(x => x.User.Grade == 3 && x.User.IsDelete==false).Skip(0).Take(int.MaxValue).ToListAsync();
-            //var usergroups = user.GroupBy(x => x.UserId);
-            //var books = await _db.Books.Where(x => x.GroupId != 29).ToListAsync();
-            //string numbers = "";
-            //foreach (var item in usergroups)
-            //{
-            //    foreach (var book in books)
-            //    {
-            //        var res = item?.Any(x => x.BookId == book.Id);
-            //        if (res.Value)
-            //        {
-            //            var olduserbook = user.FirstOrDefault(x => x.UserId == item?.FirstOrDefault()?.UserId && x.BookId == book.Id);
-            //            _db.UserBooks.Remove(olduserbook);
-            //            //var userbook = new UserBook()
-            //            //{
-            //            //    UserId = item.FirstOrDefault().UserId,
-            //            //    BookId = book.Id
-            //            //};
-            //            //numbers += item?.FirstOrDefault()?.UserId + "-";
-            //            //var notePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "User.txt");
-            //            //if (File.Exists(notePath))
-            //            //{
-            //            //    await File.WriteAllTextAsync(notePath, numbers);
-            //            //}
-            //        }
-            //    }
+        //        }
+        //    }
+        //}
+        //catch (Exception e)
+        //{
+        //    var ee = e.Message;
+        //}
 
-            //    await _db.SaveChangesAsync();
-            //}
-            //await _db.SaveChangesAsync();
-            //var end = numbers;
+
+        ////پیدا کردن کاربر های تکراری و حذف ان ها
+        //var users = await _db.Users.Where(x => x.IsDelete == false).GroupBy(x => x.HelliCode).Where(x => x.Count() > 1).Select(x => x.Key).ToListAsync();
+        //var notePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Users.txt");
+        //if (!File.Exists(notePath))
+        //{
+        //    return;
+        //}
+        //var numbers = "";
+        //foreach (var item in users)
+        //{
+        //    numbers += item + "\r";
+        //    await File.WriteAllTextAsync(notePath, numbers);
+        //}
+
+        //foreach (var item in users)
+        //{
+        //    var user = await _db.Users.Where(x => x.MobileNumber == item).ToListAsync();
+        //    //if (user.Count() == 2)
+        //    //{
+        //    //    if (user.First().HelliCode == user.Last().HelliCode)
+        //    //    {
+        //    //        if (user.Last().IsDelete == true)
+        //    //        {
+
+        //    //        }
+        //    //        if (user.First().IsDelete == false)
+        //    //        {
+
+        //    //        }
+
+        //    //        var logs = _db.BookReadLogs.Where(x => x.UserId == user.First().UserId);
+        //    //        foreach (var log in logs)
+        //    //        {
+        //    //            log.UserId = user.Last().UserId;
+        //    //            _db.Update(log);
+        //    //            await _db.SaveChangesAsync();
+        //    //        }
+        //    //        var books = _db.UserBooks.Where(x => x.UserId == user.First().UserId).ToList();
+        //    //        _db.UserBooks.RemoveRange(books);
+        //    //        _db.Users.Remove(user.First());
+        //    //        await _db.SaveChangesAsync();
+        //    //    }
+        //    //}
+        //    //user.FirstOrDefault().IsDelete = true;
+        //    //await Upsert(user.FirstOrDefault());
+        //}
+
+
+        // یافتن کاربر های کلا ویرایش شده
+        //var res = await _db.AdminAction.Where(x => x.TypeId == 1 && x.Action == "ویرایش").ToListAsync();
+        //var rs2 = res.GroupBy(x => x.ObjectId);
+        //foreach (var item in rs2)
+        //{
+        //    if (item.Count() >= 2)
+        //    {
+        //        if (item.FirstOrDefault()?.Data != item.LastOrDefault()?.Data)
+        //        {
+        //            var lastUserData = DataConvertor.DeserializePostedUser(item?.FirstOrDefault()?.Data);
+        //            var newUserData = DataConvertor.DeserializePostedUser(item?.LastOrDefault()?.Data);
+        //            if (lastUserData.FirstName + " " + lastUserData.LastName != newUserData.FirstName + " " + newUserData.LastName)
+        //            {
+        //                var user = await FirstOrDefault(x => x.UserId == lastUserData.UserId);
+        //                var userbooks = await _db.UserBooks.Where(x => x.UserId == lastUserData.UserId).ToListAsync();
+        //                user.FirstName = lastUserData.FirstName;
+        //                user.LastName = lastUserData.LastName;
+        //                user.Name = lastUserData.FirstName + " " + lastUserData.LastName;
+        //                user.Grade = lastUserData.Grade;
+        //                user.Gender = lastUserData.Gender;
+        //                user.HelliCode = lastUserData.HelliCode;
+        //                user.MobileNumber = lastUserData.MobileNumber;
+        //                _db.RemoveRange(userbooks);
+        //                var usernewbooks = new List<UserBook>();
+        //                foreach (var book in lastUserData?.BooksId ?? new List<int>())
+        //                {
+        //                    usernewbooks.Add(new UserBook()
+        //                    {
+        //                        BookId = book,
+        //                        UserId = lastUserData.UserId
+        //                    });
+        //                }
+        //                await _db.AddRangeAsync(usernewbooks);
+        //                await Upsert(user);
+        //            }
+        //        }
+        //    }
+        //}
+
+
+
+        // کسایی که از نسخه های قبلی اپ استفاده میکنن
+        //var date = new DateTime(2023, 04, 28);
+        //var res = await _db.BookReadLogs.Where(x => x.VersionType != "1.2.4" && x.DateReadBook >= date)
+        //    .ToListAsync();
+
+        //  دسترسی دانش آموزان که به کتاب پایه های دیگه دسترسی دارن این آیدی ها برای پایه ششم تنظیم شده
+        //var user = await _db.UserBooks.Include(x=>x.User).OrderBy(x => x.Id).Where(x => x.User.Grade == 3 && x.User.IsDelete==false).Skip(0).Take(int.MaxValue).ToListAsync();
+        //var usergroups = user.GroupBy(x => x.UserId);
+        //var books = await _db.Books.Where(x => x.GroupId != 29).ToListAsync();
+        //string numbers = "";
+        //foreach (var item in usergroups)
+        //{
+        //    foreach (var book in books)
+        //    {
+        //        var res = item?.Any(x => x.BookId == book.Id);
+        //        if (res.Value)
+        //        {
+        //            var olduserbook = user.FirstOrDefault(x => x.UserId == item?.FirstOrDefault()?.UserId && x.BookId == book.Id);
+        //            _db.UserBooks.Remove(olduserbook);
+        //            //var userbook = new UserBook()
+        //            //{
+        //            //    UserId = item.FirstOrDefault().UserId,
+        //            //    BookId = book.Id
+        //            //};
+        //            //numbers += item?.FirstOrDefault()?.UserId + "-";
+        //            //var notePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "User.txt");
+        //            //if (File.Exists(notePath))
+        //            //{
+        //            //    await File.WriteAllTextAsync(notePath, numbers);
+        //            //}
+        //        }
+        //    }
+
+        //    await _db.SaveChangesAsync();
+        //}
+        //await _db.SaveChangesAsync();
+        //var end = numbers;
         //}
         public async ValueTask DisposeAsync()
         {

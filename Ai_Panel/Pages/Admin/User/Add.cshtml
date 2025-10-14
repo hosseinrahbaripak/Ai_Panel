@@ -1,0 +1,57 @@
+﻿@page
+@model Ai_Panel.Pages.Admin.User.AddModel
+@{
+}
+<div class="row justify-content-md-center">
+    <div class="col-md-8 col-lg-8 col-12">
+        <div class="card shadow">
+            <h5 class="card-header">افزودن کاربر جدید</h5>
+            <div class="card-body">
+                <form method="post" asp-page-handler="CreateUser" enctype="multipart/form-data">
+                    @Html.AntiForgeryToken()
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <!-- First Name -->
+                    <div class="mb-3">
+                        <label asp-for="User.FirstName" class="form-label"></label> 
+                        <input asp-for="User.FirstName" class="form-control" autocomplete="off" />
+                        <span asp-validation-for="User.FirstName" class="text-danger"></span>
+                    </div>
+
+                    <!-- Last Name -->
+                    <div class="mb-3">
+                        <label asp-for="User.LastName" class="form-label"></label>
+                        <input asp-for="User.LastName" class="form-control" autocomplete="off" />
+                        <span asp-validation-for="User.LastName" class="text-danger"></span>
+                    </div>
+
+                    <!-- Mobile Number -->
+                    <div class="mb-3">
+                        <label asp-for="User.MobileNumber" class="form-label"></label>
+                        <input asp-for="User.MobileNumber" class="form-control" autocomplete="off" />
+                        <span asp-validation-for="User.MobileNumber" class="text-danger"></span>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="mb-3">
+                        <label asp-for="User.Email" class="form-label"></label>
+                        <input asp-for="User.Email" type="email" class="form-control" autocomplete="off" />
+                        <span asp-validation-for="User.Email" class="text-danger"></span>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="mb-3">
+                        <label asp-for="User.Password" class="form-label"></label>
+                        <input asp-for="User.Password" type="text" class="form-control" autocomplete="off" />
+                        <span asp-validation-for="User.Password" class="text-danger"></span>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="submit" class="btn btn-primary">ثبت کاربر</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
