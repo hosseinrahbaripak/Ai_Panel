@@ -4,6 +4,7 @@ using Ai_Panel.Application.DTOs.AiConfig;
 using Ai_Panel.Application.Features.AiConfig.Request.Command;
 using Ai_Panel.Classes;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,7 +12,8 @@ using System.Text.Json;
 
 namespace Ai_Panel.Pages.Admin.AiConfig
 {
-	public class AddModel(IMediator mediator, IAiModelRepository aiModelRepository,
+    [Authorize]
+    public class AddModel(IMediator mediator, IAiModelRepository aiModelRepository,
 		IAiConfigRepository aiConfigRepository, IAiPlatformRepository aiPlatformRepository) : PageModel
 	{
 		public string Error { get; set; }

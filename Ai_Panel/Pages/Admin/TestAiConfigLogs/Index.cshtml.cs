@@ -2,13 +2,14 @@
 using Ai_Panel.Application.DTOs.TestAiConfig;
 using Ai_Panel.Application.Features.TestAiConfig.Request.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Text.Json;
 
 namespace Ai_Panel.Pages.Admin.TestAiConfigLogs;
 
-[PermissionChecker]
+[Authorize]
 public class IndexModel(
 	IMediator mediator,
 	 IAiModelRepository aiModelRepository

@@ -1,9 +1,11 @@
 ﻿using Ai_Panel.Application.Services.Ai;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Ai_Panel.Pages.Admin
 {
+    [Authorize]
     public class TestAiModel : PageModel
     {
         private readonly IAiApiClient _aiApiClient;

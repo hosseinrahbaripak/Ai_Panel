@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Ai_Panel.Pages.Admin
 {
-    //[Authorize]
+    [Authorize]
     public class SignOutModel : PageModel
     {
         public async Task<IActionResult> OnGet()

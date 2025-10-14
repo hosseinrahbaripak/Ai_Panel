@@ -4,15 +4,15 @@ using Ai_Panel.Application.DTOs.AiChat;
 using Ai_Panel.Application.Enum;
 using Ai_Panel.Application.Features.AiChat.Request.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Ai_Panel.Pages.Admin.UserAiChatLogsDashboard;
-
-[PermissionChecker]
+[Authorize]
 public class IndexModel(IMediator mediator,  IUser userRepository, IUserAiChatLogsRepository UACLRepository) : PageModel
 {
-	public AiChatDashboardDto AiChatLogsDashboardDto { get; set; }
+    public AiChatDashboardDto AiChatLogsDashboardDto { get; set; }
 	public DateValueDto AiChatsCounts { get; set; }
 	public DateValueDto AiChatWordsCount { get; set; }
 	public async Task OnGetAsync()

@@ -6,14 +6,15 @@ using Ai_Panel.Application.Features.AiConfig.Request.Command;
 using Ai_Panel.Application.Features.AiConfig.Request.Queries;
 using Ai_Panel.Classes;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Ai_Panel.Pages.Admin.AiConfig
 {
-	[PermissionChecker]
-	public class EditModel(IMediator mediator, IAiModelRepository aiModelRepository, IAiPlatformRepository aiPlatformRepository) : PageModel
+    [Authorize]
+    public class EditModel(IMediator mediator, IAiModelRepository aiModelRepository, IAiPlatformRepository aiPlatformRepository) : PageModel
 	{
 		public string Error { get; set; }
 		[BindProperty]

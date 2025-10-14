@@ -1,12 +1,13 @@
 ﻿using Ai_Panel.Application.Contracts.Persistence.EfCore;
 using Ai_Panel.Classes;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Ai_Panel.Pages.Admin.Home
 {
-    [PermissionChecker]
+    [Authorize]
     public class IndexModel : PageModel
     {
         private readonly IMediator _mediator;
