@@ -15,7 +15,7 @@
 			</button>
 		</div>
 	</div>
-	<div class="" style="display: block;">
+	<div class="" style="max-height:500px;overflow-y:auto;overflow-x:hidden">
 		<div class="row direct-chat-messages" id="chatbody">
 			<div class="direct-chat-msg float-end mb-3">
 				<div class="direct-chat-infos clearfix">
@@ -25,12 +25,13 @@
 				<div class="direct-chat-text">
 					<p>
 						سوالات خود را مطرح نمایید
-					</p>
+					</p> 
 				</div>
 			</div>
+			
 		</div>
 	</div>
-	<div class="card-footer fix-chatMessage-Bottom-inside">
+	<div class="card-footer fix-chatMessage-Bottom-inside bg-white">
 		<form method="post" id="SendMessageForm">
 			<div class="input-group">
 				<input type="hidden" id="QuestionId" name="QuestionId">
@@ -67,6 +68,29 @@
 	document.addEventListener('DOMContentLoaded', function () {
 		const SendMessageBtn = document.getElementById("SendMessageBtn");
 		const validationModal = new bootstrap.Modal(document.getElementById('validationModal'));
+		const chatbody = document.getElementById("chatbody");
+		const AiChatBody = `
+		<div class="direct-chat-msg float-end mb-3">
+				<img class="direct-chat-img" src="/images/supporter.jpg" alt=".">
+				<div class="direct-chat-text">
+					<p>
+						$msg
+					</p>
+				</div>
+
+			</div>
+		`
+		const UserChatBody = `
+		<div class="direct-chat-msg right mb-3">
+				<div class="direct-chat-text bg-primary text-white">
+					<p>
+						$msg
+					</p>
+				</div>
+			</div>
+		
+		`
+
 		var userId = "@id";
 		SendMessageBtn.addEventListener("click", () => {
 			const AiPlatform = document.getElementById("AiPlatform").value; //select box
@@ -97,8 +121,7 @@
 				Prompt: Prompt,
 				Message: Message
 			};
-
-
+			chatbody.insertAdjacentHTML("beforeend", UserChatBody.replace("$msg",Message));
 			fetch('/api/AiChatApi/Ask', {
 				method: 'POST',
 				headers: {
@@ -107,8 +130,15 @@
 				body: JSON.stringify(body),
 				// credentials: 'include'
 			})
-				.then(res => res.json())
-				.then(data => console.log(data));
+				.then(res => res.json()) 
+				.then(data =>{
+					chatbody.insertAdjacentHTML("beforeend", AiChatBody.replace("$msg", data.result));
+					document.getElementById("Message").value = "";
+						chatbody.scrollTo({
+							top: chatbody.scrollHeight,
+							behavior: 'smooth'
+						});
+				});
 		})
 
 	});

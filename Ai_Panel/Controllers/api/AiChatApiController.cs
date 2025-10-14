@@ -1,6 +1,8 @@
 ﻿using Ai_Panel.Application.Contracts.Persistence.EfCore;
 using Ai_Panel.Application.DTOs.AiChat;
+using Ai_Panel.Application.Services.Ai;
 using Ai_Panel.Classes;
+using Ai_Panel.Pages.Admin;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -14,19 +16,40 @@ namespace Ai_Panel.Controllers.api
     [IgnoreAntiforgeryToken]
     public class AiChatApiController(
         IMediator mediator, WebTools webTools, IErrorLog log, IUser user,
-        IMapper mapper, IAiPlatformRepository aiPlatform) : ControllerBase
+        IMapper mapper, IAiPlatformRepository aiPlatform, IAiApiClient aiApiClient) : ControllerBase
     {
         [Authorize]
         [Route("Ask")]
         [HttpPost]
         public async Task<ActionResult<ServiceMessage>> Ask(UserAskAiDto model)
         {
-            return new ServiceMessage()
+            try
             {
-                ErrorId = 0,
-                ErrorTitle = null,
-                Result = null
-            };
+                ChatCompletionDto chatCompletionDetail = new ChatCompletionDto()
+                {
+                    Prompt = model.Prompt,
+                    Message = model.Message,
+                    BaseUrl = "https://api.avalai.ir/v1/chat/completions",
+                    Model = "gpt-4o"
+                };
+                var res = await aiApiClient.GetChatCompletionAsync(chatCompletionDetail);
+                return new ServiceMessage()
+                {
+                    ErrorId = 0,
+                    ErrorTitle = null,
+                    Result = res
+                };
+            }
+            catch (Exception e)
+            {
+                return new ServiceMessage()
+                {
+                    ErrorId = 0,
+                    ErrorTitle = e.Message,
+                    Result = null
+                };
+            }
+
         }
 
         [Authorize]
