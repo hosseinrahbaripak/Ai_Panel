@@ -3,7 +3,8 @@
 @{
 }
 <form method="post">
-    <input type="text" name="prompt" placeholder="Enter prompt..." />
+    <input type="text" asp-for="@Model.testModel.Message" placeholder="Enter Message..." />
+    <input type="text" asp-for="@Model.testModel.Prompt" placeholder="Enter prompt..." />
     <button type="submit">Send to AI</button>
 </form>
 

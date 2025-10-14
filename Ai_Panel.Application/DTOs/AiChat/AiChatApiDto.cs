@@ -101,7 +101,7 @@ public class UserAskAiDto
     public int MaxTokens { get; set; }
     public string BookContent { get; set; }
     public string Prompt { get; set; }
-    public string FirstMessage { get; set; }
+    public string Message { get; set; }
     public float TopP { get; set; }
     public float PresencePenalty { get; set; }
     public float FrequencyPenalty { get; set; }

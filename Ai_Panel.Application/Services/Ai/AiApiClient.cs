@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Text;
 using System.Text.Json.Nodes;
+using Ai_Panel.Application.DTOs.AiChat;
 using Newtonsoft.Json;
 
 namespace Ai_Panel.Application.Services.Ai
@@ -11,26 +12,30 @@ namespace Ai_Panel.Application.Services.Ai
         private readonly HttpClient _httpClient;
         private readonly string _apiKey = "";
 
-        private const string BaseUrl = "https://api.avalai.ir/v1/chat/completions";
-
         public AiApiClient(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
 
-        public async Task<string?> GetChatCompletionAsync(string prompt)
+        public async Task<string?> GetChatCompletionAsync(ChatCompletionDto dto)
         {
             var requestBody = new
             {
-                model = "gpt-4o",
+                model = dto.Model,
                 messages = new[]
                 {
-                    new { role = "user", content = prompt } ,
-
-                }
+                    new { role = "system", content = dto.Prompt ?? "You are a helpful assistant." },
+                    new { role = "user", content = dto.Message }
+                },
+                temperature = dto.Temperature,
+                top_p = dto.TopP,
+                frequency_penalty = dto.FrequencyPenalty,
+                presence_penalty = dto.PresencePenalty,
+                max_tokens = dto.MaxTokens,
+                stop = dto.Stop
             };
 
-            var request = new HttpRequestMessage(HttpMethod.Post, BaseUrl)
+            var request = new HttpRequestMessage(HttpMethod.Post, dto.BaseUrl)
             {
                 Content = new StringContent(JsonConvert.SerializeObject(requestBody), Encoding.UTF8, "application/json")
             };
