@@ -58,15 +58,6 @@ namespace Ai_Panel.Pages.Admin.AiConfig
 					Error = resAiConfig.ErrorTitle;
 					return Page();
 				}
-				//if (WithAiContent)
-				//{
-				//	AiContentDto.AiConfigId = resAiConfig.Result;
-				//	var resAdd = await mediator.Send(new UpsertAiContentRequest()
-				//	{
-				//		Model = AiContentDto
-				//	});
-				//	Error = resAdd.ErrorTitle;
-				//}
 				return Redirect(Urls.AiConfig);
 			}
 			await FillDropDown();
