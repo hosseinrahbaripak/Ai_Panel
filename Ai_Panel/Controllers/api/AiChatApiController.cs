@@ -2,6 +2,7 @@
 using Ai_Panel.Application.DTOs.AiChat;
 using Ai_Panel.Application.Services.Ai;
 using Ai_Panel.Classes;
+using Ai_Panel.Models;
 using Ai_Panel.Pages.Admin;
 using AutoMapper;
 using MediatR;
@@ -16,13 +17,23 @@ namespace Ai_Panel.Controllers.api
     [IgnoreAntiforgeryToken]
     public class AiChatApiController(
         IMediator mediator, WebTools webTools, IErrorLog log, IUser user,
-        IMapper mapper, IAiPlatformRepository aiPlatform, IAiApiClient aiApiClient) : ControllerBase
+        IMapper mapper, IAiPlatformRepository aiPlatform, IAiApiClient aiApiClient , IGenericRepository<Domain.TestAiConfig> testAiConfig) : ControllerBase
     {
         [Authorize]
         [Route("Ask")]
         [HttpPost]
         public async Task<ActionResult<ServiceMessage>> Ask(UserAskAiDto model)
         {
+            var userIdClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == CustomClaimTypes.UserId)?.Value;
+            var AIPlatform = await aiPlatform.FirstOrDefault(where: p => p.Id == model.AiPlatformId);
+            if(AIPlatform == null)
+            {
+                return new ServiceMessage() {
+                ErrorId=-1,
+                ErrorTitle="پلتفرم انتخاب شده یافت نشد",
+                Result=null
+                };
+            }
             try
             {
                 string[] StopArr = model.StopStr.Split(',', StringSplitOptions.RemoveEmptyEntries);
@@ -30,15 +41,47 @@ namespace Ai_Panel.Controllers.api
                 {
                     Prompt = model.Prompt,
                     Message = model.Message,
-                    BaseUrl = "https://api.avalai.ir/v1/chat/completions",
+                    BaseUrl = AIPlatform.ApiEndpoint,
                     Model = model.AiModel,
                     MaxTokens = model.MaxTokens,
                     FrequencyPenalty = model.FrequencyPenalty,
                     PresencePenalty = model.PresencePenalty,
-                    Stop = StopArr
+                    Stop = StopArr,
+                    Temperature = model.Temperature,
+                    TopP = model.TopP,
+                    N = 1
                 };
                 var res = await aiApiClient.GetChatCompletionAsync(chatCompletionDetail);
-                return res;
+                if (res.ErrorId == 0) {
+                    var TestAiConfigModel = new Domain.TestAiConfig()
+                    {
+                        AiResponse = res.Result.AiResponse,
+                        DateTime = DateTime.UtcNow.AddHours(3.5),
+                        userId = int.Parse(userIdClaim),
+                        RequestCost = res.Result.RequestCost,
+                        AiModelId = model.AiModelId,
+                        FrequencyPenalty = model.FrequencyPenalty,
+                        PresencePenalty = model.PresencePenalty,
+                        Stop = StopArr,
+                        MaxTokens = model.MaxTokens,
+                        Prompt = model.Prompt,
+                        Message = model.Message,
+                        N = 1,
+                        IsDelete = false,
+                        SummarizationCost = 0,
+                        EmbeddingCost = 0,
+                        Temperature = model.Temperature,
+                        TopP = model.TopP,
+                        UpdateDateTime = DateTime.UtcNow.AddHours(3.5),
+                    };
+                    await testAiConfig.Add(TestAiConfigModel);
+                }
+                return new ServiceMessage()
+                {
+                    Result = res.Result.AiResponse,
+                    ErrorTitle = null,
+                    ErrorId = 0
+                };
             }
             catch (Exception e)
             {

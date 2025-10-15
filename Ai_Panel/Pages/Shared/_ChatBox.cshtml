@@ -105,6 +105,8 @@
 
 		`
 		SendMessageBtn.addEventListener("click", () => {
+			const AiPlatformId = document.getElementById('AiPlatform').value;
+			const AiType = document.getElementById('AiType').value;
 			const AiModelSelect = document.getElementById('AiModelTypes');
 			const SelectedAiModel = AiModelSelect.options[AiModelSelect.selectedIndex]; // گزینه انتخاب‌شده
 			const SelectedAiModelText = SelectedAiModel.text;
@@ -117,18 +119,19 @@
 			const Stop = document.getElementById("stop").value;
 			const Prompt = document.getElementById("Prompt").value;
 			const Message = document.getElementById("Message").value;
-			console.log(document.getElementById("AiType").innerHTML)
-			if (AiPlatform === "لطفا موردی را انتخاب کنید" || AiType === "0" || AiModel === "0" || Message === "" || Prompt === "") {
+			if (AiPlatformId === "لطفا موردی را انتخاب کنید" || AiType === "0" || AiModel === "0" || Message === "" || Prompt === "") {
 				validationModal.show();
 				return
 			}
 			const body = {
+				AiPlatformId :Number(AiPlatformId),
+				AiModelId:Number(AiModel),
 				AiModel: SelectedAiModelText,
 				Temperature: parseFloat(Temperature),
 				PresencePenalty: parseFloat(PresencePenalty),
 				TopP: parseFloat(TopP),
 				FrequencyPenalty: parseFloat(FrequencyPenalty),
-				MaxTokens: Number(MaxTokens) === 0 ? 10000 : Number(MaxTokens) ,
+				MaxTokens: Number(MaxTokens) === 0 ? 110011 : Number(MaxTokens) ,
 				StopStr: Stop,
 				Prompt: Prompt,
 				Message: Message

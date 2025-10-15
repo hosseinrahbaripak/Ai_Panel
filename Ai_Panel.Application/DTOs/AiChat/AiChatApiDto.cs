@@ -92,6 +92,8 @@ public class Cost
 
 public class UserAskAiDto
 {
+    public int AiPlatformId { get; set; }
+    public int AiModelId {  get; set; }
     public string AiModel { get; set; }
     public float Temperature { get; set; }
     public float PresencePenalty { get; set; }

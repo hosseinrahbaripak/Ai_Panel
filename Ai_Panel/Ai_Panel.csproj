@@ -16,6 +16,7 @@
     <Compile Remove="Pages\Shared\Partial\**" />
     <Compile Remove="Views\Cart\**" />
     <Compile Remove="Views\Components\**" />
+    <Compile Remove="Views\Shared\Components\**" />
     <Compile Remove="wwwroot\content\**" />
     <Compile Remove="wwwroot\images\SubBookGroup\**" />
     <Content Remove="Areas\AdminArea\Data\**" />
@@ -26,6 +27,7 @@
     <Content Remove="Pages\Shared\Partial\**" />
     <Content Remove="Views\Cart\**" />
     <Content Remove="Views\Components\**" />
+    <Content Remove="Views\Shared\Components\**" />
     <Content Remove="wwwroot\content\**" />
     <Content Remove="wwwroot\images\SubBookGroup\**" />
     <EmbeddedResource Remove="Areas\AdminArea\Data\**" />
@@ -36,6 +38,7 @@
     <EmbeddedResource Remove="Pages\Shared\Partial\**" />
     <EmbeddedResource Remove="Views\Cart\**" />
     <EmbeddedResource Remove="Views\Components\**" />
+    <EmbeddedResource Remove="Views\Shared\Components\**" />
     <EmbeddedResource Remove="wwwroot\content\**" />
     <EmbeddedResource Remove="wwwroot\images\SubBookGroup\**" />
     <None Remove="Areas\AdminArea\Data\**" />
@@ -46,6 +49,7 @@
     <None Remove="Pages\Shared\Partial\**" />
     <None Remove="Views\Cart\**" />
     <None Remove="Views\Components\**" />
+    <None Remove="Views\Shared\Components\**" />
     <None Remove="wwwroot\content\**" />
     <None Remove="wwwroot\images\SubBookGroup\**" />
   </ItemGroup>
@@ -91,7 +95,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Shared\Components\UserReadLogsViewComponent\" />
     <Folder Include="wwwroot\excel\export\" />
     <Folder Include="wwwroot\excel\import\" />
     <Folder Include="wwwroot\files\app\android\" />

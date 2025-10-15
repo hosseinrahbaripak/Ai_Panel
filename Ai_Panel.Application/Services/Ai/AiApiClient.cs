@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Text;
 using System.Text.Json.Nodes;
+using Ai_Panel.Application.DTOs;
 using Ai_Panel.Application.DTOs.AiChat;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -9,13 +10,13 @@ using PersianAssistant.Models;
 
 namespace Ai_Panel.Application.Services.Ai
 {
-    
+
     public class AiApiClient : IAiApiClient
     {
         private readonly IConfiguration _configuration;
         private readonly HttpClient _httpClient;
         private readonly string _apiKey;
-        public AiApiClient(HttpClient httpClient , IConfiguration configuration)
+        public AiApiClient(HttpClient httpClient, IConfiguration configuration)
         {
             _httpClient = httpClient;
             _configuration = configuration;
@@ -25,7 +26,7 @@ namespace Ai_Panel.Application.Services.Ai
 
         public async Task<ServiceMessage> GetChatCompletionAsync(ChatCompletionDto dto)
         {
-            
+
             var requestBody = new
             {
                 model = dto.Model,
@@ -39,7 +40,8 @@ namespace Ai_Panel.Application.Services.Ai
                 frequency_penalty = dto.FrequencyPenalty,
                 presence_penalty = dto.PresencePenalty,
                 max_tokens = dto.MaxTokens,
-                stop = dto.Stop
+                stop = dto.Stop,
+                
             };
 
             var request = new HttpRequestMessage(HttpMethod.Post, dto.BaseUrl)
@@ -64,11 +66,17 @@ namespace Ai_Panel.Application.Services.Ai
             var content = await response.Content.ReadAsStringAsync();
             var json = JsonNode.Parse(content);
             string AiResponse = json?["choices"]?[0]?["message"]?["content"]?.ToString();
+            double RequestCost = (double)json?["estimated_cost"]?["irt"];
+            ChatComplectionResponseDto res = new ChatComplectionResponseDto()
+            {
+                AiResponse = AiResponse,
+                RequestCost = RequestCost
+            };
             return new ServiceMessage()
             {
                 ErrorId = 0,
                 ErrorTitle = null,
-                Result = AiResponse
+                Result = res
             };
         }
         private string ErrorHandling(HttpStatusCode statusCode)
