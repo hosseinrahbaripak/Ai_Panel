@@ -16,7 +16,7 @@ namespace Ai_Panel.Persistence.Configurations
         public DbSet<Role> Roles { get; set; }
         public DbSet<ErrorLog> ErrorLogs { get; set; }
         public DbSet<ApiRequestLog> ApiRequestLogs { get; set; }
-        //public DbSet<UserLikeOnBookPart> UserLikeOnBookParts { get; set; }
+        public DbSet<TestAiConfig> TestAiConfigs { get; set; }
         public DbSet<UserAiChatLog> UserAiChatLogs { get; set; }
         public DbSet<AiConfig> AiConfigs { get; set; }
         public DbSet<AiModel> AiModels { get; set; }
@@ -27,7 +27,7 @@ namespace Ai_Panel.Persistence.Configurations
             modelBuilder
                 .ApplyConfigurationsFromAssembly(typeof(LiveBookContext).Assembly);
 
-           
+
             modelBuilder.Entity<User>().HasQueryFilter(x => x.IsDelete == false);
             modelBuilder.Entity<UserSession>().HasQueryFilter(x => x.Users.IsDelete == false);
 
