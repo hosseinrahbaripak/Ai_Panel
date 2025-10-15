@@ -38,7 +38,7 @@
 					   id="TestDateTimeBegging">
 				<input type="text" id="Message" name="Message" placeholder="سوال خودت رو بپرس ..."
 					   class="form-control shadow-none" autocomplete="off" style="height:45px;">
-				<button id="SendMessageBtn" type="button" class="btn btn-appblue shadow-none" style="height:45px;">
+				<button id="SendMessageBtn" type="button" class="btn btn-appblue shadow-none"  style="height:45px;">
 					<i class="fa fa-send"></i>
 				</button>
 			</div>
@@ -136,7 +136,8 @@
 				Prompt: Prompt,
 				Message: Message
 			};
-			console.log(body)
+			SendMessageBtn.classList.add("disabled");
+			document.getElementById("Message").classList.add("disabled");
 			fetch('/api/AiChatApi/Ask', {
 				method: 'POST',
 				headers: {
@@ -149,15 +150,31 @@
 					console.log(data);
 					if(data.errorId === 0){
 						chatbody.insertAdjacentHTML("beforeend", UserChatBody.replace("$msg",Message));
-						chatbody.insertAdjacentHTML("beforeend", AiChatBody.replace("$msg", data.result));
-						document.getElementById("Message").value = "";
+						if(data.result === null){
+							chatbody.insertAdjacentHTML("beforeend", AiChatBody.replace("$msg", "پاسخی دریافت نشد"));
+							document.getElementById("Message").value = "";
 							chatbody.scrollTo({
 								top: chatbody.scrollHeight,
 								behavior: 'smooth'
 							});
+							SendMessageBtn.classList.remove("disabled");
+							document.getElementById("Message").classList.remove("disabled");
+							return
+						}
+						chatbody.insertAdjacentHTML("beforeend", AiChatBody.replace("$msg", data.result));
+							document.getElementById("Message").value = "";
+							chatbody.scrollTo({
+								top: chatbody.scrollHeight,
+								behavior: 'smooth'
+							});
+							SendMessageBtn.classList.remove("disabled");
+							document.getElementById("Message").classList.remove("disabled");
+							return;
 					}
 					else{
 						document.getElementById("Message").value = "";
+						SendMessageBtn.classList.remove("disabled");
+						document.getElementById("Message").classList.remove("disabled");
 						toastBody.innerText = data.errorTitle;
 						toast.show();
 					}

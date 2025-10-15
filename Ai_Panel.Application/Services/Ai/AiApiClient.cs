@@ -66,7 +66,11 @@ namespace Ai_Panel.Application.Services.Ai
             var content = await response.Content.ReadAsStringAsync();
             var json = JsonNode.Parse(content);
             string AiResponse = json?["choices"]?[0]?["message"]?["content"]?.ToString();
-            double RequestCost = (double)json?["estimated_cost"]?["irt"];
+            double RequestCost = 0;
+            if (double.TryParse(json?["estimated_cost"]?["irt"]?.ToString(), out double cost))
+            {
+                RequestCost = cost;
+            }
             ChatComplectionResponseDto res = new ChatComplectionResponseDto()
             {
                 AiResponse = AiResponse,
