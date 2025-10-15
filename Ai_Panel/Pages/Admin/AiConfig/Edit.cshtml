@@ -98,49 +98,6 @@
 									<textarea asp-for="AiConfigDto.Prompt" id="Prompt" class="form-control" rows="4" placeholder="پرامپت را وارد کنید..."></textarea>
 									<span class="text-danger" asp-validation-for="AiConfigDto.Prompt"></span>
 								</div>
-								<div class="col-lg-12 col-md-12 col-12 mt-1">
-									<label class="" asp-for="AiConfigDto.FirstMessage"> پیام آغازین
-										<span class="btn btn-outline-primary rounded-circle hintContainer p-0">؟
-											<div class="hint">
-												<p>
-													پارامترهای قابل استفاده شامل موارد زیر است که باید حتماً داخل {{ }} قرار گیرد مانند {{Question}}
-												</p>
-												<ul>
-													<li>
-														متن سوال : 
-														<span class="copy-text">{{Question}}</span>
-													</li>
-													<li>
-														متن پاسخ : 
-														<span class="copy-text">{{Answer}}</span>
-													</li>
-													<li>
-														متن توضیحات اضافی سوال : 
-														<span class="copy-text">{{Content}}</span>
-													</li>
-													<li>
-														نام کاربری کاربر : 
-														<span class="copy-text">{{User}}</span>
-													</li>
-													<li>
-														پایه کاربر : 
-														<span class="copy-text">{{UserGrade}}</span>
-													</li>
-													<li>
-														نام کتاب : 
-														<span class="copy-text">{{Book}}</span>
-													</li>
-													<li class="succes">
-														نام فصل : 
-														<span class="copy-text">{{Part}}</span>
-													</li>
-												</ul>
-											</div>
-										</span>
-									</label>
-									<textarea asp-for="AiConfigDto.FirstMessage" id="FirstMessage" class="form-control" rows="4" placeholder=" پیام آغازین را وارد کنید..."></textarea>
-									<span class="text-danger" asp-validation-for="AiConfigDto.FirstMessage"></span>
-								</div>
 								@* <div class="mt-3">
 									<div class="form-check form-switch form-check-reverse">
 										<label class="form-check-label" for="WithAiContent">همراه محتوا</label>

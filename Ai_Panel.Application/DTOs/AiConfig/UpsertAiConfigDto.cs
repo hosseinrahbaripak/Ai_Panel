@@ -28,10 +28,6 @@ public class UpsertAiConfigDto : BaseDto
 	[Required(ErrorMessage = "لطفا {0} را وارد کنید")]
     public string Prompt { get; set; }
 
-	[DisplayName("پیام آغازین")]
-	[Required(ErrorMessage = "لطفا {0} را وارد کنید")]
-	public string FirstMessage { get; set; }
-
 	[Range(0, 2)]
     public float Temperature { get; set; }
 
