@@ -1,4 +1,6 @@
-﻿using Ai_Panel.Application.Contracts.Persistence.EfCore;
+﻿using Ai_Panel.Application.Constants;
+using Ai_Panel.Application.Contracts.Persistence.EfCore;
+using Ai_Panel.Application.DTOs;
 using Ai_Panel.Application.DTOs.AiChat;
 using Ai_Panel.Application.Services.Ai;
 using Ai_Panel.Classes;
@@ -17,7 +19,7 @@ namespace Ai_Panel.Controllers.api
     [IgnoreAntiforgeryToken]
     public class AiChatApiController(
         IMediator mediator, WebTools webTools, IErrorLog log, IUser user,
-        IMapper mapper, IAiPlatformRepository aiPlatform, IAiApiClient aiApiClient , IGenericRepository<Domain.TestAiConfig> testAiConfig) : ControllerBase
+        IMapper mapper, IAiPlatformRepository aiPlatform, IAiApiClient aiApiClient, IAiConfigRepository aiConfig, IGenericRepository<Domain.TestAiConfig> testAiConfig) : ControllerBase
     {
         [Authorize]
         [Route("Ask")]
@@ -26,12 +28,13 @@ namespace Ai_Panel.Controllers.api
         {
             var userIdClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == CustomClaimTypes.UserId)?.Value;
             var AIPlatform = await aiPlatform.FirstOrDefault(where: p => p.Id == model.AiPlatformId);
-            if(AIPlatform == null)
+            if (AIPlatform == null)
             {
-                return new ServiceMessage() {
-                ErrorId=-1,
-                ErrorTitle="پلتفرم انتخاب شده یافت نشد",
-                Result=null
+                return new ServiceMessage()
+                {
+                    ErrorId = -1,
+                    ErrorTitle = "پلتفرم انتخاب شده یافت نشد",
+                    Result = null
                 };
             }
             try
@@ -52,7 +55,8 @@ namespace Ai_Panel.Controllers.api
                     N = 1
                 };
                 var res = await aiApiClient.GetChatCompletionAsync(chatCompletionDetail);
-                if (res.ErrorId == 0) {
+                if (res.ErrorId == 0)
+                {
                     var TestAiConfigModel = new Domain.TestAiConfig()
                     {
                         AiResponse = res.Result.AiResponse,
@@ -96,15 +100,27 @@ namespace Ai_Panel.Controllers.api
         }
 
         [Authorize]
-        [Route("tses")]
-        [HttpGet]
-        public async Task<ActionResult<ServiceMessage>> Tset()
+        [Route("delete")]
+        [HttpPost]
+        public async Task<ActionResult<ServiceMessage>> DeleteConfig(DeleteRequest request)
         {
+            var model = await aiConfig.FirstOrDefault(where: c => c.Id == request.Id && !c.IsDelete);
+            if (model == null)
+            {
+                return new ServiceMessage()
+                {
+                    ErrorId = -1,
+                    ErrorTitle = SystemMessages.AiConfigNotFound,
+                    Result = null
+                };
+            }
+            model.IsDelete = true;
+            await aiConfig.Update(model);
             return new ServiceMessage()
             {
                 ErrorId = 0,
                 ErrorTitle = null,
-                Result = null
+                Result = SystemMessages.Success
             };
         }
         //{

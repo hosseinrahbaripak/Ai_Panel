@@ -80,7 +80,7 @@
                                         <a class="btn btn-sm" asp-route="AddAiConfigToBookQuestions" asp-route-id="@item.Id">
                                             <i class="fa fa-link text-success"></i>
                                         </a>
-                                        <a class="btn btn-sm mouse-pointer" onclick="DeleteFunction('/Admin/AppVersion/Delete', @item.Id)">
+                                        <a class="btn btn-sm mouse-pointer" onclick="DeleteFunction('/api/AiChatApi/delete', @item.Id)">
                                             <i class="fa fa-trash text-danger"></i>
                                         </a>
                                     </td>

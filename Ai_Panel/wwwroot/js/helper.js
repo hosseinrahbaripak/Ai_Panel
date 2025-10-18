@@ -483,14 +483,13 @@ function DeleteItemPost(url, id) {
     $.ajax({
         url: `${url}`,
         type: 'POST',
-        data: {
-            id: id,
-            __RequestVerificationToken: GetAntiForgeryToken()
-        },
+        data: JSON.stringify({ id: Number(id) }),
+        contentType: "application/json; charset=utf-8",
         beforeSend: function () {
             StartLoading();
         },
         success: function (res) {
+            console.log(res)
             CloseLoading();
             if (res.errorId === 0) {
                 location.reload();
