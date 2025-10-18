@@ -2,9 +2,9 @@
 @using Ai_Panel.Application.Tools
 @model Ai_Panel.Pages.Admin.TestAiConfigLogs.IndexModel
 @{
-    ViewData["Title"] = "گزارش تست کانفیگ های هوش مصنوعی";
-    Layout = "_AdminLayout";
-}   
+	ViewData["Title"] = "گزارش تست کانفیگ های هوش مصنوعی";
+	Layout = "_AdminLayout";
+}
 <div class="row">
 	<div class="col-md-12">
 		<div class="card card-primary card-outline shadow h-100">
@@ -18,7 +18,7 @@
 			</div>
 
 			<div class="card-body">
-				<section class="card-text">
+				<section class="card-text d-none">
 					<form enctype="multipart/form-data" method="post" id="TestConfigLogsFilterForm" data-ajax-success="FormSubmitHandler">
 						@Html.AntiForgeryToken()
 						<div class="row mb-3">
@@ -65,8 +65,8 @@
 						</div>
 					</form>
 				</section>
-				<div id="TestConfigLogsHolder">
-					@if (Model.TestAiConfigLogsDto.TestAiConfigLogsCount == 0)
+				<div class="col-12 mb-3">
+					@if (Model.TestAiConfigLogsDto == null || !Model.TestAiConfigLogsDto.Any())
 					{
 						<div class="alert alert-info">
 							<p>رکوردی برای نمایش یافت نشد</p>
@@ -74,133 +74,57 @@
 					}
 					else
 					{
-						<div class="col-6 mb-3">
-							<label class="">
-								تعداد رکوردها :
-								@Model.TestAiConfigLogsDto.TestAiConfigLogsCount
-							</label> |
-							<label class="">
-								مجموع هزینه ها :
-								@(Math.Round(Model.TestAiConfigLogsDto.TestAiConfigLogsTotalCost, 4))<i class="fa fa-dollar"></i>
-							</label>
-						</div>
 						<div class="scrolable-table-holder">
-							<table class="table table-hover sortable text-center" style=" overflow-x: auto;" id="TestConfigLogs" data-form="TestConfigLogsFilterForm" data-input="TestConfigLogsOrderBy" data-sortStr="@Model.TestAiConfigLogsDto.OrderBy">
+							<table class="table table-hover text-center sortable" id="TestAiConfigTable">
 								<thead>
 									<tr>
-										<th data-sort="UserName" class="mouse-pointer">
-											@Html.DisplayNameFor(model => model.TestAiConfigLogsDto.TestAiConfigLogs[0].Name)
-										</th>
-										<th data-sort="Book" class="mouse-pointer">
-											@Html.DisplayNameFor(model => model.TestAiConfigLogsDto.TestAiConfigLogs[0].Book)
-										</th>
-										<th data-sort="Part" class="mouse-pointer">
-											@Html.DisplayNameFor(model => model.TestAiConfigLogsDto.TestAiConfigLogs[0].Part)
-										</th>
-										<th data-sort="Ai" class="mouse-pointer">
-											@Html.DisplayNameFor(model => model.TestAiConfigLogsDto.TestAiConfigLogs[0].Ai)
-										</th>
-										<th data-sort="Model" class="mouse-pointer">
-											@Html.DisplayNameFor(model => model.TestAiConfigLogsDto.TestAiConfigLogs[0].AiModel)
-										</th>
-										<th>
-											@Html.DisplayNameFor(model => model.TestAiConfigLogsDto.TestAiConfigLogs[0].UserMessage)
-										</th>
-										<th>
-											@Html.DisplayNameFor(model => model.TestAiConfigLogsDto.TestAiConfigLogs[0].AiResponse)
-										</th>
-										<th>
-											@Html.DisplayNameFor(model => model.TestAiConfigLogsDto.TestAiConfigLogs[0].Prompt)
-										</th>
-										<th data-sort="Temperature" class="mouse-pointer">
-											@Html.DisplayNameFor(model => model.TestAiConfigLogsDto.TestAiConfigLogs[0].Temperature)
-										</th>
-										<th data-sort="TopP" class="mouse-pointer">
-											@Html.DisplayNameFor(model => model.TestAiConfigLogsDto.TestAiConfigLogs[0].TopP)
-										</th>
-										<th data-sort="PresencePenalty" class="mouse-pointer">
-											@Html.DisplayNameFor(model => model.TestAiConfigLogsDto.TestAiConfigLogs[0].PresencePenalty)
-										</th>
-										<th data-sort="FrequencyPenalty" class="mouse-pointer">
-											@Html.DisplayNameFor(model => model.TestAiConfigLogsDto.TestAiConfigLogs[0].FrequencyPenalty)
-										</th>
-										<th>
-											@Html.DisplayNameFor(model => model.TestAiConfigLogsDto.TestAiConfigLogs[0].Stop)
-										</th>
-										<th data-sort="MaxTokens" class="mouse-pointer">
-											@Html.DisplayNameFor(model => model.TestAiConfigLogsDto.TestAiConfigLogs[0].MaxTokens)
-										</th>
-										<th data-sort="Date" class="mouse-pointer">
-											@Html.DisplayNameFor(model => model.TestAiConfigLogsDto.TestAiConfigLogs[0].Date)
-										</th>
-										<th data-sort="Cost" class="mouse-pointer">
-											@Html.DisplayNameFor(model => model.TestAiConfigLogsDto.TestAiConfigLogs[0].Cost)
-										</th>	
+										<th>کاربر</th>
+										<th>مدل هوش مصنوعی</th>
+										<th>تعداد توکن</th>
+										<th>پیام</th>
+										<th>پرامپت</th>
+										<th>Temperature</th>
+										<th>TopP</th>
+										<th>PresencePenalty</th>
+										<th>FrequencyPenalty</th>
+										<th>Stop</th>
+										<th>هزینه درخواست</th>
+										<th>پاسخ هوش مصنوعی</th>
 									</tr>
 								</thead>
 								<tbody>
-									@foreach (var log in Model.TestAiConfigLogsDto.TestAiConfigLogs)
+									@foreach (var item in Model.TestAiConfigLogsDto)
 									{
 										<tr>
-											<td>
-												@(log?.Name ?? "-")
-											</td>
-											<td>
-												@(log?.Book ?? "-")
-											</td>
-											<td>
-												@(log?.Part ?? "-")
-											</td>
-											<td>
-												@(log?.Ai ?? "-")
-											</td>
-											<td>
-												@(log?.AiModel ?? "-")
-											</td>
-											<td title="@(log?.UserMessage ?? "-")" class="mouse-pointer">
+											<td>@(item.User?.FullName ?? "-")</td>
+											<td>@(item.AiModel.Title ?? "-")</td>
+											<td>@item.MaxTokens</td>
+											<td title="@item.Message">
 												@(
-													(log?.UserMessage ?? "-").Length > 50
-													? (log?.UserMessage ?? "-").Substring(0, 50) + "..."
-													: (log?.UserMessage ?? "-")
-												)
+																						item.Message.Length > 50
+																						? item.Message.Substring(0, 50) + "..."
+																						: item.Message
+																						)
 											</td>
-											<td title="@(log?.AiResponse ?? "-")" class="mouse-pointer">
+											<td title="@item.Prompt">
 												@(
-													(log?.AiResponse ?? "-").Length > 30
-													? (log?.AiResponse ?? "-").Substring(0, 30) + "..."
-													: (log?.AiResponse ?? "-")
-												)
+																						item.Prompt.Length > 50
+																						? item.Prompt.Substring(0, 50) + "..."
+																						: item.Prompt
+																						)
 											</td>
-											<td title="@(log?.Prompt ?? "-")" class="mouse-pointer">
+											<td>@item.Temperature</td>
+											<td>@item.TopP</td>
+											<td>@item.PresencePenalty</td>
+											<td>@item.FrequencyPenalty</td>
+											<td>@(item.Stop != null ? string.Join(",", item.Stop) : "-")</td>
+											<td>@Math.Round(item.RequestCost, 4)</td>
+											<td title="@item.AiResponse">
 												@(
-													(log?.Prompt ?? "-").Length > 30
-													? (log?.Prompt ?? "-").Substring(0, 30) + "..."
-													: (log?.Prompt ?? "-")
-												)
-											</td>
-											<td>
-												@(log?.Temperature ?? 0)
-											</td>
-											<td>
-												@(log?.TopP ?? 0)
-											</td>
-											<td>
-												@(log?.PresencePenalty ?? 0)
-											</td>
-											<td>
-												@(log?.FrequencyPenalty ?? 0)
-											</td>
-											<td>
-												@(log?.Stop ?? "-")
-											</td>
-											<td>
-												@(log?.MaxTokens ?? 0)
-											</td>
-											<td>
-												@(log?.Date.ToPersianDateTime())
-											</td>
-											<td>
-												@(Math.Round(log?.Cost ?? 0, 4))
+																						!string.IsNullOrEmpty(item.AiResponse)
+																						? (item.AiResponse.Length > 30 ? item.AiResponse.Substring(0, 30) + "..." : item.AiResponse)
+																						: "-"
+																						)
 											</td>
 										</tr>
 									}
@@ -209,6 +133,7 @@
 						</div>
 					}
 				</div>
+
 			</div>
 		</div>
 	</div>

@@ -10,34 +10,25 @@ using System.Text.Json;
 namespace Ai_Panel.Pages.Admin.TestAiConfigLogs;
 
 [Authorize]
-public class IndexModel(
-	IMediator mediator,
-	 IAiModelRepository aiModelRepository
-) : PageModel
+public class IndexModel : PageModel
 {
-	public TestAiConfigDashboardDto TestAiConfigLogsDto { get; set; }
-	public async Task OnGetAsync()
-	{
-		await FillDropDown();
-		TestAiConfigLogsDto = await mediator.Send(new GetTestAiConfigLogsRequest());
-	}
-	private async Task FillDropDown()
-	{
-		//var adminsId = await TACRepository.GetAdminsId();
-		//ViewData["Admins"] = new SelectList(await adminManage.GetAll(x => adminsId.Contains(x.LoginID)), "LoginID", "UserName");
+    private readonly IGenericRepository<Domain.TestAiConfig> _testAiConfigRepository;
 
-		//var aiModels = await aiModelRepository.GetAll(x => !x.IsDelete);
-		//var childModels = aiModels.Where(x => x.ParentId != null).ToList();
-		//ViewData["childAiModels"] = JsonSerializer.Serialize(childModels);
-		//ViewData["AiTypes"] = new SelectList(aiModels.Where(x => x.ParentId == null), "Id", "Title");
+    public IndexModel(IGenericRepository<Domain.TestAiConfig> testAiConfigRepository)
+    {
+        _testAiConfigRepository = testAiConfigRepository;
+    }
 
-		//var bookParts = await bookPartRepository.GetBookParts(x => !x.IsDelete && x.AiContentId != null);
-		//ViewData["Books"] = new SelectList(await bookRepository.GetAllBooks(x => x.BookParts.Any(y => y.AiContentId != null)), "Id", "Name");
-		//ViewData["BookParts"] = JsonSerializer.Serialize(bookParts.Select(x => new
-		//{
-		//	Id = x.PartId,
-		//	BookId = x.BookId,
-		//	Title = x.PartName
-		//}));
-	}
+    public List<Domain.TestAiConfig> TestAiConfigLogsDto { get; set; }
+
+    public async Task OnGetAsync()
+    {
+        TestAiConfigLogsDto = await _testAiConfigRepository.GetAll(where: t => !t.IsDelete ,includeProperties: "User,AiModel" , orderBy: q => q.OrderByDescending(x => x.Id));
+        await FillDropDown();
+    }
+
+    private async Task FillDropDown()
+    {
+        // ...
+    }
 }
