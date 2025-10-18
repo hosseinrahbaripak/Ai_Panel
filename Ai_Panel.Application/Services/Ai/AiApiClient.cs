@@ -26,11 +26,11 @@ namespace Ai_Panel.Application.Services.Ai
 
         public async Task<ServiceMessage> GetChatCompletionAsync(ChatCompletionDto dto)
         {
-
+             
             var requestBody = new
             {
                 model = dto.Model,
-                messages = new[]
+                messages = new[] 
                 {
                     new { role = "system", content = dto.Prompt ?? "You are a helpful assistant." },
                     new { role = "user", content = dto.Message }
@@ -41,7 +41,7 @@ namespace Ai_Panel.Application.Services.Ai
                 presence_penalty = dto.PresencePenalty,
                 max_tokens = dto.MaxTokens,
                 stop = dto.Stop,
-                
+
             };
 
             var request = new HttpRequestMessage(HttpMethod.Post, dto.BaseUrl)

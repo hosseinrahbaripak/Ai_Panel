@@ -87,7 +87,7 @@ namespace Ai_Panel.Controllers.api
             {
                 return new ServiceMessage()
                 {
-                    ErrorId = 0,
+                    ErrorId = -1,
                     ErrorTitle = e.Message,
                     Result = null
                 };
