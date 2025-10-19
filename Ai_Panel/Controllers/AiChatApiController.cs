@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PersianAssistant.Models;
 
-namespace Ai_Panel.Controllers.api
+namespace Ai_Panel.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
