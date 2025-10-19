@@ -78,13 +78,14 @@ namespace Ai_Panel.Controllers
                         UpdateDateTime = DateTime.UtcNow.AddHours(3.5),
                     };
                     await testAiConfig.Add(TestAiConfigModel);
+                    return new ServiceMessage()
+                    {
+                        Result = res.Result.AiResponse,
+                        ErrorTitle = null,
+                        ErrorId = 0
+                    };
                 }
-                return new ServiceMessage()
-                {
-                    Result = res.Result.AiResponse,
-                    ErrorTitle = null,
-                    ErrorId = 0
-                };
+                return res;
             }
             catch (Exception e)
             {

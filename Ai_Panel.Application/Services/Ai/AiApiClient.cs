@@ -6,6 +6,7 @@ using Ai_Panel.Application.DTOs;
 using Ai_Panel.Application.DTOs.AiChat;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using PersianAssistant.Models;
 
 namespace Ai_Panel.Application.Services.Ai
@@ -54,11 +55,14 @@ namespace Ai_Panel.Application.Services.Ai
             var response = await _httpClient.SendAsync(request);
             if (response.StatusCode != HttpStatusCode.OK)
             {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                var errorObj = JObject.Parse(errorContent);
+                string message = errorObj["error"]?["message"]?.ToString();
                 string ErrorTitle = ErrorHandling(response.StatusCode);
                 return new ServiceMessage()
                 {
                     ErrorId = -1,
-                    ErrorTitle = ErrorTitle,
+                    ErrorTitle = message,
                     Result = null
                 };
             }
