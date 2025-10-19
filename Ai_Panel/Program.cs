@@ -15,6 +15,9 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using Text = Ai_Panel.Application.Constants.Text;
 using Ai_Panel.Application.Services.Ai;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 var myAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -22,11 +25,11 @@ var myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 // Add services to the container. 
 builder.Services.AddCors(options =>
 {
-	options.AddPolicy(name: myAllowSpecificOrigins,
-		builder =>
-		{
-			builder.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
-		});
+    options.AddPolicy(name: myAllowSpecificOrigins,
+        builder =>
+        {
+            builder.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+        });
 });
 
 builder.Services.AddHttpClient<IAiApiClient, AiApiClient>();
@@ -54,9 +57,32 @@ builder.Services.Configure<KestrelServerOptions>(options =>
 {
     options.Limits.MaxRequestBodySize = int.MaxValue;
 });
-builder.Services.AddSwaggerGen(s =>
+builder.Services.AddSwaggerGen(c =>
 {
-    s.OperationFilter<AddRequiredHeaderParameter>();
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "AiPanel", Version = "v1" });
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "لطفا JWT را به صورت 'Bearer {token}' وارد کنید"
+    });
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] {}
+        }
+    });
 });
 builder.Services.ConfigurePersistenceServices(builder.Configuration);
 builder.Services.ConfigureApplicationServices();
@@ -78,13 +104,26 @@ builder.Services.AddSingleton<WebTools>();
 
 #region Authentication
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(option =>
-                {
-                    option.LoginPath = "/Admin/Login";
-                    option.LogoutPath = "/Admin/SignOut";
-                    option.ExpireTimeSpan = TimeSpan.FromDays(3);
-                    option.Cookie.HttpOnly = true;
-                });
+        .AddCookie(option =>
+        {
+            option.LoginPath = "/Admin/Login";
+            option.LogoutPath = "/Admin/SignOut";
+            option.ExpireTimeSpan = TimeSpan.FromDays(3);
+            option.Cookie.HttpOnly = true;
+        }).AddJwtBearer("JwtBearer", options =>
+        {
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
+                ValidAudience = builder.Configuration["JwtSettings:Audience"],
+                IssuerSigningKey = new SymmetricSecurityKey(
+                    Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:Key"]))
+            };
+        });
 #endregion
 
 

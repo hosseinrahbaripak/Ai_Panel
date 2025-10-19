@@ -16,12 +16,11 @@ namespace Ai_Panel.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [IgnoreAntiforgeryToken]
+    [Authorize(AuthenticationSchemes = "JwtBearer")]
     public class AiChatApiController(
         IMediator mediator, WebTools webTools, IErrorLog log, IUser user,
         IMapper mapper, IAiPlatformRepository aiPlatform, IAiApiClient aiApiClient, IAiConfigRepository aiConfig, IGenericRepository<Domain.TestAiConfig> testAiConfig) : ControllerBase
     {
-        [Authorize]
         [Route("Ask")]
         [HttpPost]
         public async Task<ActionResult<ServiceMessage>> Ask(UserAskAiDto model)
@@ -98,8 +97,6 @@ namespace Ai_Panel.Controllers
             }
 
         }
-
-        [Authorize]
         [Route("delete")]
         [HttpPost]
         public async Task<ActionResult<ServiceMessage>> DeleteConfig(DeleteRequest request)
