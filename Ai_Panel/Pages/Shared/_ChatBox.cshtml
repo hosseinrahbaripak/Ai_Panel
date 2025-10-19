@@ -1,6 +1,7 @@
 ﻿@using System.Security.Claims;
 @{
-	var id = User.FindFirst(CustomClaimTypes.UserId);
+	var id = User.FindFirst(CustomClaimTypes.UserId).Value;
+	var token = User.FindFirst(CustomClaimTypes.Token).Value;
 }
 <div class="direct-chat direct-chat-primary mt-3">
 	<div class="card-header ui-sortable-handle row">
@@ -142,6 +143,7 @@
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
+					'Authorization': 'Bearer ' + "@token" 
 				},
 				body: JSON.stringify(body),
 			})

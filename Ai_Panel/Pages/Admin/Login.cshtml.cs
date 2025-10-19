@@ -19,12 +19,14 @@ namespace Ai_Panel.Pages.Admin
         private readonly IDNTCaptchaValidatorService _validatorService;
         private readonly DNTCaptchaOptions _captchaOptions;
         private readonly IUser _user;
+        private readonly IJwtTokenGenerator _jwt;
 
-        public LoginModel( IDNTCaptchaValidatorService validatorService, IOptions<DNTCaptchaOptions> options , IUser user)
+        public LoginModel( IDNTCaptchaValidatorService validatorService, IOptions<DNTCaptchaOptions> options , IUser user , IJwtTokenGenerator jwt)
         {
             _validatorService = validatorService;
             _captchaOptions = options == null ? throw new ArgumentNullException(nameof(options)) : options.Value;
             _user = user;
+            _jwt = jwt;
         }
 
         #endregion
@@ -51,12 +53,6 @@ namespace Ai_Panel.Pages.Admin
         }
         public async Task<IActionResult> OnPostAsync()
         {
-            //var captchaResponse = await ReCaptcha.GoogleRecaptcha(Form);
-            //if (captchaResponse == false)
-            //{
-            //    ViewData["Message"] = "کپچا اشتباه بود لطفا دوباره امتحان کنید.";
-            //    return Page();
-            //}
 
             if (!ModelState.IsValid)
             {
@@ -86,9 +82,11 @@ namespace Ai_Panel.Pages.Admin
             {
                 try
                 {
+                    string token = _jwt.GenerateToken(user.UserId);
                     var clamis = new List<Claim>
                         {
                             new Claim(CustomClaimTypes.UserId,user.UserId.ToString()),
+                            new Claim(CustomClaimTypes.Token ,token),
                             new Claim(CustomClaimTypes.UserName ,user.FirstName),
                             new Claim(CustomClaimTypes.Email,user.Email),
                         };

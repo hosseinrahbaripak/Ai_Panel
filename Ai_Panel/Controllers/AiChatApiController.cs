@@ -16,16 +16,16 @@ namespace Ai_Panel.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = "JwtBearer")]
     public class AiChatApiController(
         IMediator mediator, WebTools webTools, IErrorLog log, IUser user,
         IMapper mapper, IAiPlatformRepository aiPlatform, IAiApiClient aiApiClient, IAiConfigRepository aiConfig, IGenericRepository<Domain.TestAiConfig> testAiConfig) : ControllerBase
     {
+        [Authorize(AuthenticationSchemes = "JwtBearer")]
         [Route("Ask")]
         [HttpPost]
         public async Task<ActionResult<ServiceMessage>> Ask(UserAskAiDto model)
         {
-            var userIdClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == CustomClaimTypes.UserId)?.Value;
+            var userId = User.FindFirst("uid")?.Value;
             var AIPlatform = await aiPlatform.FirstOrDefault(where: p => p.Id == model.AiPlatformId);
             if (AIPlatform == null)
             {
@@ -60,7 +60,7 @@ namespace Ai_Panel.Controllers
                     {
                         AiResponse = res.Result.AiResponse,
                         DateTime = DateTime.UtcNow.AddHours(3.5),
-                        userId = int.Parse(userIdClaim),
+                        userId = int.Parse(userId),
                         RequestCost = res.Result.RequestCost,
                         AiModelId = model.AiModelId,
                         FrequencyPenalty = model.FrequencyPenalty,
@@ -97,6 +97,7 @@ namespace Ai_Panel.Controllers
             }
 
         }
+        [Authorize]
         [Route("delete")]
         [HttpPost]
         public async Task<ActionResult<ServiceMessage>> DeleteConfig(DeleteRequest request)
