@@ -15,7 +15,7 @@
 			</button>
 		</div>
 	</div>
-	<div class="" style="max-height:500px;overflow-y:auto;overflow-x:hidden">
+	<div class="" style="max-height:500px;overflow-y:auto;overflow-x:hidden;height:500px">
 		<div class="row direct-chat-messages" id="chatbody">
 			<div class="direct-chat-msg float-end mb-3">
 				<div class="direct-chat-infos clearfix">
@@ -64,23 +64,10 @@
 	</div>
 </div>
 
-<div class="toast-container position-fixed bottom-0 end-0 p-3" style="background-color:#ffffff">
-	<div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-		<div class="toast-header">
-			<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="بستن"></button>
-		</div>
-		<div class="toast-body" id="toast-body">
-		</div>
-	</div>
-</div>
-
 
 
 <script>
 	document.addEventListener('DOMContentLoaded', function () {
-		const toastEl = document.getElementById('liveToast');
-		const toastBody = document.getElementById('toast-body');
-		const toast = new bootstrap.Toast(toastEl);
 		const SendMessageBtn = document.getElementById("SendMessageBtn");
 		const validationModal = new bootstrap.Modal(document.getElementById('validationModal'));
 		const chatbody = document.getElementById("chatbody");
@@ -177,8 +164,8 @@
 						document.getElementById("Message").value = "";
 						SendMessageBtn.classList.remove("disabled");
 						document.getElementById("Message").classList.remove("disabled");
-						toastBody.innerText = data.errorTitle;
-						toast.show();
+						ShowToast("error", data.errorTitle , 10000)
+						
 					}
 
 				});
