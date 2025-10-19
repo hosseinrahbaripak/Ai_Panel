@@ -66,5 +66,6 @@
         public const string AiPlatformNotFound = "پلتفرمی یافت نشد";
         public const string UserExist = "کاربری با این مشخصات وجود دارد";
         public const string ErrorAddUserToDb = "خطایی برای ثبت نام صورت گرفته است";
+        public const string UserNotFound = "کاربری با این مشخصات یافت نشد";
     }
 }
