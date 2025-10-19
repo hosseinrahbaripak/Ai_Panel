@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ai_Panel.Persistence.Configurations
 {
-    public class LiveBookContext : DbContext
+    public class AiPanelContext : DbContext
     {
-        public LiveBookContext(DbContextOptions<LiveBookContext> options) : base(options)
+        public AiPanelContext(DbContextOptions<AiPanelContext> options) : base(options)
         {
 
         }
@@ -25,7 +25,7 @@ namespace Ai_Panel.Persistence.Configurations
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .ApplyConfigurationsFromAssembly(typeof(LiveBookContext).Assembly);
+                .ApplyConfigurationsFromAssembly(typeof(AiPanelContext).Assembly);
 
 
             modelBuilder.Entity<User>().HasQueryFilter(x => x.IsDelete == false);

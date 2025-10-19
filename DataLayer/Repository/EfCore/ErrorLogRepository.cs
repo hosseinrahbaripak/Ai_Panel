@@ -6,9 +6,9 @@ namespace Ai_Panel.Persistence.Repository.EfCore
 {
 	public class ErrorLogRepository : IErrorLog
     {
-        private readonly LiveBookContext _context;
+        private readonly AiPanelContext _context;
 
-        public ErrorLogRepository(LiveBookContext context)
+        public ErrorLogRepository(AiPanelContext context)
         {
             _context = context;
         }

@@ -8,8 +8,8 @@ namespace Ai_Panel.Persistence.Repository.EfCore
 {
     public class RoleRepository
     {
-        private readonly LiveBookContext _context;
-        public RoleRepository(LiveBookContext context)
+        private readonly AiPanelContext _context;
+        public RoleRepository(AiPanelContext context)
         {
             _context = context;
         }

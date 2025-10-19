@@ -7,7 +7,7 @@ namespace Ai_Panel.Persistence.Repository.EfCore;
 
 public class AiConfigRepository : GenericRepository<AiConfig>, IAiConfigRepository
 {
-	public AiConfigRepository(LiveBookContext context) : base(context)
+	public AiConfigRepository(AiPanelContext context) : base(context)
 	{
 	}
 

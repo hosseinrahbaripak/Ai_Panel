@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Ai_Panel.Persistence.Migrations
 {
-    [DbContext(typeof(LiveBookContext))]
+    [DbContext(typeof(AiPanelContext))]
     [Migration("20251014153108_add price to AiModel")]
     partial class addpricetoAiModel
     {

@@ -9,7 +9,6 @@ public class AdminLoggedIn
     public string UserName { get; set; }
     public string Email { get; set; }
     public int RoleId { get; set; }
-    public AdminTypeIdEnum AdminType { get; set; }
     public int AdminProfileId { get; set; }
     public string Pages { get; set; }
     public List<int> ProjectIds { get; set; }

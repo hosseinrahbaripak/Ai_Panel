@@ -84,6 +84,7 @@
     <Folder Include="Features\AiContent\Request\Queries\" />
     <Folder Include="Features\Roles\Handler\Queries\" />
     <Folder Include="Features\Roles\Request\Command\" />
+    <Folder Include="Features\Roles\Request\Queries\" />
     <Folder Include="Features\TestAiConfig\Handler\Queries\" />
     <Folder Include="Features\TestAiConfig\Request\Queries\" />
     <Folder Include="Profiles\" />

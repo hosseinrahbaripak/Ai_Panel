@@ -9,9 +9,9 @@ namespace Ai_Panel.Persistence.Repository.EfCore
     public class ApiRequestLogRepository : IApiRequestLog
     {
         #region Ctor
-        private readonly LiveBookContext _context;
+        private readonly AiPanelContext _context;
         private readonly IErrorLog _log;
-        public ApiRequestLogRepository(LiveBookContext context, IErrorLog log)
+        public ApiRequestLogRepository(AiPanelContext context, IErrorLog log)
         {
             _context = context;
             _log = log;

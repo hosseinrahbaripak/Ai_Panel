@@ -10,8 +10,8 @@ namespace Ai_Panel.Persistence.Repository.EfCore
 {
     public class TestAiConfigRepository : GenericRepository<TestAiConfig>
     {
-        private readonly LiveBookContext _context;
-        public TestAiConfigRepository(LiveBookContext context) : base(context)
+        private readonly AiPanelContext _context;
+        public TestAiConfigRepository(AiPanelContext context) : base(context)
         {
             _context = context;
         }

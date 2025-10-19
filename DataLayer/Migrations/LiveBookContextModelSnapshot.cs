@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Ai_Panel.Persistence.Migrations
 {
-    [DbContext(typeof(LiveBookContext))]
+    [DbContext(typeof(AiPanelContext))]
     partial class LiveBookContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

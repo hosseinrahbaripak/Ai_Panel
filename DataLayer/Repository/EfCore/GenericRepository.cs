@@ -7,9 +7,9 @@ namespace Ai_Panel.Persistence.Repository.EfCore
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        private readonly LiveBookContext _context;
+        private readonly AiPanelContext _context;
 
-        public GenericRepository(LiveBookContext context)
+        public GenericRepository(AiPanelContext context)
         {
             _context = context;
         }

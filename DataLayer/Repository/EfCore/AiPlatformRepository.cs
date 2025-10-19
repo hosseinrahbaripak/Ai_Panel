@@ -4,7 +4,7 @@ using Ai_Panel.Persistence.Configurations;
 
 namespace Ai_Panel.Persistence.Repository.EfCore;
 public class AiPlatformRepository : GenericRepository<AiPlatform>, IAiPlatformRepository {
-    public AiPlatformRepository(LiveBookContext context) : base(context)
+    public AiPlatformRepository(AiPanelContext context) : base(context)
     {
     }
 }

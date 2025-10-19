@@ -194,27 +194,6 @@ namespace Ai_Panel.Application.Tools
 				},
 			};
 		}
-		public static List<IdTitle> GetUserTypeIdTitle()
-		{
-			return new List<IdTitle>()
-			{
-				new IdTitle()
-				{
-					Id = (int) UserTypeEnum.Student,
-					Title = "دانش آموز"
-				},
-				new IdTitle()
-				{
-					Id = (int) UserTypeEnum.Advisor,
-					Title = "مشاور"
-				},
-				new IdTitle()
-				{
-					Id = (int) UserTypeEnum.ProjectManager,
-					Title = "مدیر پروژه"
-				},
-			};
-		}
 		public static List<IdTitle> GetTimeTypeIdTitle()
 		{
 			return new List<IdTitle>()

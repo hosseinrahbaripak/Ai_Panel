@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Ai_Panel.Persistence.Migrations
 {
-    [DbContext(typeof(LiveBookContext))]
+    [DbContext(typeof(AiPanelContext))]
     [Migration("20251013193718_make optional ActiveCode")]
     partial class makeoptionalActiveCode
     {

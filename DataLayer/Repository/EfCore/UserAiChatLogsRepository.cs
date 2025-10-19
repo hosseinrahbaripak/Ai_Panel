@@ -6,8 +6,8 @@ namespace Ai_Panel.Persistence.Repository.EfCore;
 
 public class UserAiChatLogsRepository : GenericRepository<UserAiChatLog>, IUserAiChatLogsRepository
 {
-	private readonly LiveBookContext _context;
-	public UserAiChatLogsRepository(LiveBookContext context) : base(context)
+	private readonly AiPanelContext _context;
+	public UserAiChatLogsRepository(AiPanelContext context) : base(context)
     {
 		_context = context;
     }

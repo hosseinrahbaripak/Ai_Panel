@@ -14,8 +14,8 @@ namespace Ai_Panel.Persistence.Repository.EfCore
 {
     public class UserRepository:IUser
     {
-        private readonly LiveBookContext _db;
-        public UserRepository(LiveBookContext context)
+        private readonly AiPanelContext _db;
+        public UserRepository(AiPanelContext context)
         {
             _db = context;
         }
