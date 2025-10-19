@@ -1,22 +1,18 @@
 ﻿using Ai_Panel.Application.Constants;
 using Ai_Panel.Application.Contracts.Persistence.EfCore;
-using Ai_Panel.Application.DTOs.AiChat;
 using Ai_Panel.Application.DTOs.User;
 using Ai_Panel.Application.Features.User.Request.Command;
 using Ai_Panel.Application.Tools;
 using Ai_Panel.Domain;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PersianAssistant.Extensions;
 using PersianAssistant.Models;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Ai_Panel.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(AuthenticationSchemes = "JwtBearer")]
     public class AuthController : Controller
     {
         private readonly IUser _user;
@@ -182,7 +178,6 @@ namespace Ai_Panel.Controllers
 
 
         }
-
         [Route("Ok")]
         [HttpGet]
         public async Task<ActionResult<ServiceMessage>> OK()
