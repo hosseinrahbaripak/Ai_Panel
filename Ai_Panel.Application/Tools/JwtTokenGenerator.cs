@@ -6,7 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Ai_Panel.Application.Tools
 {
-    public class JwtTokenGenerator
+    public class JwtTokenGenerator: IJwtTokenGenerator
     {
         private readonly IConfiguration _config;
 

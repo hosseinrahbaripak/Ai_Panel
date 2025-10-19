@@ -3,6 +3,7 @@ using Ai_Panel.Application.Contracts.Persistence.EfCore;
 using Ai_Panel.Application.DTOs.AiChat;
 using Ai_Panel.Application.DTOs.User;
 using Ai_Panel.Application.Features.User.Request.Command;
+using Ai_Panel.Application.Tools;
 using Ai_Panel.Domain;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -20,10 +21,14 @@ namespace Ai_Panel.Controllers
     {
         private readonly IUser _user;
         private readonly IMediator _mediator;
-        public AuthController(IUser user, IMediator mediator)
+        private readonly IJwtTokenGenerator _jwt;
+        private readonly IGenericRepository<UserSession> _userSession;
+        public AuthController(IUser user, IMediator mediator , IJwtTokenGenerator jwt , IGenericRepository<UserSession> userSession)
         {
             _user = user;
             _mediator = mediator;
+            _jwt = jwt;
+            _userSession = userSession;
         }
 
         [Route("Register")]
@@ -63,7 +68,7 @@ namespace Ai_Panel.Controllers
 
         [Route("SendOtp")]
         [HttpPost]
-        public async Task<ActionResult<ServiceMessage>> SendOtp(SendOtpDto model)
+        public async Task<ActionResult<ServiceMessage>> SendOtp(OtpDto model)
         {
             if (!ModelState.IsValid)
             {
@@ -98,6 +103,83 @@ namespace Ai_Panel.Controllers
                 Result = SystemMessages.ActiveCodeSms,
                 ErrorTitle = null
             };
+
+        }
+
+        [Route("VerifyOtp")]
+        [HttpPost]
+        public async Task<ActionResult<ServiceMessage>> VerifyOtp(OtpDto model)
+        {
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Values
+                    .SelectMany(v => v.Errors)
+                    .Select(e => e.ErrorMessage)
+                    .ToList();
+
+                return new ServiceMessage()
+                {
+                    ErrorId = -1,
+                    Result = errors,
+                    ErrorTitle = "داده‌های ورودی معتبر نیستند"
+                };
+            }
+
+            var user = await _user.FirstOrDefault(where:u=>u.MobileNumber == model.MobileNumber);
+            if (user == null)
+            {
+                return new ServiceMessage()
+                {
+                    ErrorId = -1,
+                    Result = null,
+                    ErrorTitle = SystemMessages.UserNotFound
+                };
+            }
+
+            if(user.ActiveCode != model.Code)
+            {
+                return new ServiceMessage()
+                {
+                    ErrorId = -1,
+                    Result = null,
+                    ErrorTitle = SystemMessages.ActiveCodeIncorrect
+                };
+            }
+
+
+            string token = _jwt.GenerateToken(user.UserId);
+
+            UserSession session = new UserSession()
+            {
+                Token = token,
+                DateTime = DateTime.UtcNow.AddHours(3.5),
+                UserId = user.UserId , 
+                IsLogout = false , 
+                DateLogout =  null
+            };
+            await _userSession.Add(session);
+
+            UserDetailDto User = new UserDetailDto()
+            {
+                Id= user.UserId,
+                MobileNumber = user.MobileNumber,
+                Avatar = user.Avatar,
+                DateTime = user.DateTime,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                IsPremiumAccount = user.IsPremiumAccount,
+                Gender = user.Gender,
+                NationalId = user.NationalId,
+                UserType = user.UserType,
+                Token = token
+            };
+            return new ServiceMessage()
+            {
+                ErrorId = 0,
+                ErrorTitle = null,
+                Result = User
+            };
+
 
         }
 

@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using Ai_Panel.Application.Configurations;
 using Ai_Panel.Application.Services.Ai;
+using Ai_Panel.Application.Tools;
 using Ai_Panel.Classes;
 using Ai_Panel.Infrastructure.Configurations;
 using Ai_Panel.Persistence.Configurations;
@@ -78,6 +79,7 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
+builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
 builder.Services.ConfigurePersistenceServices(builder.Configuration);
 builder.Services.ConfigureApplicationServices();
 builder.Services.ConfigureInfrastructureServices();

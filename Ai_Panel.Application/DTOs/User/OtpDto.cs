@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Ai_Panel.Application.DTOs.User
 {
-    public class SendOtpDto
+    public class OtpDto
     {
         [MaxLength(11, ErrorMessage = "شماره همراه نمی‌تواند بیش از 11 کاراکتر باشد")]
         [MinLength(11, ErrorMessage = "شماره همراه باید 11 رقمی باشد")]
@@ -15,5 +15,6 @@ namespace Ai_Panel.Application.DTOs.User
         [Display(Name = "شماره همراه")]
         [Required(ErrorMessage = "لطفا شماره همراه را وارد کنید")]
         public string MobileNumber { get; set; }
+        public string? Code { get; set; }
     }
 }

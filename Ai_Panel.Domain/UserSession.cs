@@ -11,7 +11,6 @@ namespace Ai_Panel.Domain
 		public int UserId { get; set; }
 
 		[Required]
-		[MaxLength(150)]
 		public string Token { get; set; }
 
 		[Display(Name = "تاریخ ورود")]
