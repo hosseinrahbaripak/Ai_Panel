@@ -17,8 +17,5 @@ namespace Ai_Panel.Domain
         public Role? Parent { get; set; }
         public List<Role>? Roles { get; set; }
 
-		public int UserId {  get; set; }
-		public User User { get; set; }
-
     }
 }
