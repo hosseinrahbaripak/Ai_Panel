@@ -1,22 +1,16 @@
-﻿using AspNetCoreRateLimit;
-using DNTCaptcha.Core;
+﻿using System.Text;
 using Ai_Panel.Application.Configurations;
-using Ai_Panel.Application.Constants;
-using Ai_Panel.Application.Tools;
+using Ai_Panel.Application.Services.Ai;
 using Ai_Panel.Classes;
-using Ai_Panel.Domain;
-using Ai_Panel.Domain.Enum;
 using Ai_Panel.Infrastructure.Configurations;
 using Ai_Panel.Persistence.Configurations;
+using AspNetCoreRateLimit;
+using DNTCaptcha.Core;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
-using Microsoft.EntityFrameworkCore;
-using Text = Ai_Panel.Application.Constants.Text;
-using Ai_Panel.Application.Services.Ai;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -35,11 +29,11 @@ builder.Services.AddCors(options =>
 builder.Services.AddHttpClient<IAiApiClient, AiApiClient>();
 
 builder.Services.AddRazorPages();
-builder.Services.AddControllersWithViews();
-builder.Services.AddMvc(options =>
-{
-    options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
-});
+//builder.Services.AddControllersWithViews();
+//builder.Services.AddMvc(options =>
+//{
+//    options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+//});
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {

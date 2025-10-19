@@ -64,5 +64,7 @@
         public const string CaptchaError = "اعتبارسنجی انجام نشد.";
         public const string TooManyRequestError = "تعداد درخواست‌ بیش از اندازه، لطفاً یک دقیقه صبر کنید";
         public const string AiPlatformNotFound = "پلتفرمی یافت نشد";
+        public const string UserExist = "کاربری با این مشخصات وجود دارد";
+        public const string ErrorAddUserToDb = "خطایی برای ثبت نام صورت گرفته است";
     }
 }

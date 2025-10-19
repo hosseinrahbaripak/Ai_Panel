@@ -15,7 +15,6 @@ namespace Ai_Panel.Application.DTOs
 		public int? ProjectProfileId { get; set; }
 		public int? AdvisorId { get; set; }
 		public int? ParentAdvisorId { get; set; }
-        public UserTypeEnum? UserType { get; set; }
         public int? BookId { get; set; }
     }
 	public class ReportFirstUserBookReadFilter
@@ -45,7 +44,6 @@ namespace Ai_Panel.Application.DTOs
 		public int? AdvisorId { get; set; }
 		public List<int> ParentUserTagsId { get; set; }
 		public List<int> UserTagsId { get; set; }
-		public UserTypeEnum? UserType { get; set; }
 		public int? Status { get; set; }
     }
 

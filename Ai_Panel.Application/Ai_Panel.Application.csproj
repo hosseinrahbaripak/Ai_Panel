@@ -21,7 +21,7 @@
     <Compile Remove="Features\PublicDashboard\**" />
     <Compile Remove="Features\ReadyFolder\**" />
     <Compile Remove="Features\ReportUserCommentOnBook\**" />
-    <Compile Remove="Features\Roles\Handler\Command\**" />
+    <Compile Remove="Features\Roles\**" />
     <Compile Remove="Features\SupervisorProfile\**" />
     <Compile Remove="Features\UserCommentOnBook\**" />
     <Compile Remove="Features\UserCommentsOnBook\**" />
@@ -43,7 +43,7 @@
     <EmbeddedResource Remove="Features\PublicDashboard\**" />
     <EmbeddedResource Remove="Features\ReadyFolder\**" />
     <EmbeddedResource Remove="Features\ReportUserCommentOnBook\**" />
-    <EmbeddedResource Remove="Features\Roles\Handler\Command\**" />
+    <EmbeddedResource Remove="Features\Roles\**" />
     <EmbeddedResource Remove="Features\SupervisorProfile\**" />
     <EmbeddedResource Remove="Features\UserCommentOnBook\**" />
     <EmbeddedResource Remove="Features\UserCommentsOnBook\**" />
@@ -65,7 +65,7 @@
     <None Remove="Features\PublicDashboard\**" />
     <None Remove="Features\ReadyFolder\**" />
     <None Remove="Features\ReportUserCommentOnBook\**" />
-    <None Remove="Features\Roles\Handler\Command\**" />
+    <None Remove="Features\Roles\**" />
     <None Remove="Features\SupervisorProfile\**" />
     <None Remove="Features\UserCommentOnBook\**" />
     <None Remove="Features\UserCommentsOnBook\**" />
@@ -82,9 +82,6 @@
     <Folder Include="Features\AiConfig\Request\Command\" />
     <Folder Include="Features\AiContent\Handler\Queries\" />
     <Folder Include="Features\AiContent\Request\Queries\" />
-    <Folder Include="Features\Roles\Handler\Queries\" />
-    <Folder Include="Features\Roles\Request\Command\" />
-    <Folder Include="Features\Roles\Request\Queries\" />
     <Folder Include="Features\TestAiConfig\Handler\Queries\" />
     <Folder Include="Features\TestAiConfig\Request\Queries\" />
     <Folder Include="Profiles\" />
