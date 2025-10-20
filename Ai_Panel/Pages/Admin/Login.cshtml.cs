@@ -17,14 +17,14 @@ namespace Ai_Panel.Pages.Admin
     {
         #region Ctor 
         private readonly IDNTCaptchaValidatorService _validatorService;
-        private readonly DNTCaptchaOptions _captchaOptions;
+        //private readonly DNTCaptchaOptions _captchaOptions;
         private readonly IUser _user;
         private readonly IJwtTokenGenerator _jwt;
 
         public LoginModel( IDNTCaptchaValidatorService validatorService, IOptions<DNTCaptchaOptions> options , IUser user , IJwtTokenGenerator jwt)
         {
             _validatorService = validatorService;
-            _captchaOptions = options == null ? throw new ArgumentNullException(nameof(options)) : options.Value;
+            //_captchaOptions = options == null ? throw new ArgumentNullException(nameof(options)) : options.Value;
             _user = user;
             _jwt = jwt;
         }
@@ -59,11 +59,11 @@ namespace Ai_Panel.Pages.Admin
                 ModelState.AddModelError("Login.UserName", "اطلاعات صحیح نیست");
                 return Page();
             }
-            if (!_validatorService.HasRequestValidCaptchaEntry())
-            {
-                ModelState.AddModelError(_captchaOptions.CaptchaComponent.CaptchaInputName, SystemMessages.CaptchaError);
-                return Page();
-            }
+            //if (!_validatorService.HasRequestValidCaptchaEntry())
+            //{
+            //    ModelState.AddModelError(_captchaOptions.CaptchaComponent.CaptchaInputName, SystemMessages.CaptchaError);
+            //    return Page();
+            //}
 
             var user = await _user.FirstOrDefault(x => x.MobileNumber == Login.MobileNumber);
             if (user == null)
