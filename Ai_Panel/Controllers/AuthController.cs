@@ -64,7 +64,7 @@ namespace Ai_Panel.Controllers
 
         [Route("SendOtp")]
         [HttpPost]
-        public async Task<ActionResult<ServiceMessage>> SendOtp(OtpDto model)
+        public async Task<ActionResult<ServiceMessage>> SendOtp(SendOtpDto model)
         {
             if (!ModelState.IsValid)
             {
@@ -96,7 +96,7 @@ namespace Ai_Panel.Controllers
             return new ServiceMessage()
             {
                 ErrorId = 0,
-                Result = SystemMessages.ActiveCodeSms,
+                Result = code,
                 ErrorTitle = null
             };
 
@@ -104,7 +104,7 @@ namespace Ai_Panel.Controllers
 
         [Route("VerifyOtp")]
         [HttpPost]
-        public async Task<ActionResult<ServiceMessage>> VerifyOtp(OtpDto model)
+        public async Task<ActionResult<ServiceMessage>> VerifyOtp(VerifyOtpDto model)
         {
             if (!ModelState.IsValid)
             {
