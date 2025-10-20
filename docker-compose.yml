@@ -8,3 +8,4 @@ services:
       - .env
     volumes:
       - ./Images:/app/wwwroot/Images
+      - ./appsettings.json:/app/appsettings.json
