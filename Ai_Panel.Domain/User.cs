@@ -67,7 +67,8 @@ namespace Ai_Panel.Domain
 
         public bool IsDelete { get; set; }
         public bool HasAccessToAiChat { get; set; }
-
-		public List<UserSession> UserSessions { get; set; }
+        public List<UserAiChatLog>? UserAiChatLogs { get; set; }
+        public List<UserSession> UserSessions { get; set; }
+        public List<UserService>? UserServices {  get; set; }
     }
 }

@@ -21,6 +21,10 @@ namespace Ai_Panel.Persistence.Configurations
         public DbSet<AiConfig> AiConfigs { get; set; }
         public DbSet<AiModel> AiModels { get; set; }
         public DbSet<AiPlatform> AiPlatforms { get; set; }
+        public DbSet<AiService> AiServices { get; set; }
+        public DbSet<UserService> UserServices { get; set; }
+
+
         #region OnModelCreating
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -30,6 +34,12 @@ namespace Ai_Panel.Persistence.Configurations
 
             modelBuilder.Entity<User>().HasQueryFilter(x => x.IsDelete == false);
             modelBuilder.Entity<UserSession>().HasQueryFilter(x => x.Users.IsDelete == false);
+            modelBuilder.Entity<UserAiChatLog>()
+                .HasOne(c => c.UserService)
+                .WithMany(u => u.UserAiChatLogs)
+                .HasForeignKey(c => c.UserServiceId)
+                .OnDelete(DeleteBehavior.Restrict);
+
 
         }
         public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)

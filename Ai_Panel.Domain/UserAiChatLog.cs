@@ -18,8 +18,8 @@ public class UserAiChatLog
     public double RequestCost { get; set; }
     public double EmbeddingCost { get; set; }
     #region Relation
-    public int? AiConfigId { get; set; }
-    public AiConfig? AiConfig { get; set; }
+    public int UserServiceId { get; set; }
+    public UserService UserService { get; set; }
 
     public int UserId { get; set; }
     [ForeignKey(nameof(UserId))]
