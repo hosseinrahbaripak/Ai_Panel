@@ -7,5 +7,5 @@ services:
     env_file:
       - .env
     volumes:
-      - ./Images:/app/wwwroot/Images
+      - ./Images:/app/wwwroot/Images 
       - ./appsettings.json:/app/appsettings.json 
