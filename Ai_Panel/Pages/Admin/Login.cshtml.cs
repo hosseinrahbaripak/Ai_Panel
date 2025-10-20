@@ -56,7 +56,7 @@ namespace Ai_Panel.Pages.Admin
 
             if (!ModelState.IsValid)
             {
-                ModelState.AddModelError("Login.UserName", "اطلاعات صحیح نیست");
+                ModelState.AddModelError("Login.MobileNumber", "اطلاعات صحیح نیست");
                 return Page();
             }
             //if (!_validatorService.HasRequestValidCaptchaEntry())
@@ -68,14 +68,14 @@ namespace Ai_Panel.Pages.Admin
             var user = await _user.FirstOrDefault(x => x.MobileNumber == Login.MobileNumber);
             if (user == null)
             {
-                ModelState.AddModelError("Login.UserName", "اطلاعات صحیح نیست");
+                ModelState.AddModelError("Login.MobileNumber", "اطلاعات صحیح نیست");
                 return Page();
             }
 
             var pass = Login.Password.GeneratePass(user.PassKey).Item2;
             if (user.Password != pass)
             {
-                ModelState.AddModelError("Login.UserName", "اطلاعات صحیح نیست");
+                ModelState.AddModelError("Login.Password", "رمز عبور صحیح نیست");
                 return Page();
             }
             else
@@ -113,6 +113,7 @@ namespace Ai_Panel.Pages.Admin
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
+                    
                 }
 
                 return RedirectToPage("/");
