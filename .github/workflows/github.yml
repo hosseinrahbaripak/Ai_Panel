@@ -2,7 +2,7 @@ name: Deploy to Server
 
 on:
   push:
-    branches: ["pipe"]
+    branches: ["pipe","main"]
 
 permissions:
   contents: read
