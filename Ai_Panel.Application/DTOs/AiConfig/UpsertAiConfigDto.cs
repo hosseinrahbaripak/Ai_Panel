@@ -46,4 +46,6 @@ public class UpsertAiConfigDto : BaseDto
     public float PresencePenalty { get; set; }
     public float FrequencyPenalty { get; set; }
     public int CreateBy { get; set; }
+    public int AiConfigOrder { get; set; }
+    public int AiConfigGroupId { get; set; }
 }

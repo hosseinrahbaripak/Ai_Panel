@@ -13,7 +13,7 @@
                 <section class="card-text">
                     <div class="row mt-1">
                         <div class="col-lg-8 col-md-8 col-12 mb-2">
-                            <form id="FormInModal" method="Post" enctype="multipart/form-data">
+                            <div enctype="multipart/form-data">
                                 <input type="hidden" asp-for="AiConfigDto.N" />
                                 @Html.AntiForgeryToken()
                                 @if (!string.IsNullOrEmpty(Model.Error))
@@ -28,9 +28,14 @@
                                             <h6 class="mb-0">مدل ها</h6>
                                             <button type="button" id="AddAiConfigBtn" class="btn btn-sm btn-success">
                                                 افزودن +
-                                            </button>
+                                            </button> 
                                         </div>
+                                       
                                         <div class="card-body" id="AiConfigsContainer">
+                                            <div class="col-lg-4 col-6 mt-1">
+                                                <label>عنوان کانفیگ:</label>
+                                                <input type="text" class="form-control" id="config-title">
+                                            </div>
                                             <!-- باکس‌های جدید اینجا اضافه می‌شن -->
                                             <div class="border rounded p-3 mb-3 position-relative bg-light ai-config-box" data-index="0">
                                                 <button type="button" class="btn position-absolute m-2 remove-config" data-remove="0" onClick="removeAiConfig(0)" style="top:0px;left:0px">
@@ -98,10 +103,10 @@
 
                                 <div class="col-lg-12 col-md-12 col-12 mt-2">
                                     <div class="d-grid gap-2">
-                                        <button class="btn btn-primary" type="submit">ثبت</button>
+                                        <button class="btn btn-primary" type="submit" id="submit-btn">ثبت</button>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-12">
                             <div class="row box-shadow-1 ">
@@ -126,7 +131,6 @@
         var parentsData = @Html.Raw(ViewBag.parentAiModels);
         var childsData = @Html.Raw(ViewBag.childAiModels);
         var AiPlatforms = @Html.Raw(ViewBag.AiPlatforms);
-
 
         function fillAiPlatforms(index) {
             const select = document.querySelector(`[name="AiConfigs[${index}].AiPlatformId"]`);
@@ -313,6 +317,48 @@
         const initialBox = AiConfigsContainer.querySelector('.ai-config-box');
         fillAiPlatforms(0);
         if(initialBox) initializeRangeValues(initialBox);
+
+        const submitBtn = document.getElementById("submit-btn");
+        console.log("submitBtn", submitBtn)
+        submitBtn.addEventListener("click" ,()=>{
+        // -----------------------------------
+        aiConfigsArray = [];
+            const boxes = document.querySelectorAll('.ai-config-box');
+            const configTitle = document.getElementById("config-title").value;
+            boxes.forEach(box => {
+                const index = box.getAttribute('data-index');
+
+                const obj = {
+                    Title: configTitle,
+                    AiPlatformId: Number(box.querySelector(`[name="AiConfigs[${index}].AiPlatformId"]`).value),
+                    AiTypeId: Number(box.querySelector(`[name="AiConfigs[${index}].AiTypeId"]`).value),
+                    AiModelId: Number(box.querySelector(`[name="AiConfigs[${index}].AiModelId"]`).value),
+                    Temperature: parseFloat(box.querySelector(`[name="AiConfigs[${index}].Temperature"]`).value),
+                    PresencePenalty: parseFloat(box.querySelector(`[name="AiConfigs[${index}].PresencePenalty"]`).value),
+                    TopP: parseFloat(box.querySelector(`[name="AiConfigs[${index}].TopP"]`).value),
+                    FrequencyPenalty: parseFloat(box.querySelector(`[name="AiConfigs[${index}].FrequencyPenalty"]`).value),
+                    MaxTokens: Number(box.querySelector(`[name="AiConfigs[${index}].MaxTokens"]`).value),
+                    Stop: box.querySelector(`[name="AiConfigs[${index}].Stop"]`).value.split(","),
+                    Prompt: box.querySelector(`[name="AiConfigs[${index}].Prompt"]`).value,
+                    AiConfigOrder: index
+                };
+
+                aiConfigsArray.push(obj);
+            });
+            console.log(aiConfigsArray);
+            fetch('/api/AiConfig/Add', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(aiConfigsArray)
+            })
+            .then(res => res.text())
+            .then(console.log)
+            .catch(console.error);
+        //------------------------------------
+    
+        })
+      
+
     });
 </script>
 
