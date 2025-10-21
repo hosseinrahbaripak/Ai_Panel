@@ -1,204 +1,435 @@
 ﻿@page
-@model Ai_Panel.Pages.Admin.AiConfig.EditModel
+@model Ai_Panel.Pages.Admin.MultiStepAiConfig.EditModel
 @{
-	string title = $"ویرایش تنظیمات {Model.AiConfigDto.Title}";
-	ViewData["Title"] = title;
+    string title = $"ویرایش تنظیمات";
+    // ViewData["Title"] = title;
 }
+
 <div class="row justify-content-md-center">
-	<div class="col-md-12 col-lg-12 col-12">
-		<div class="card shadow">
-			<h5 class="card-header">@title</h5>
-			<div class="card-body">
-				<section class="card-text">
-					<div class="row mt-1">
-						<div class="col-lg-8 col-md-8 col-12 mb-2">
-							<form id="FormInModal" method="Post" enctype="multipart/form-data">
-								<input type="hidden" asp-for="AiConfigDto.Id" />
-								<input type="hidden" asp-for="AiConfigDto.N" />
-								<input type="hidden" asp-for="AiConfigDto.Version" />
-								<input type="hidden" asp-for="AiConfigDto.DateTime" />
-								@* <input type="hidden" asp-for="AiContentDto.Id" />
-								<input type="hidden" asp-for="AiContentDto.DateTime" /> *@
-								@Html.AntiForgeryToken()
-								@if (!string.IsNullOrEmpty(Model.Error))
-								{
-									<p class="alert alert-danger">Error</p>
-								}
-								<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-								<div class="row">
-									<div class="col-lg-3 col-6">
-										<label class="">عنوان کانفیگ</label>
-										<input class="form-control" type="text" asp-for="AiConfigDto.Title" />
-										<span class="text-danger" asp-validation-for="AiConfigDto.Title"></span>
-									</div>
-									<div class="col-lg-3 col-6">
-										<label class="">پلتفرم</label>
-										<select class="form-select custom-select" id="AiPlatform" asp-for="AiConfigDto.AiPlatformId" asp-items="ViewBag.AiPlatforms" onchange="changeAiPlatforms();">
-											<option disabled selected>لطفا موردی را انتخاب کنید</option>
-										</select>
-									</div>
-									<div class="col-lg-3 col-6">
-										<label class="">هوش مصنوعی</label>
-										<select class="form-select custom-select" id="AiType" onchange="changeAiModels();">
-											<option disabled selected>لطفا موردی را انتخاب کنید</option>
-										</select> 
-									</div>
-									<div class="col-lg-3 col-6">
-										<label class="">مدل</label>
-										<select class="form-select custom-select" id="AiModelTypes" asp-for="AiConfigDto.AiModelId">
-											<option disabled selected>لطفا موردی را انتخاب کنید</option>
-										</select>
-										<span class="text-danger" asp-validation-for="AiConfigDto.AiModelId"></span>
-									</div>
-									<div class="col-lg-4 col-12 mt-1">
-										<label class="">خلاقیت در پاسخگویی : </label>
-										<span id="rangeValue2" class="font-weight-bold ms-2">AiConfigDto?.Temperature</span>
-										<input type="range" class="form-range" min="0" max="2" step="0.01" id="customRange2" asp-for="AiConfigDto.Temperature">
-										<span class="text-danger" asp-validation-for="AiConfigDto.Temperature"></span>
-									</div>
-									<div class="col-lg-4 col-6 mt-1">
-										<label class="">خلاقیت در ساخت جمله : </label>
-										<span id="rangeValue3" class="font-weight-bold ms-2">AiConfigDto?.PresencePenalty</span>
-										<input type="range" class="form-range" min="-2" max="2" step="0.1" id="customRange3" asp-for="AiConfigDto.PresencePenalty">
-										<span class="text-danger" asp-validation-for="AiConfigDto.PresencePenalty"></span>
-									</div>
-									<div class="col-lg-4 col-6 mt-1">
-										<label class="">کنترل تنوع پاسخ بر اساس احتمال : </label>
-										<span id="rangeValue4" class="font-weight-bold ms-2">AiConfigDto?.TopP</span>
-										<input type="range" class="form-range" min="0" max="1" step="0.01" id="customRange4" asp-for="AiConfigDto.TopP">
-										<span class="text-danger" asp-validation-for="AiConfigDto.TopP"></span>
-									</div>
-									<div class="col-lg-4 col-6 mt-1">
-										<label class=""> جلوگیری از تکرار کلمه در جمله : </label>
-										<span id="rangeValue1" class="font-weight-bold ms-2">AiConfigDto?.FrequencyPenalty</span>
-										<input type="range" class="form-range" min="-2" max="2" step="0.1" id="customRange1" asp-for="AiConfigDto.FrequencyPenalty">
-										<span class="text-danger" asp-validation-for="AiConfigDto.FrequencyPenalty"></span>
-									</div>
+    <div class="col-md-12 col-lg-12 col-12">
+        <div class="card shadow">
+            <h5 class="card-header">@title</h5>
+            <div class="card-body">
+                <section class="card-text">
+                    <div class="row mt-1">
+                        <div class="col-lg-8 col-md-8 col-12 mb-2">
+                            <div enctype="multipart/form-data">
+                                @Html.AntiForgeryToken()
+                                @* @if (!string.IsNullOrEmpty(Model.Error))
+                                {
+                                    <p class="alert alert-danger">Error</p>
+                                } *@
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-									<div class="col-lg-4 col-6">
-										<label class="">بیشترین تعداد کلمات خروجی</label>
-										<input asp-for="AiConfigDto.MaxTokens" id="MaxTokens" class="form-control" type="number" max="10000" min="5" />
-										<span class="text-danger" asp-validation-for="AiConfigDto.MaxTokens"></span>
-									</div>
-									<div class="col-lg-4 col-12">
-										<label class="">
-											توقت پاسخگویی در کلمات خاص
-											مانند (جنگ،خدا،)
-										</label>
-										<textarea asp-for="AiConfigDto.Stop" class="form-control" id="stop" rows="1"></textarea>
-										<span class="text-danger" asp-validation-for="AiConfigDto.Stop"></span>
-									</div>
-								</div>
-								<div class="col-lg-12 col-md-12 col-12 mt-1">
-									<label class="">پرامپت</label>
-									<textarea asp-for="AiConfigDto.Prompt" id="Prompt" class="form-control" rows="4" placeholder="پرامپت را وارد کنید..."></textarea>
-									<span class="text-danger" asp-validation-for="AiConfigDto.Prompt"></span>
-								</div>
+                                <div class="col-lg-12 col-md-12 col-12 mt-4">
+                                    <div class="card shadow-sm">
+                                        <div class="card-header d-flex justify-content-between align-items-center">
+                                            <h6 class="mb-0">مدل ها</h6>
+                                            <button type="button" id="AddAiConfigBtn" class="btn btn-sm btn-success">
+                                                افزودن +
+                                            </button>
+                                        </div>
 
-								<div class="col-lg-12 col-md-12 col-12 mt-2">
-									<div class="d-grid gap-2">
-										<button class="btn btn-primary" type="submit">ثبت</button>
-									</div>
-								</div>
-							</form>
-						</div>
-						<div class="col-lg-4 col-md-4 col-12 box-shadow-1 mb-2">
-							<div class="row">
-								<div id="chat-overlay" class="card-title text-center" style="display:none;">
-									<div id="chat-overlay-head" class="card-header ui-sortable-handle">
-									</div>
-									<div id="chat-overlay-body">
-									</div>
-								</div>
-								<div class="col-lg-12 col-6">
-									<partial name="_ChatBox" />
-								</div>
-							</div>
-						</div>
-					</div>
-				</section>
-			</div>
-		</div>
-	</div>
+                                        <div class="card-body" id="AiConfigsContainer">
+                                            <div class="col-lg-4 col-6 mt-1">
+                                                <label>عنوان کانفیگ:</label> 
+                                                <input type="text" value="@Model.AiConfigDto.FirstOrDefault().Title" class="form-control" id="config-title">
+                                            </div>
+                                            <!-- باکس‌های جدید اینجا اضافه می‌شن -->
+                                            @foreach (var item in Model.AiConfigDto)
+                                            {
+                                                <div class="border rounded p-3 mb-3 position-relative bg-light ai-config-box" data-index="@item.AiConfigOrder">
+                                                    <button type="button" class="btn position-absolute m-2 remove-config" data-remove="@item.AiConfigOrder" onClick="removeAiConfig(@item.AiConfigOrder)" style="top:0px;left:0px">
+                                                        <i class="fa fa-trash text-danger"></i>
+                                                    </button>
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-6 mb-2">
+                                                            <label>پلتفرم</label>
+                                                            <select class="form-select AiPlatform" data-value="@item.AiPlatformId" name="AiConfigs[@item.AiConfigOrder].AiPlatformId" onchange="fillAiTypes(@item.AiConfigOrder)" required>
+                                                                <option disabled selected>انتخاب کنید</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-lg-3 col-6 mb-2">
+                                                            <label>هوش مصنوعی</label>
+                                                            <select class="form-select AiType" data-value="@item.AiModel.ParentId" name="AiConfigs[@item.AiConfigOrder].AiTypeId" onchange="fillAiModels(@item.AiConfigOrder)" required>
+                                                                <option disabled selected>انتخاب کنید</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-lg-3 col-6 mb-2">
+                                                            <label>مدل</label>
+                                                            <select class="form-select AiModel" data-value="@item.AiModelId" name="AiConfigs[@item.AiConfigOrder].AiModelId" required>
+                                                                <option disabled selected>انتخاب کنید</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="col-lg-4 col-6 mt-1">
+                                                            <label>خلاقیت در پاسخگویی:</label>
+                                                            <span id="rangeValue1" class="font-weight-bold ms-2">@item.Temperature</span>
+                                                            <input type="range" class="form-range" min="0" max="2" value="@item.Temperature" step="0.01" name="AiConfigs[@item.AiConfigOrder].Temperature">
+                                                        </div>
+                                                        <div class="col-lg-4 col-6 mt-1">
+                                                            <label>خلاقیت در ساخت جمله:</label>
+                                                            <span id="rangeValue2" class="font-weight-bold ms-2">@item.PresencePenalty</span>
+                                                            <input type="range" class="form-range" min="-2" max="2" step="0.1" value="@item.PresencePenalty" name="AiConfigs[@item.AiConfigOrder].PresencePenalty">
+                                                        </div>
+                                                        <div class="col-lg-4 col-6 mt-1">
+                                                            <label>کنترل تنوع پاسخ بر اساس احتمال:</label>
+                                                            <span id="rangeValue3" class="font-weight-bold ms-2">@item.TopP</span>
+                                                            <input type="range" class="form-range" min="0" max="1" step="0.01" value="@item.TopP" name="AiConfigs[@item.AiConfigOrder].TopP">
+                                                        </div>
+                                                        <div class="col-lg-4 col-6 mt-1">
+                                                            <label>جلوگیری از تکرار کلمه در جمله:</label>
+                                                            <span id="rangeValue4" class="font-weight-bold ms-2">@item.FrequencyPenalty</span>
+                                                            <input type="range" class="form-range" min="-2" max="2" step="0.1" value="@item.FrequencyPenalty" name="AiConfigs[@item.AiConfigOrder].FrequencyPenalty">
+                                                        </div>
+                                                        <div class="col-lg-4 col-6">
+                                                            <label>بیشترین تعداد کلمات خروجی</label>
+                                                            <input type="number" class="form-control" max="10000" min="5" value="@item.MaxTokens" name="AiConfigs[@item.AiConfigOrder].MaxTokens">
+                                                        </div>
+                                                        <div class="col-lg-12 col-12">
+                                                            <label>توقف پاسخگویی در کلمات خاص</label>
+                                                            <textarea class="form-control" rows="1" name="AiConfigs[@item.AiConfigOrder].Stop">@string.Join("  ,  ", item.Stop)</textarea>
+                                                        </div>
+
+                                                        <div class="col-lg-12 col-12 mb-2">
+                                                            <label>پرامپت</label>
+                                                            <textarea class="form-control AiPrompt" name="AiConfigs[@item.AiConfigOrder].Prompt" rows="2" placeholder="پرامپت را وارد کنید..." required>@item.Prompt</textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+
+                                            @* --------------------------------- *@
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12 col-12 mt-2">
+                                    <div class="d-grid gap-2">
+                                        <button class="btn btn-primary" type="submit" id="submit-btn">ثبت</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-12">
+                            <div class="row box-shadow-1 ">
+                                <div id="chat-overlay" class="card-title text-center" style="display:none;">
+                                    <div id="chat-overlay-head" class="card-header ui-sortable-handle"></div>
+                                    <div id="chat-overlay-body"></div>
+                                </div>
+                                <div class="col-lg-12 col-6">
+                                    <partial name="_ChatBox" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        
+        // fill drop downs
+        var parentsData = @Html.Raw(ViewBag.parentAiModels);
+        var childsData = @Html.Raw(ViewBag.childAiModels);
+        var AiPlatforms = @Html.Raw(ViewBag.AiPlatforms);
+        console.log("parentsData",parentsData)
+        console.log("childsData" ,childsData)
+        console.log("AiPlatforms" ,AiPlatforms) 
 
-@section Scripts
-{
-	<script>
-		$('#AiContent').toggle($('#WithAiContent').is(':checked'));
-		$('#WithAiContent').on('change', function() {
-			const isChecked = $(this).is(':checked');
-			$('#AiContent').stop().slideToggle(200);
-		});
-		var aiType = document.getElementById('AiType');
-		var aiModelTypes = document.getElementById('AiModelTypes');
+        function fillAiPlatforms(index) {
+            const select = document.querySelector(`[name="AiConfigs[${index}].AiPlatformId"]`);
+            console.log(select)
+            select.innerHTML = '';
+            const defaultOption = new Option('انتخاب کنید', '');
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+            select.add(defaultOption);
+            AiPlatforms.forEach(p => {
+                const opt = new Option(p.Title, p.Id);
+                select.add(opt);
+            });
+        }
+        window.fillAiTypes =  function fillAiTypes(index) {
+            const platformSelect = document.querySelector(`[name="AiConfigs[${index}].AiPlatformId"]`);
+            const typeSelect = document.querySelector(`[name="AiConfigs[${index}].AiTypeId"]`);
+            typeSelect.innerHTML = '';
+            const defaultOption = new Option('انتخاب کنید', '');
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+            typeSelect.add(defaultOption);
+            if (!platformSelect.value) return;
+            const selectedPlatform = Number(platformSelect.value);
+            const filtered = parentsData.filter(p => p.PlatformIds.includes(selectedPlatform));
+            filtered.forEach(p => typeSelect.add(new Option(p.Title, p.Id)));
+            // پاک کردن مدل قبلی
+            const modelSelect = document.querySelector(`[name="AiConfigs[${index}].AiModelId"]`);
+            modelSelect.innerHTML = '<option disabled selected>انتخاب کنید</option>';
+        }
 
-		var parentsData = @Html.Raw(ViewBag.parentAiModels);
-		var childsData = @Html.Raw(ViewBag.childAiModels);
-		const selectedParent = parentsData.find(p=>parentsData[0].Selected === p.Id);
-		const selectedChild = childsData.find(c=>childsData[0].Selected === c.Id);
-		const FiltedChildsData = childsData?.filter(c=>c.ParentId === selectedParent.Id);
+        window.fillAiModels = function fillAiModels(index) {
+            const typeSelect = document.querySelector(`[name="AiConfigs[${index}].AiTypeId"]`);
+            const modelSelect = document.querySelector(`[name="AiConfigs[${index}].AiModelId"]`);
+            modelSelect.innerHTML = '';
+            const defaultOption = new Option('انتخاب کنید', '');
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+            modelSelect.add(defaultOption);
+            if (!typeSelect.value) return;
+            const selectedType = Number(typeSelect.value);
+            const filtered = childsData.filter(c => c.ParentId === selectedType);
+            filtered.forEach(c => modelSelect.add(new Option(c.Title, c.Id)));
+        }
 
-		parentsData.forEach(parent => {
-			const option = document.createElement("option");
-			option.value = parent.Id;
-			option.textContent = parent.Title;
-			if (selectedParent && parent.Id === selectedParent.Id) {
-				option.selected = true;
-			}
-			aiType.appendChild(option);
-		});
-		FiltedChildsData.forEach(child => {
-			const option = document.createElement("option");
-			option.value = child.Id;
-			option.textContent = child.Title;
+        let AiConfigIndex = 0;
+        const AiConfigsContainer = document.getElementById("AiConfigsContainer");
+        const AddAiConfigBtn = document.getElementById("AddAiConfigBtn");
+        let aiConfigsArray = [];
 
-			if (selectedChild && child.Id === selectedChild.Id) {
-				option.selected = true;
-			}
+        // آپدیت span ها برای range
+        function updateRangeDisplay(box) {
+            const ranges = box.querySelectorAll('input[type="range"]');
+            ranges.forEach((range, i) => {
+                const span = box.querySelector(`#rangeValue${i + 1}`);
+                if (span) span.textContent = range.value;
+            });
+        }
 
-			aiModelTypes.appendChild(option);
-		});
-		function changeAiPlatforms() {
-			var selectedPlatform = Number($('#AiPlatform').val());
-			const AiModelChildern = parentsData.filter(item => item.PlatformIds.includes(selectedPlatform));
-			let options = aiType.getElementsByTagName('option');
-			for (var i = options.length; i--;) {
-				aiType.removeChild(options[i]);
-			}
-			var selectedAiModel = 0;
-			for (const element of AiModelChildern) {
-				let newOption = new Option(`${element.Title}`, `${element.Id}`);
-				selectedAiModel = element?.Selected ?? 0;
-				if(element.Id == selectedAiModel){
-					newOption.setAttribute("selected", "selected");
-				}
-				aiType.add(newOption, undefined);
-			}
-			let defaultOption = new Option('لطفا موردی را انتخاب کنید', '0');
-			defaultOption.setAttribute("selected", "selected");
-			aiType.add(defaultOption, undefined);
-		}
+        // مقداردهی اولیه span ها
+        function initializeRangeValues(box) {
+            updateRangeDisplay(box);
+        }
 
-		function changeAiModels() {
-			var selectedAi = Number($('#AiType').val());
-			const AiModelChildern = childsData.filter(item => item.ParentId === selectedAi);
-			let options = aiModelTypes.getElementsByTagName('option');
-			for (var i = options.length; i--;) {
-				aiModelTypes.removeChild(options[i]);
-			}
-			var selectedAiModel = 0;
-			for (const element of AiModelChildern) {
-				let newOption = new Option(`${element.Title}`, `${element.Id}`);
-				selectedAiModel = element?.Selected ?? 0;
-				if(element.Id == selectedAiModel){
-					newOption.setAttribute("selected", "selected");
-				}
-				aiModelTypes.add(newOption, undefined);
-			}
-			let defaultOption = new Option('لطفا موردی را انتخاب کنید', '0');
-			defaultOption.setAttribute("selected", "selected");
-			aiModelTypes.add(defaultOption, undefined);
-		}
-	</script>
-}
+        // آپدیت آرایه aiConfigsArray
+        function updateAiConfigsArray() {
+            aiConfigsArray = [];
+            const boxes = document.querySelectorAll('.ai-config-box');
+            boxes.forEach(box => {
+                const index = box.getAttribute('data-index');
+                const obj = {
+                    AiPlatformId: box.querySelector(`[name="AiConfigs[${index}].AiPlatformId"]`).value,
+                    AiTypeId: box.querySelector(`[name="AiConfigs[${index}].AiTypeId"]`).value,
+                    AiModelId: box.querySelector(`[name="AiConfigs[${index}].AiModelId"]`).value,
+                    Temperature: box.querySelector(`[name="AiConfigs[${index}].Temperature"]`).value,
+                    PresencePenalty: box.querySelector(`[name="AiConfigs[${index}].PresencePenalty"]`).value,
+                    TopP: box.querySelector(`[name="AiConfigs[${index}].TopP"]`).value,
+                    FrequencyPenalty: box.querySelector(`[name="AiConfigs[${index}].FrequencyPenalty"]`).value,
+                    MaxTokens: box.querySelector(`[name="AiConfigs[${index}].MaxTokens"]`).value,
+                    Stop: box.querySelector(`[name="AiConfigs[${index}].Stop"]`).value,
+                    Prompt: box.querySelector(`[name="AiConfigs[${index}].Prompt"]`).value
+                };
+                aiConfigsArray.push(obj);
+            });
+            console.log(aiConfigsArray);
+        }
+
+        // اضافه کردن باکس جدید
+        AddAiConfigBtn.addEventListener("click", () => {
+            AiConfigIndex++;
+            const boxHTML = createAiConfigBox(AiConfigIndex);
+            AiConfigsContainer.insertAdjacentHTML("beforeend", boxHTML);
+            const newBox = AiConfigsContainer.querySelector(`[data-index="${AiConfigIndex}"]`);
+            initializeRangeValues(newBox);
+            updateAiConfigsArray();
+            fillAiPlatforms(AiConfigIndex);
+        });
+
+        // حذف باکس
+        window.removeAiConfig = function(index) {
+            const box = AiConfigsContainer.querySelector(`[data-index="${index}"]`);
+            if (box) {
+                box.remove();
+                updateAiConfigsArray();
+            }
+        }
+
+        // مدیریت تغییرات range و سایر inputها
+        AiConfigsContainer.addEventListener('input', function(e) {
+            const box = e.target.closest('.ai-config-box');
+            if (!box) return;
+
+            if (e.target.type === 'range') {
+                updateRangeDisplay(box);
+            }
+            updateAiConfigsArray();
+        });
+
+        // ساخت HTML باکس
+        function createAiConfigBox(index) {
+            return `
+            <div class="border rounded p-3 mb-3 position-relative bg-light ai-config-box" data-index="${index}">
+                <button type="button" class="btn position-absolute m-2 remove-config" data-remove="${index}" onClick="removeAiConfig(${index})" style="top:0px;left:0px">
+                    <i class="fa fa-trash text-danger"></i>
+                </button>
+                <div class="row">
+                    <div class="col-lg-3 col-6 mb-2">
+                        <label>پلتفرم</label>
+                        <select class="form-select AiPlatform" name="AiConfigs[${index}].AiPlatformId" onchange="fillAiTypes(${index})" required>
+                            <option disabled selected>انتخاب کنید</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3 col-6 mb-2">
+                        <label>هوش مصنوعی</label>
+                        <select class="form-select AiType" name="AiConfigs[${index}].AiTypeId" onchange="fillAiModels(${index})" required>
+                            <option disabled selected>انتخاب کنید</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3 col-6 mb-2">
+                        <label>مدل</label>
+                        <select class="form-select AiModel" name="AiConfigs[${index}].AiModelId" required>
+                            <option disabled selected>انتخاب کنید</option>
+                        </select>
+                    </div>
+
+                    <div class="col-lg-4 col-6 mt-1">
+                        <label>خلاقیت در پاسخگویی</label>
+                        <span id="rangeValue1" class="font-weight-bold ms-2">0</span>
+                        <input type="range" class="form-range" min="0" max="2" step="0.01" name="AiConfigs[${index}].Temperature">
+                    </div>
+                    <div class="col-lg-4 col-6 mt-1">
+                        <label>خلاقیت در ساخت جمله</label>
+                        <span id="rangeValue2" class="font-weight-bold ms-2">0</span>
+                        <input type="range" class="form-range" min="-2" max="2" step="0.1" name="AiConfigs[${index}].PresencePenalty">
+                    </div>
+                    <div class="col-lg-4 col-6 mt-1">
+                        <label>کنترل تنوع پاسخ بر اساس احتمال</label>
+                        <span id="rangeValue3" class="font-weight-bold ms-2">0</span>
+                        <input type="range" class="form-range" min="0" max="1" step="0.01" name="AiConfigs[${index}].TopP">
+                    </div>
+                    <div class="col-lg-4 col-6 mt-1">
+                        <label>جلوگیری از تکرار کلمه در جمله</label>
+                        <span id="rangeValue4" class="font-weight-bold ms-2">0</span>
+                        <input type="range" class="form-range" min="-2" max="2" step="0.1" name="AiConfigs[${index}].FrequencyPenalty">
+                    </div>
+                    <div class="col-lg-4 col-6">
+                        <label>بیشترین تعداد کلمات خروجی</label>
+                        <input type="number" class="form-control" max="10000" min="5" name="AiConfigs[${index}].MaxTokens">
+                    </div>
+                    <div class="col-lg-12 col-12">
+                        <label>توقف پاسخگویی در کلمات خاص</label>
+                        <textarea class="form-control" rows="1" name="AiConfigs[${index}].Stop"></textarea>
+                    </div>
+
+                    <div class="col-lg-12 col-12 mb-2">
+                        <label>پرامپت</label>
+                        <textarea class="form-control AiPrompt" name="AiConfigs[${index}].Prompt" rows="2" placeholder="پرامپت را وارد کنید..." required></textarea>
+                    </div>
+                </div>
+            </div>
+            `;
+        }
+
+        const initialBox = AiConfigsContainer.querySelector('.ai-config-box');
+        if(initialBox) initializeRangeValues(initialBox);
+
+        const submitBtn = document.getElementById("submit-btn");
+        console.log("submitBtn", submitBtn)
+        submitBtn.addEventListener("click" ,()=>{
+        // -----------------------------------
+        aiConfigsArray = [];
+            const boxes = document.querySelectorAll('.ai-config-box');
+            const configTitle = document.getElementById("config-title").value;
+            boxes.forEach(box => {
+                const index = box.getAttribute('data-index');
+
+                const obj = {
+                    Title: configTitle,
+                    AiPlatformId: Number(box.querySelector(`[name="AiConfigs[${index}].AiPlatformId"]`).value),
+                    AiTypeId: Number(box.querySelector(`[name="AiConfigs[${index}].AiTypeId"]`).value),
+                    AiModelId: Number(box.querySelector(`[name="AiConfigs[${index}].AiModelId"]`).value),
+                    Temperature: parseFloat(box.querySelector(`[name="AiConfigs[${index}].Temperature"]`).value),
+                    PresencePenalty: parseFloat(box.querySelector(`[name="AiConfigs[${index}].PresencePenalty"]`).value),
+                    TopP: parseFloat(box.querySelector(`[name="AiConfigs[${index}].TopP"]`).value),
+                    FrequencyPenalty: parseFloat(box.querySelector(`[name="AiConfigs[${index}].FrequencyPenalty"]`).value),
+                    MaxTokens: Number(box.querySelector(`[name="AiConfigs[${index}].MaxTokens"]`).value),
+                    Stop: box.querySelector(`[name="AiConfigs[${index}].Stop"]`).value.split(","),
+                    Prompt: box.querySelector(`[name="AiConfigs[${index}].Prompt"]`).value,
+                    AiConfigOrder: index
+                };
+
+                aiConfigsArray.push(obj);
+            });
+            console.log(aiConfigsArray);
+            fetch('/api/AiConfig/Add', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(aiConfigsArray)
+            })
+            .then(res => res.text())
+            .then(console.log)
+            .catch(console.error);
+        //------------------------------------
+
+        })
+
+
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var parentsData = @Html.Raw(ViewBag.parentAiModels);
+        var childsData = @Html.Raw(ViewBag.childAiModels);
+        var AiPlatforms = @Html.Raw(ViewBag.AiPlatforms);
+
+        function initializeSelects() {
+            const boxes = document.querySelectorAll('.ai-config-box');
+            boxes.forEach(box => {
+                const index = box.getAttribute('data-index');
+
+                // مقدار پلتفرم از data-value
+                const platformSelect = box.querySelector(`[name="AiConfigs[${index}].AiPlatformId"]`);
+                const selectedPlatform = platformSelect.getAttribute('data-value');
+
+                // پر کردن پلتفرم
+                platformSelect.innerHTML = '';
+                const defaultOption = new Option('انتخاب کنید', '');
+                defaultOption.disabled = true;
+                defaultOption.selected = !selectedPlatform;
+                platformSelect.add(defaultOption);
+                AiPlatforms.forEach(p => {
+                    const opt = new Option(p.Title, p.Id);
+                    if (selectedPlatform && p.Id == selectedPlatform) opt.selected = true;
+                    platformSelect.add(opt);
+                });
+
+                // مقدار تایپ از parentsData (بر اساس پلتفرم انتخاب شده)
+                const typeSelect = box.querySelector(`[name="AiConfigs[${index}].AiTypeId"]`);
+                const selectedType = typeSelect.getAttribute('data-value') || null;
+                typeSelect.innerHTML = '';
+                const defaultType = new Option('انتخاب کنید', '');
+                defaultType.disabled = true;
+                defaultType.selected = !selectedType;
+                typeSelect.add(defaultType);
+                if (selectedPlatform) {
+                    const filteredTypes = parentsData.filter(p => p.PlatformIds.includes(Number(selectedPlatform)));
+                    filteredTypes.forEach(p => {
+                        const opt = new Option(p.Title, p.Id);
+                        if (selectedType && p.Id == selectedType) opt.selected = true;
+                        typeSelect.add(opt);
+                    });
+                }
+
+                // مقدار مدل از childsData
+                const modelSelect = box.querySelector(`[name="AiConfigs[${index}].AiModelId"]`);
+                const selectedModel = modelSelect.getAttribute('data-value');
+                modelSelect.innerHTML = '';
+                const defaultModel = new Option('انتخاب کنید', '');
+                defaultModel.disabled = true;
+                defaultModel.selected = !selectedModel;
+                modelSelect.add(defaultModel);
+                if (selectedType) {
+                    const filteredModels = childsData.filter(c => c.ParentId === Number(selectedType));
+                    filteredModels.forEach(c => {
+                        const opt = new Option(c.Title, c.Id);
+                        if (selectedModel && c.Id == selectedModel) opt.selected = true;
+                        modelSelect.add(opt);
+                    });
+                }
+            });
+        }
+
+        initializeSelects();
+    });
+</script>
