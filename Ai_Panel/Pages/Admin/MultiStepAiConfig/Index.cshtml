@@ -2,7 +2,7 @@
 @using Ai_Panel.Application.Constants
 @using Ai_Panel.Application.Tools
 @using Microsoft.AspNetCore.Mvc.TagHelpers
-@model Ai_Panel.Pages.Admin.AiConfig.IndexModel
+@model Ai_Panel.Pages.Admin.MultiStepAiConfig.IndexModel
 @{
     ViewData["Title"] = "تنظیمات هوش مصنوعی";
 }
@@ -23,25 +23,13 @@
                         <thead>
                             <tr>
                                 <th>
-                                    عنوان کانفیگ
+                                    آیدی
                                 </th>
                                 <th>
-                                     هوش مصنوعی
+                                    عنوان
                                 </th>
                                 <th>
-                                    مدل
-                                </th>
-                                <th>
-                                   شماره نسخه
-                                </th>
-                                <th>
-                                   پرامپت
-                                </th>
-                                <th>
-                                    تاریخ ایجاد
-                                </th>
-                                <th>
-                                    آخرین بروزرسانی
+                                   مدل ها
                                 </th>
                                 <th>
                                     عملیات
@@ -49,38 +37,26 @@
                             </tr>
                         </thead>
                         <tbody>
-                             @foreach (var item in Model.AiConfigs)
+                             @foreach (var item in Model.AiConfigGroup)
                             { 
                                 <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.GroupId)
+                                    </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Title)
                                     </td>
                                     <td>
-                                         @Html.DisplayFor(modelItem => item.AiModel.Parent.Title) 
+                                        @string.Join("  ,  ", item.Modles) 
                                     </td>
                                     <td>
-                                         @Html.DisplayFor(modelItem => item.AiModel.Title) 
-                                    </td>
-                                    <td>
-                                         @Html.DisplayFor(modelItem => item.Version) 
-                                    </td>
-                                    <td>
-                                        <a title="@item.Prompt">@item.Prompt?.LimitSentenceLength(30)</a>
-                                    </td>
-                                    <td>
-                                        @item.DateTime.ToPersianDate()
-                                    </td>
-                                    <td>
-                                        @item.UpdateDateTime.ToPersianDate()
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-sm" asp-page="@Urls.AiConfig@ActionPage.Edit" asp-route-id="@item.Id">
+                                        <a class="btn btn-sm" asp-page="/Admin/MultiStepAiConfig/Edit?id=@item.GroupId">
                                             <i class="fa fa-edit text-warning"></i>
                                         </a>
-                                        <a class="btn btn-sm" asp-route="AddAiConfigToBookQuestions" asp-route-id="@item.Id">
+                                        <a class="btn btn-sm">
                                             <i class="fa fa-link text-success"></i>
                                         </a>
-                                        <a class="btn btn-sm mouse-pointer" onclick="DeleteFunction('/api/AiChatApi/delete', @item.Id)">
+                                        <a class="btn btn-sm mouse-pointer">
                                             <i class="fa fa-trash text-danger"></i>
                                         </a>
                                     </td>
