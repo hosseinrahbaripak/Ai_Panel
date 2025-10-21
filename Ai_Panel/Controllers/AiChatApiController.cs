@@ -4,9 +4,11 @@ using Ai_Panel.Application.DTOs;
 using Ai_Panel.Application.DTOs.AiChat;
 using Ai_Panel.Application.Services.Ai;
 using Ai_Panel.Classes;
+using Ai_Panel.Domain;
 using Ai_Panel.Models;
 using Ai_Panel.Pages.Admin;
 using AutoMapper;
+using DocumentFormat.OpenXml.Office.CustomUI;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -56,7 +58,7 @@ namespace Ai_Panel.Controllers
                 var res = await aiApiClient.GetChatCompletionAsync(chatCompletionDetail);
                 if (res.ErrorId == 0)
                 {
-                    var TestAiConfigModel = new Domain.TestAiConfig()
+                    var TestAiConfigModel = new TestAiConfig()
                     {
                         AiResponse = res.Result.AiResponse,
                         DateTime = DateTime.UtcNow.AddHours(3.5),
@@ -98,6 +100,113 @@ namespace Ai_Panel.Controllers
             }
 
         }
+        [Authorize(AuthenticationSchemes = "JwtBearer")]
+        [Route("AskByQuestionList")]
+        [HttpPost]
+        public async Task<ActionResult<ServiceMessage>> AskByQuestionList(List<UserAskAiDto> model)
+        {
+            try
+            {
+                var userId = User.FindFirst("uid")?.Value;
+
+                if (model == null || model.Count == 0)
+                {
+                    return new ServiceMessage()
+                    {
+                        ErrorId = -1,
+                        ErrorTitle = "هیچ داده‌ای ارسال نشده است",
+                        Result = null
+                    };
+                }
+
+                var AiPlatormsId = model.Select(m => m.AiPlatformId).Distinct().ToList();
+                var AIPlatforms = await aiPlatform.GetAll(where: p => AiPlatormsId.Contains(p.Id));
+
+                if (!AIPlatforms.Any())
+                {
+                    return new ServiceMessage()
+                    {
+                        ErrorId = -1,
+                        ErrorTitle = "پلتفرم انتخاب شده یافت نشد",
+                        Result = null
+                    };
+                }
+
+                string lastResponse = model.First().Message;
+
+                foreach (var item in model)
+                {
+                    string[] StopArr = item.StopStr?.Split(',', StringSplitOptions.RemoveEmptyEntries) ?? [];
+
+                    ChatCompletionDto chatCompletionDetail = new ChatCompletionDto()
+                    {
+                        Prompt = item.Prompt,
+                        Message = lastResponse,
+                        BaseUrl = AIPlatforms.FirstOrDefault(x => x.Id == item.AiPlatformId)?.ApiEndpoint,
+                        Model = item.AiModel,
+                        MaxTokens = item.MaxTokens,
+                        FrequencyPenalty = item.FrequencyPenalty,
+                        PresencePenalty = item.PresencePenalty,
+                        Stop = StopArr,
+                        Temperature = item.Temperature,
+                        TopP = item.TopP,
+                        N = 1
+                    };
+
+                    var res = await aiApiClient.GetChatCompletionAsync(chatCompletionDetail);
+
+                    if (res.ErrorId != 0)
+                    {
+                        return new ServiceMessage()
+                        {
+                            ErrorId = res.ErrorId,
+                            ErrorTitle = $"خطا در مرحله با مدل {item.AiModel}: {res.ErrorTitle}",
+                            Result = null
+                        };
+                    }
+                    var TestAiConfigModel = new TestAiConfig()
+                    {
+                        AiResponse = res.Result.AiResponse,
+                        DateTime = DateTime.UtcNow.AddHours(3.5),
+                        userId = int.Parse(userId),
+                        RequestCost = res.Result.RequestCost,
+                        AiModelId = item.AiModelId,
+                        FrequencyPenalty = item.FrequencyPenalty,
+                        PresencePenalty = item.PresencePenalty,
+                        Stop = StopArr,
+                        MaxTokens = item.MaxTokens,
+                        Prompt = item.Prompt,
+                        Message = lastResponse,
+                        N = 1,
+                        IsDelete = false,
+                        SummarizationCost = 0,
+                        EmbeddingCost = 0,
+                        Temperature = item.Temperature,
+                        TopP = item.TopP,
+                        UpdateDateTime = DateTime.UtcNow.AddHours(3.5),
+                    };
+                    await testAiConfig.Add(TestAiConfigModel);
+                    lastResponse = res.Result?.AiResponse ?? "";
+                }
+
+                return new ServiceMessage()
+                {
+                    ErrorId = 0,
+                    ErrorTitle = null,
+                    Result = lastResponse
+                };
+            }
+            catch (Exception e)
+            {
+                return new ServiceMessage()
+                {
+                    ErrorId = -1,
+                    ErrorTitle = "خطای غیرمنتظره: " + e.Message,
+                    Result = null
+                };
+            }
+        }
+
         [Authorize]
         [Route("delete")]
         [HttpPost]

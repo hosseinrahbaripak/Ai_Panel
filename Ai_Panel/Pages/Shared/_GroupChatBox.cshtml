@@ -1,0 +1,181 @@
+﻿@using System.Security.Claims;
+@{
+	var id = User.FindFirst(CustomClaimTypes.UserId).Value;
+	var token = User.FindFirst(CustomClaimTypes.Token).Value;
+}
+<div class="direct-chat direct-chat-primary mt-3 position-relative">
+	<div class="card-header ui-sortable-handle row">
+		<div class="col-1">
+			<img src="~/images/supporter.jpg" alt="turtle" />
+		</div>
+		<h5 class="card-title col-10 pt-2 text-center" id="chat-head">تست هوش مصنوعی</h5>
+		<div class="col-1">
+			<button class="btn rounded-circle disabled" id="chatBackBtn">
+				<i class="fa fa-arrow-left"></i>
+			</button>
+		</div>
+	</div>
+	<div class="" style="max-height:500px;overflow-y:auto;overflow-x:hidden;height:500px">
+		<div class="row direct-chat-messages" id="chatbody">
+			<div class="direct-chat-msg float-end mb-3">
+				<div class="direct-chat-infos clearfix">
+					<span class="direct-chat-name float-left">دستیار هوش مصنوعی</span>
+				</div>
+				<img class="direct-chat-img" src="/images/supporter.jpg" alt=".">
+				<div class="direct-chat-text">
+					<p>
+						سوالات خود را مطرح نمایید
+					</p>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div class="card-footer fix-chatMessage-Bottom-inside bg-white w-100">
+		<form method="post" id="SendMessageForm">
+			<div class="input-group">
+				<input type="hidden" id="QuestionId" name="QuestionId">
+				<input type="hidden" name="TestDateTimeBegging" value="@DateTime.UtcNow.AddHours(3.5)"
+					   id="TestDateTimeBegging">
+				<input type="text" id="Message" name="Message" placeholder="سوال خودت رو بپرس ..."
+					   class="form-control shadow-none" autocomplete="off" style="height:45px;">
+				<button id="SendMessageBtn" type="button" class="btn btn-appblue shadow-none" style="height:45px;">
+					<i class="fa fa-send"></i>
+				</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+
+<div class="modal fade" id="validationModalMsg" tabindex="-1" aria-labelledby="validationModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="validationModalLabel">خطای اعتبارسنجی</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				برای پاسخ به سوال باید مقادیر پلتفرم ، هوش مصنوعی و مدل ،پرامپت و متن پیام را وارد نمایید را پر کنید
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-bs-dismiss="modal">باشه</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		const SendMessageBtn = document.getElementById("SendMessageBtn");
+
+		const validationModalMsg = new bootstrap.Modal(document.getElementById('validationModalMsg'));
+		const chatbody = document.getElementById("chatbody");
+		const AiChatBody = `
+		<div class="direct-chat-msg float-end mb-3">
+				<img class="direct-chat-img" src="/images/supporter.jpg" alt=".">
+				<div class="direct-chat-text">
+					<p>
+						$msg
+					</p>
+				</div>
+
+			</div>
+		`
+		const UserChatBody = `
+		<div class="direct-chat-msg right mb-3">
+				<div class="direct-chat-text bg-primary text-white">
+					<p>
+						$msg
+					</p>
+				</div>
+			</div>
+
+		`
+			SendMessageBtn.addEventListener("click", () => {
+		const AiConfigBoxes = document.querySelectorAll(".ai-config-box");
+		const Message = document.getElementById("Message").value;
+
+		if (Message === "") {
+			validationModalMsg.show();
+			return;
+		}
+
+		let configs = [];
+
+		AiConfigBoxes.forEach((box) => {
+			const index = box.getAttribute("data-index");
+
+			const AiPlatformId = box.querySelector(".AiPlatform").value;
+			const AiTypeId = box.querySelector(".AiType").value;
+			const AiModelSelect = box.querySelector(".AiModel");
+			const AiModelId = AiModelSelect.value;
+			const AiModelText = AiModelSelect.options[AiModelSelect.selectedIndex]?.text || "";
+			const Temperature = parseFloat(box.querySelector('input[name*=".Temperature"]').value);
+			const PresencePenalty = parseFloat(box.querySelector('input[name*=".PresencePenalty"]').value);
+			const TopP = parseFloat(box.querySelector('input[name*=".TopP"]').value);
+			const FrequencyPenalty = parseFloat(box.querySelector('input[name*=".FrequencyPenalty"]').value);
+			const MaxTokens = parseInt(box.querySelector('input[name*=".MaxTokens"]').value);
+			const StopStr = box.querySelector('textarea[name*=".Stop"]').value;
+			const Prompt = box.querySelector('textarea[name*=".Prompt"]').value;
+
+			if (!AiPlatformId || !AiModelId || !Prompt) return;
+
+			configs.push({
+				AiPlatformId: Number(AiPlatformId),
+				AiModelId: Number(AiModelId),
+				AiModel: AiModelText,
+				Temperature,
+				PresencePenalty,
+				TopP,
+				FrequencyPenalty,
+				MaxTokens: MaxTokens === 0 ? 110011 : MaxTokens,
+				StopStr,
+				Prompt,
+				Message
+			});
+		});
+
+		if (configs.length === 0) {
+			validationModalMsg.show();
+			return;
+		}
+
+		SendMessageBtn.classList.add("disabled");
+		document.getElementById("Message").classList.add("disabled");
+
+		fetch('/api/AiChatApi/AskByQuestionList', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'Authorization': 'Bearer ' + "@token"
+			},
+			body: JSON.stringify(configs),
+		})
+			.then(res => res.json())
+			.then(data => {
+				console.log(data);
+				chatbody.insertAdjacentHTML("beforeend", UserChatBody.replace("$msg", Message));
+
+				if (data.errorId === 0) {
+					chatbody.insertAdjacentHTML("beforeend", AiChatBody.replace("$msg", data.result || "پاسخی دریافت نشد"));
+				} else {
+					ShowToast("error", data.errorTitle, 10000);
+				}
+
+				document.getElementById("Message").value = "";
+				SendMessageBtn.classList.remove("disabled");
+				document.getElementById("Message").classList.remove("disabled");
+				chatbody.scrollTo({ top: chatbody.scrollHeight, behavior: 'smooth' });
+			})
+			.catch(err => {
+				ShowToast("error", "خطا در ارتباط با سرور", 10000);
+				SendMessageBtn.classList.remove("disabled");
+				document.getElementById("Message").classList.remove("disabled");
+			});
+	});
+
+
+	});
+</script>
