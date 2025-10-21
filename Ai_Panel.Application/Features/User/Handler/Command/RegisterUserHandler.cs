@@ -7,6 +7,7 @@ using Ai_Panel.Application.Constants;
 using Ai_Panel.Application.Contracts.Persistence.EfCore;
 using Ai_Panel.Application.Features.User.Request.Command;
 using MediatR;
+using PersianAssistant.Extensions;
 using PersianAssistant.Models;
 
 namespace Ai_Panel.Application.Features.User.Handler.Command
@@ -22,6 +23,7 @@ namespace Ai_Panel.Application.Features.User.Handler.Command
         }
         public async Task<ServiceMessage> Handle(RegisterUserRequest request, CancellationToken cancellationToken)
         {
+            string Code = 5.GenerateCode();
             Domain.User user = new Domain.User()
             {
                 FirstName = request.dto.FirstName,
@@ -31,6 +33,7 @@ namespace Ai_Panel.Application.Features.User.Handler.Command
                 UserType = Domain.Enum.UserTypeEnum.USER , 
                 DateTime = DateTime.UtcNow.AddHours(3.5),
                 UpdateDateTime = DateTime.UtcNow.AddHours(3.5),
+                ActiveCode = Code,
             };
             try
             {
@@ -38,7 +41,7 @@ namespace Ai_Panel.Application.Features.User.Handler.Command
                 return new ServiceMessage()
                 {
                     ErrorId = 0,
-                    Result = SystemMessages.Success,
+                    Result = Code,
                     ErrorTitle = null
                 };
             }

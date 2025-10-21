@@ -103,7 +103,6 @@ namespace Ai_Panel.Persistence.Repository.EfCore
                 if (user.UserId == 0)
                 {
                     user.DateTime = DateTime.UtcNow.AddHours(3.5);
-                    user.ActiveCode = 5.GenerateCode();
                     await _db.Users.AddAsync(user);
                 }
                 else
