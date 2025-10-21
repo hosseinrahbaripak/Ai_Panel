@@ -125,9 +125,29 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="validationModal" tabindex="-1" aria-labelledby="validationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="validationModalLabel">خطای اعتبارسنجی</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                برای ثبت اطلاعات باید مقادیر پلتفرم ، هوش مصنوعی و مدل ،پرامپت و متن پیام را وارد نمایید را پر کنید
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">باشه</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         // fill drop downs
+        const validationModal = new bootstrap.Modal(document.getElementById('validationModal'));
         var parentsData = @Html.Raw(ViewBag.parentAiModels);
         var childsData = @Html.Raw(ViewBag.childAiModels);
         var AiPlatforms = @Html.Raw(ViewBag.AiPlatforms);
@@ -323,11 +343,11 @@
         submitBtn.addEventListener("click" ,()=>{
         // -----------------------------------
         aiConfigsArray = [];
+        let boxErrors = [];
             const boxes = document.querySelectorAll('.ai-config-box');
             const configTitle = document.getElementById("config-title").value;
             boxes.forEach(box => {
                 const index = box.getAttribute('data-index');
-
                 const obj = {
                     Title: configTitle,
                     AiPlatformId: Number(box.querySelector(`[name="AiConfigs[${index}].AiPlatformId"]`).value),
@@ -342,18 +362,35 @@
                     Prompt: box.querySelector(`[name="AiConfigs[${index}].Prompt"]`).value,
                     AiConfigOrder: index
                 };
-
+                
+                if (!obj.AiPlatformId) boxErrors.push("پلتفرم");
+                if (!obj.AiTypeId) boxErrors.push("هوش مصنوعی");
+                if (!obj.AiModelId) boxErrors.push("مدل");
+                if (!obj.MaxTokens) boxErrors.push("بیشترین تعداد کلمات خروجی");
+                if (!obj.Prompt) boxErrors.push("پرامپت");
                 aiConfigsArray.push(obj);
             });
+
             console.log(aiConfigsArray);
-            fetch('/api/AiConfig/Add', {
+            if(boxErrors.length > 0){
+                validationModal.show()
+            }
+            else{
+                fetch('/api/AiConfig/Add', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(aiConfigsArray)
-            })
-            .then(res => res.text())
-            .then(console.log)
-            .catch(console.error);
+                })
+                .then(res => res.json())
+                .then(res=>{
+                    if(res.errorId == 0){
+                        ShowToast(status = 'success', message = res.result)
+                        window.location.href = "/Admin/MultiStepAiConfig/"
+                    }
+                })
+                .catch(console.error);
+            }
+            
         //------------------------------------
     
         })
