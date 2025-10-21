@@ -387,6 +387,9 @@
                         ShowToast(status = 'success', message = res.result)
                         window.location.href = "/Admin/MultiStepAiConfig/"
                     }
+                    else{
+                        ShowToast(status = 'error', message = res.errorTitle)
+                    }
                 })
                 .catch(console.error);
             }

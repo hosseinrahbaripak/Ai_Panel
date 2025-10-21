@@ -82,6 +82,84 @@ namespace Ai_Panel.Controllers
                 
                 
         }
-        
+
+        [Authorize]
+        [Route("Edit")]
+        [HttpPost]
+        public async Task<ActionResult<ServiceMessage>> Edit(List<EditAiCofigListDto> model)
+        {
+            if (model == null || model.Count < 1)
+            {
+                return new ServiceMessage()
+                {
+                    ErrorId = -1,
+                    ErrorTitle = "حداقل یک کانفیگ باید اضافه کنید",
+                    Result = null
+                };
+
+            }
+            List<AiConfig> AiConfigs = await _aiConfig.GetAll(where: conf => !conf.IsDelete && conf.AiConfigGroupId == model.First().GroupId);
+            var postedIds = model.Where(x => x.Id.HasValue).Select(x => x.Id.Value).ToList();
+
+            var toDelete = AiConfigs.Where(x => !postedIds.Contains(x.Id)).ToList();
+            foreach (var delItem in toDelete)
+            {
+                delItem.IsDelete = true;
+                delItem.UpdateDateTime = DateTime.UtcNow.AddHours(3.5);
+                await _aiConfig.Update(delItem);
+            }
+            var toUpdate = model.Where(x => x.Id.HasValue).ToList();
+            foreach (var dto in toUpdate)
+            {
+                var dbItem = AiConfigs.First(x => x.Id == dto.Id.Value);
+
+                dbItem.Title = dto.Title;
+                dbItem.AiPlatformId = dto.AiPlatformId;
+                dbItem.AiModelId = dto.AiModelId;
+                dbItem.Temperature = dto.Temperature;
+                dbItem.PresencePenalty = dto.PresencePenalty;
+                dbItem.TopP = dto.TopP;
+                dbItem.FrequencyPenalty = dto.FrequencyPenalty;
+                dbItem.MaxTokens = dto.MaxTokens;
+                dbItem.Stop = dto.Stop;
+                dbItem.Prompt = dto.Prompt;
+                dbItem.AiConfigOrder = dto.AiConfigOrder;
+                dbItem.UpdateDateTime = DateTime.UtcNow.AddHours(3.5);
+                await _aiConfig.Update(dbItem);
+            }
+            var toAdd = model.Where(x => !x.Id.HasValue).Select(dto => new AiConfig
+            {
+                AiConfigGroupId = dto.GroupId.Value,
+                Title = dto.Title,
+                AiPlatformId = dto.AiPlatformId,
+                AiModelId = dto.AiModelId,
+                Temperature = dto.Temperature,
+                PresencePenalty = dto.PresencePenalty,
+                TopP = dto.TopP,
+                FrequencyPenalty = dto.FrequencyPenalty,
+                MaxTokens = dto.MaxTokens,
+                Stop = dto.Stop,
+                Prompt = dto.Prompt,
+                AiConfigOrder = dto.AiConfigOrder,
+                IsDelete = false,
+                Version="1.0.1",
+                DateTime=DateTime.UtcNow.AddHours(3.5)
+            }).ToList();
+
+             foreach(var item in toAdd)
+            {
+                await _aiConfig.Add(item);
+            }
+            return new ServiceMessage()
+            {
+                ErrorId = 0,
+                Result = "مدل ها ویرایش شدند",
+                ErrorTitle = null
+
+            };
+
+
+        }
+
     }
 }

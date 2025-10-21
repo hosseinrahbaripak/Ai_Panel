@@ -21,7 +21,7 @@ namespace Ai_Panel.Pages.Admin.MultiStepAiConfig
         public List<Domain.AiConfigGroup> Groups { get; set; }
         public async Task<IActionResult> OnGet(int id)
         {
-            AiConfigDto = await aiConfigGroup.GetAll(where: conf => conf.AiConfigGroupId == id, null, "AiModel,AiPlatform");
+            AiConfigDto = await aiConfigGroup.GetAll(where: conf => conf.AiConfigGroupId == id && !conf.IsDelete, null, "AiModel,AiPlatform");
             AiConfigDto = AiConfigDto.OrderBy(x => x.AiConfigOrder).ToList();
             var aiModels = await aiModelRepository.GetAll(x => !x.IsDelete, null, "Platforms");
             var aiPlatforms = await aiPlatformRepository.GetAll(x => !x.IsDelete);
