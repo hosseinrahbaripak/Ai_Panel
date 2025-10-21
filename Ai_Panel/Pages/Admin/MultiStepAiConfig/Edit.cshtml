@@ -1,0 +1,204 @@
+﻿@page
+@model Ai_Panel.Pages.Admin.AiConfig.EditModel
+@{
+	string title = $"ویرایش تنظیمات {Model.AiConfigDto.Title}";
+	ViewData["Title"] = title;
+}
+<div class="row justify-content-md-center">
+	<div class="col-md-12 col-lg-12 col-12">
+		<div class="card shadow">
+			<h5 class="card-header">@title</h5>
+			<div class="card-body">
+				<section class="card-text">
+					<div class="row mt-1">
+						<div class="col-lg-8 col-md-8 col-12 mb-2">
+							<form id="FormInModal" method="Post" enctype="multipart/form-data">
+								<input type="hidden" asp-for="AiConfigDto.Id" />
+								<input type="hidden" asp-for="AiConfigDto.N" />
+								<input type="hidden" asp-for="AiConfigDto.Version" />
+								<input type="hidden" asp-for="AiConfigDto.DateTime" />
+								@* <input type="hidden" asp-for="AiContentDto.Id" />
+								<input type="hidden" asp-for="AiContentDto.DateTime" /> *@
+								@Html.AntiForgeryToken()
+								@if (!string.IsNullOrEmpty(Model.Error))
+								{
+									<p class="alert alert-danger">Error</p>
+								}
+								<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+								<div class="row">
+									<div class="col-lg-3 col-6">
+										<label class="">عنوان کانفیگ</label>
+										<input class="form-control" type="text" asp-for="AiConfigDto.Title" />
+										<span class="text-danger" asp-validation-for="AiConfigDto.Title"></span>
+									</div>
+									<div class="col-lg-3 col-6">
+										<label class="">پلتفرم</label>
+										<select class="form-select custom-select" id="AiPlatform" asp-for="AiConfigDto.AiPlatformId" asp-items="ViewBag.AiPlatforms" onchange="changeAiPlatforms();">
+											<option disabled selected>لطفا موردی را انتخاب کنید</option>
+										</select>
+									</div>
+									<div class="col-lg-3 col-6">
+										<label class="">هوش مصنوعی</label>
+										<select class="form-select custom-select" id="AiType" onchange="changeAiModels();">
+											<option disabled selected>لطفا موردی را انتخاب کنید</option>
+										</select> 
+									</div>
+									<div class="col-lg-3 col-6">
+										<label class="">مدل</label>
+										<select class="form-select custom-select" id="AiModelTypes" asp-for="AiConfigDto.AiModelId">
+											<option disabled selected>لطفا موردی را انتخاب کنید</option>
+										</select>
+										<span class="text-danger" asp-validation-for="AiConfigDto.AiModelId"></span>
+									</div>
+									<div class="col-lg-4 col-12 mt-1">
+										<label class="">خلاقیت در پاسخگویی : </label>
+										<span id="rangeValue2" class="font-weight-bold ms-2">AiConfigDto?.Temperature</span>
+										<input type="range" class="form-range" min="0" max="2" step="0.01" id="customRange2" asp-for="AiConfigDto.Temperature">
+										<span class="text-danger" asp-validation-for="AiConfigDto.Temperature"></span>
+									</div>
+									<div class="col-lg-4 col-6 mt-1">
+										<label class="">خلاقیت در ساخت جمله : </label>
+										<span id="rangeValue3" class="font-weight-bold ms-2">AiConfigDto?.PresencePenalty</span>
+										<input type="range" class="form-range" min="-2" max="2" step="0.1" id="customRange3" asp-for="AiConfigDto.PresencePenalty">
+										<span class="text-danger" asp-validation-for="AiConfigDto.PresencePenalty"></span>
+									</div>
+									<div class="col-lg-4 col-6 mt-1">
+										<label class="">کنترل تنوع پاسخ بر اساس احتمال : </label>
+										<span id="rangeValue4" class="font-weight-bold ms-2">AiConfigDto?.TopP</span>
+										<input type="range" class="form-range" min="0" max="1" step="0.01" id="customRange4" asp-for="AiConfigDto.TopP">
+										<span class="text-danger" asp-validation-for="AiConfigDto.TopP"></span>
+									</div>
+									<div class="col-lg-4 col-6 mt-1">
+										<label class=""> جلوگیری از تکرار کلمه در جمله : </label>
+										<span id="rangeValue1" class="font-weight-bold ms-2">AiConfigDto?.FrequencyPenalty</span>
+										<input type="range" class="form-range" min="-2" max="2" step="0.1" id="customRange1" asp-for="AiConfigDto.FrequencyPenalty">
+										<span class="text-danger" asp-validation-for="AiConfigDto.FrequencyPenalty"></span>
+									</div>
+
+									<div class="col-lg-4 col-6">
+										<label class="">بیشترین تعداد کلمات خروجی</label>
+										<input asp-for="AiConfigDto.MaxTokens" id="MaxTokens" class="form-control" type="number" max="10000" min="5" />
+										<span class="text-danger" asp-validation-for="AiConfigDto.MaxTokens"></span>
+									</div>
+									<div class="col-lg-4 col-12">
+										<label class="">
+											توقت پاسخگویی در کلمات خاص
+											مانند (جنگ،خدا،)
+										</label>
+										<textarea asp-for="AiConfigDto.Stop" class="form-control" id="stop" rows="1"></textarea>
+										<span class="text-danger" asp-validation-for="AiConfigDto.Stop"></span>
+									</div>
+								</div>
+								<div class="col-lg-12 col-md-12 col-12 mt-1">
+									<label class="">پرامپت</label>
+									<textarea asp-for="AiConfigDto.Prompt" id="Prompt" class="form-control" rows="4" placeholder="پرامپت را وارد کنید..."></textarea>
+									<span class="text-danger" asp-validation-for="AiConfigDto.Prompt"></span>
+								</div>
+
+								<div class="col-lg-12 col-md-12 col-12 mt-2">
+									<div class="d-grid gap-2">
+										<button class="btn btn-primary" type="submit">ثبت</button>
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="col-lg-4 col-md-4 col-12 box-shadow-1 mb-2">
+							<div class="row">
+								<div id="chat-overlay" class="card-title text-center" style="display:none;">
+									<div id="chat-overlay-head" class="card-header ui-sortable-handle">
+									</div>
+									<div id="chat-overlay-body">
+									</div>
+								</div>
+								<div class="col-lg-12 col-6">
+									<partial name="_ChatBox" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section Scripts
+{
+	<script>
+		$('#AiContent').toggle($('#WithAiContent').is(':checked'));
+		$('#WithAiContent').on('change', function() {
+			const isChecked = $(this).is(':checked');
+			$('#AiContent').stop().slideToggle(200);
+		});
+		var aiType = document.getElementById('AiType');
+		var aiModelTypes = document.getElementById('AiModelTypes');
+
+		var parentsData = @Html.Raw(ViewBag.parentAiModels);
+		var childsData = @Html.Raw(ViewBag.childAiModels);
+		const selectedParent = parentsData.find(p=>parentsData[0].Selected === p.Id);
+		const selectedChild = childsData.find(c=>childsData[0].Selected === c.Id);
+		const FiltedChildsData = childsData?.filter(c=>c.ParentId === selectedParent.Id);
+
+		parentsData.forEach(parent => {
+			const option = document.createElement("option");
+			option.value = parent.Id;
+			option.textContent = parent.Title;
+			if (selectedParent && parent.Id === selectedParent.Id) {
+				option.selected = true;
+			}
+			aiType.appendChild(option);
+		});
+		FiltedChildsData.forEach(child => {
+			const option = document.createElement("option");
+			option.value = child.Id;
+			option.textContent = child.Title;
+
+			if (selectedChild && child.Id === selectedChild.Id) {
+				option.selected = true;
+			}
+
+			aiModelTypes.appendChild(option);
+		});
+		function changeAiPlatforms() {
+			var selectedPlatform = Number($('#AiPlatform').val());
+			const AiModelChildern = parentsData.filter(item => item.PlatformIds.includes(selectedPlatform));
+			let options = aiType.getElementsByTagName('option');
+			for (var i = options.length; i--;) {
+				aiType.removeChild(options[i]);
+			}
+			var selectedAiModel = 0;
+			for (const element of AiModelChildern) {
+				let newOption = new Option(`${element.Title}`, `${element.Id}`);
+				selectedAiModel = element?.Selected ?? 0;
+				if(element.Id == selectedAiModel){
+					newOption.setAttribute("selected", "selected");
+				}
+				aiType.add(newOption, undefined);
+			}
+			let defaultOption = new Option('لطفا موردی را انتخاب کنید', '0');
+			defaultOption.setAttribute("selected", "selected");
+			aiType.add(defaultOption, undefined);
+		}
+
+		function changeAiModels() {
+			var selectedAi = Number($('#AiType').val());
+			const AiModelChildern = childsData.filter(item => item.ParentId === selectedAi);
+			let options = aiModelTypes.getElementsByTagName('option');
+			for (var i = options.length; i--;) {
+				aiModelTypes.removeChild(options[i]);
+			}
+			var selectedAiModel = 0;
+			for (const element of AiModelChildern) {
+				let newOption = new Option(`${element.Title}`, `${element.Id}`);
+				selectedAiModel = element?.Selected ?? 0;
+				if(element.Id == selectedAiModel){
+					newOption.setAttribute("selected", "selected");
+				}
+				aiModelTypes.add(newOption, undefined);
+			}
+			let defaultOption = new Option('لطفا موردی را انتخاب کنید', '0');
+			defaultOption.setAttribute("selected", "selected");
+			aiModelTypes.add(defaultOption, undefined);
+		}
+	</script>
+}

@@ -1,0 +1,311 @@
+﻿@page
+@model Ai_Panel.Pages.Admin.MultiStepAiConfig.AddModel
+@{
+    string title = "افزودن تنظیمات جدید هوش مصنوعی";
+    ViewData["Title"] = title;
+}
+
+<div class="row justify-content-md-center">
+    <div class="col-md-12 col-lg-12 col-12">
+        <div class="card shadow">
+            <h5 class="card-header">@title</h5>
+            <div class="card-body">
+                <section class="card-text">
+                    <div class="row mt-1">
+                        <div class="col-lg-8 col-md-8 col-12 mb-2">
+                            <form id="FormInModal" method="Post" enctype="multipart/form-data">
+                                <input type="hidden" asp-for="AiConfigDto.N" />
+                                @Html.AntiForgeryToken()
+                                @if (!string.IsNullOrEmpty(Model.Error))
+                                {
+                                    <p class="alert alert-danger">Error</p>
+                                }
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                                <div class="col-lg-12 col-md-12 col-12 mt-4">
+                                    <div class="card shadow-sm">
+                                        <div class="card-header d-flex justify-content-between align-items-center">
+                                            <h6 class="mb-0">مدل ها</h6>
+                                            <button type="button" id="AddAiConfigBtn" class="btn btn-sm btn-success">
+                                                افزودن +
+                                            </button>
+                                        </div>
+                                        <div class="card-body" id="AiConfigsContainer">
+                                            <!-- باکس‌های جدید اینجا اضافه می‌شن -->
+                                            <div class="border rounded p-3 mb-3 position-relative bg-light ai-config-box" data-index="0">
+                                                <button type="button" class="btn position-absolute m-2 remove-config" data-remove="0" onClick="removeAiConfig(0)" style="top:0px;left:0px">
+                                                    <i class="fa fa-trash text-danger"></i>
+                                                </button>
+                                                <div class="row">
+                                                    <div class="col-lg-3 col-6 mb-2">
+                                                        <label>پلتفرم</label>
+                                                        <select class="form-select AiPlatform" name="AiConfigs[0].AiPlatformId" required>
+                                                            <option disabled selected>انتخاب کنید</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-lg-3 col-6 mb-2">
+                                                        <label>هوش مصنوعی</label>
+                                                        <select class="form-select AiType" name="AiConfigs[0].AiTypeId" required>
+                                                            <option disabled selected>انتخاب کنید</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-lg-3 col-6 mb-2">
+                                                        <label>مدل</label>
+                                                        <select class="form-select AiModel" name="AiConfigs[0].AiModelId" required>
+                                                            <option disabled selected>انتخاب کنید</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col-lg-4 col-6 mt-1">
+                                                        <label>خلاقیت در پاسخگویی</label>
+                                                        <input type="range" class="form-range" min="0" max="2" step="0.01" name="AiConfigs[0].Temperature">
+                                                    </div>
+                                                    <div class="col-lg-4 col-6 mt-1">
+                                                        <label>خلاقیت در ساخت جمله</label>
+                                                        <input type="range" class="form-range" min="-2" max="2" step="0.1" name="AiConfigs[0].PresencePenalty">
+                                                    </div>
+                                                    <div class="col-lg-4 col-6 mt-1">
+                                                        <label>کنترل تنوع پاسخ بر اساس احتمال</label>
+                                                        <input type="range" class="form-range" min="0" max="1" step="0.01" name="AiConfigs[0].TopP">
+                                                    </div>
+                                                    <div class="col-lg-4 col-6 mt-1">
+                                                        <label>جلوگیری از تکرار کلمه در جمله</label>
+                                                        <input type="range" class="form-range" min="-2" max="2" step="0.1" name="AiConfigs[0].FrequencyPenalty">
+                                                    </div>
+                                                    <div class="col-lg-4 col-6">
+                                                        <label>بیشترین تعداد کلمات خروجی</label>
+                                                        <input type="number" class="form-control" max="10000" min="5" name="AiConfigs[0].MaxTokens">
+                                                    </div>
+                                                    <div class="col-lg-12 col-12">
+                                                        <label>توقف پاسخگویی در کلمات خاص</label>
+                                                        <textarea class="form-control" rows="1" name="AiConfigs[0].Stop"></textarea>
+                                                    </div>
+
+                                                    <div class="col-lg-12 col-12 mb-2">
+                                                        <label>پرامپت</label>
+                                                        <textarea class="form-control AiPrompt" name="AiConfigs[0].Prompt" rows="2" placeholder="پرامپت را وارد کنید..." required></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @* --------------------------------- *@
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12 col-12 mt-2">
+                                    <div class="d-grid gap-2">
+                                        <button class="btn btn-primary" type="submit">ثبت</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-12">
+                            <div class="row box-shadow-1 ">
+                                <div id="chat-overlay" class="card-title text-center" style="display:none;">
+                                    <div id="chat-overlay-head" class="card-header ui-sortable-handle"></div>
+                                    <div id="chat-overlay-body"></div>
+                                </div>
+                                <div class="col-lg-12 col-6">
+                                    <partial name="_ChatBox" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section> 
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // ------------------handle fill drop downs----------------
+        // ------------------handle add box------------------------
+        const AddAiConfigBtn = document.getElementById("AddAiConfigBtn");
+        const AiConfigsContainer = document.getElementById("AiConfigsContainer");
+        let AiConfigIndex = 0;
+
+        console.log("AddAiConfigBtn", AddAiConfigBtn)
+        console.log("AiConfigsContainer", AiConfigsContainer)
+        AddAiConfigBtn.addEventListener("click" , ()=>{
+            AiConfigIndex++;
+            const box = createAiConfigBox(AiConfigIndex);
+            AiConfigsContainer.insertAdjacentHTML("beforeend", box); 
+        })
+
+        window.removeAiConfig = function (index) {
+            const box = AiConfigsContainer.querySelector(`[data-index="${index}"]`);
+            const allBox = document.querySelectorAll(".ai-config-box")
+            if(box && allBox.length > 1){
+                box.remove();
+            }
+        };
+
+
+
+            function createAiConfigBox(index) {
+        let box = `
+        <div class="border rounded p-3 mb-3 position-relative bg-light ai-config-box" data-index="${index}">
+            <button type="button" class="btn position-absolute m-2 remove-config" data-remove="${index}" onClick="removeAiConfig(${index})" style="top:0px;left:0px">
+                <i class="fa fa-trash text-danger"></i>
+            </button>
+            <div class="row">
+                <div class="col-lg-3 col-6 mb-2">
+                    <label>پلتفرم</label>
+                    <select class="form-select AiPlatform" name="AiConfigs[${index}].AiPlatformId" required>
+                        <option disabled selected>انتخاب کنید</option>
+                    </select>
+                </div>
+                <div class="col-lg-3 col-6 mb-2">
+                    <label>هوش مصنوعی</label>
+                    <select class="form-select AiType" name="AiConfigs[${index}].AiTypeId" required>
+                        <option disabled selected>انتخاب کنید</option>
+                    </select>
+                </div>
+                <div class="col-lg-3 col-6 mb-2">
+                    <label>مدل</label>
+                    <select class="form-select AiModel" name="AiConfigs[${index}].AiModelId" required>
+                        <option disabled selected>انتخاب کنید</option>
+                    </select>
+                </div>
+
+                <div class="col-lg-4 col-6 mt-1">
+                    <label>خلاقیت در پاسخگویی</label>
+                    <input type="range" class="form-range" min="0" max="2" step="0.01" name="AiConfigs[${index}].Temperature">
+                </div>
+                <div class="col-lg-4 col-6 mt-1">
+                    <label>خلاقیت در ساخت جمله</label>
+                    <input type="range" class="form-range" min="-2" max="2" step="0.1" name="AiConfigs[${index}].PresencePenalty">
+                </div>
+                <div class="col-lg-4 col-6 mt-1">
+                    <label>کنترل تنوع پاسخ بر اساس احتمال</label>
+                    <input type="range" class="form-range" min="0" max="1" step="0.01" name="AiConfigs[${index}].TopP">
+                </div>
+                <div class="col-lg-4 col-6 mt-1">
+                    <label>جلوگیری از تکرار کلمه در جمله</label>
+                    <input type="range" class="form-range" min="-2" max="2" step="0.1" name="AiConfigs[${index}].FrequencyPenalty">
+                </div>
+                <div class="col-lg-4 col-6">
+                    <label>بیشترین تعداد کلمات خروجی</label>
+                    <input type="number" class="form-control" max="10000" min="5" name="AiConfigs[${index}].MaxTokens">
+                </div>
+                <div class="col-lg-12 col-12">
+                    <label>توقف پاسخگویی در کلمات خاص</label>
+                    <textarea class="form-control" rows="1" name="AiConfigs[${index}].Stop"></textarea>
+                </div>
+
+                <div class="col-lg-12 col-12 mb-2">
+                    <label>پرامپت</label>
+                    <textarea class="form-control AiPrompt" name="AiConfigs[${index}].Prompt" rows="2" placeholder="پرامپت را وارد کنید..." required></textarea>
+                </div>
+            </div>
+        </div>
+        `;
+        return box;
+    }
+
+    })
+
+</script>
+
+
+
+@section Scripts {
+    <script>
+        $('#AiContent').toggle($('#WithAiContent').is(':checked'));
+        $('#WithAiContent').on('change', function() {
+            const isChecked = $(this).is(':checked');
+            $('#AiContent').stop().slideToggle(200);
+        });
+
+        var parentsData = @Html.Raw(ViewBag.parentAiModels);
+        var childsData = @Html.Raw(ViewBag.childAiModels);
+        var AiPlatforms = @Html.Raw(ViewBag.AiPlatforms);
+
+
+        console.log("parentsData" , AiPlatforms)
+
+
+        var aiType = document.getElementById('AiType');
+        var aiModelTypes = document.getElementById('AiModelTypes');
+        function changeAiPlatforms() {
+            var selectedPlatform = Number($('#AiPlatform').val());
+            console.log("selectedPlatform",selectedPlatform)
+            const AiModelChildern = parentsData.filter(item => item.PlatformIds.includes(selectedPlatform));
+            console.log("AiModelChildern",AiModelChildern)
+            let options = aiType.getElementsByTagName('option');
+            for (var i = options.length; i--;) {
+                aiType.removeChild(options[i]);
+            }
+            let defaultOption = new Option('لطفا موردی را انتخاب کنید', '0');
+            defaultOption.setAttribute("disabled", "true");
+            defaultOption.setAttribute("selected", "selected");
+            aiType.add(defaultOption, undefined);
+            for (const element of AiModelChildern) {
+                let newOption = new Option(`${element.Title}`, `${element.Id}`);
+                aiType.add(newOption, undefined);
+            }
+        }
+        function changeAiModels() {
+            var selectedAi = Number($('#AiType').val());
+            const AiModelChildern = childsData.filter(item => item.ParentId === selectedAi);
+            let options = aiModelTypes.getElementsByTagName('option');
+            for (var i = options.length; i--;) {
+                aiModelTypes.removeChild(options[i]);
+            }
+            let defaultOption = new Option('لطفا موردی را انتخاب کنید', '0');
+            defaultOption.setAttribute("disabled", "true");
+                defaultOption.setAttribute("selected", "selected");
+            aiModelTypes.add(defaultOption, undefined);
+            for (const element of AiModelChildern) {
+                let newOption = new Option(`${element.Title}`, `${element.Id}`);
+                aiModelTypes.add(newOption, undefined);
+            }
+        }
+
+
+        const sendMessageBtn = document.getElementById("SendMessageBtn");
+        const messageInput = document.getElementById("Message");
+
+
+        const overlay = document.getElementById("chat-overlay");
+        const overlayHead = document.getElementById("chat-overlay-head");
+        const overlayBody = document.getElementById("chat-overlay-body");
+        const chatHead = document.getElementById("chat-head");
+
+        var id = 0;
+        let username = "123";
+        let dateTime = "";
+        const chatBackBtn = document.getElementById("chatBackBtn");
+        chatBackBtn.addEventListener("click", function(){
+            $(overlay).show(300);
+        });
+
+
+        function chatTrigger(action){
+            if(action === "enable"){
+                if (sendMessageBtn.disabled) {
+                    sendMessageBtn.classList.remove("disabled");
+                    sendMessageBtn.removeAttribute("disabled");
+                }
+                if (messageInput.disabled) {
+                    messageInput.removeAttribute("disabled");
+                }
+            }
+            else{
+                if (!sendMessageBtn.disabled) {
+                    sendMessageBtn.classList.add("disabled");
+                    sendMessageBtn.disabled = true;
+                }
+                if (!messageInput.disabled) {
+                    messageInput.value = "";
+                    messageInput.disabled = true;
+                }
+            }
+        }
+        changeAiPlatforms();
+        changeAiModels();
+
+
+
+    </script>
+}

@@ -375,9 +375,8 @@ tbody {
 .fix-chatMessage-Bottom-inside {
     bottom: 0%;
     position: absolute;
-    width: 33%;
-    left: 39.3%;
-    transform: translate(-118%, -24px);
+    width: 100%;
+    left:0;
 }
 #chat-overlay {
     background: #FFF;

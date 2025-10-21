@@ -1,0 +1,96 @@
+﻿@page
+@using Ai_Panel.Application.Constants
+@using Ai_Panel.Application.Tools
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model Ai_Panel.Pages.Admin.AiConfig.IndexModel
+@{
+    ViewData["Title"] = "تنظیمات هوش مصنوعی";
+}
+
+<div class="row justify-content-md-center">
+    <div class="col-md-12 col-lg-12 col-12 mt-3">
+        <div class="card shadow">
+            <h6 class="card-header">لیست نسخه ها</h6>
+            <div class="col-4 me-3 mt-3">
+                <a class="btn btn-outline-success btn-sm" asp-page="/Admin/MultiStepAiConfig/Add">
+                    <i class="fa fa-plus"></i>
+                    ایجاد تنظیمات جدید
+                </a>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive table">
+                    <table class="table-hover table-bordered table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    عنوان کانفیگ
+                                </th>
+                                <th>
+                                     هوش مصنوعی
+                                </th>
+                                <th>
+                                    مدل
+                                </th>
+                                <th>
+                                   شماره نسخه
+                                </th>
+                                <th>
+                                   پرامپت
+                                </th>
+                                <th>
+                                    تاریخ ایجاد
+                                </th>
+                                <th>
+                                    آخرین بروزرسانی
+                                </th>
+                                <th>
+                                    عملیات
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                             @foreach (var item in Model.AiConfigs)
+                            { 
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Title)
+                                    </td>
+                                    <td>
+                                         @Html.DisplayFor(modelItem => item.AiModel.Parent.Title) 
+                                    </td>
+                                    <td>
+                                         @Html.DisplayFor(modelItem => item.AiModel.Title) 
+                                    </td>
+                                    <td>
+                                         @Html.DisplayFor(modelItem => item.Version) 
+                                    </td>
+                                    <td>
+                                        <a title="@item.Prompt">@item.Prompt?.LimitSentenceLength(30)</a>
+                                    </td>
+                                    <td>
+                                        @item.DateTime.ToPersianDate()
+                                    </td>
+                                    <td>
+                                        @item.UpdateDateTime.ToPersianDate()
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-sm" asp-page="@Urls.AiConfig@ActionPage.Edit" asp-route-id="@item.Id">
+                                            <i class="fa fa-edit text-warning"></i>
+                                        </a>
+                                        <a class="btn btn-sm" asp-route="AddAiConfigToBookQuestions" asp-route-id="@item.Id">
+                                            <i class="fa fa-link text-success"></i>
+                                        </a>
+                                        <a class="btn btn-sm mouse-pointer" onclick="DeleteFunction('/api/AiChatApi/delete', @item.Id)">
+                                            <i class="fa fa-trash text-danger"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                             } 
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@Html.AntiForgeryToken()
