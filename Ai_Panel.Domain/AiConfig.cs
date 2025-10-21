@@ -39,5 +39,9 @@ public class AiConfig : BaseCategory
 	public float PresencePenalty { get; set; }
 	[Range(-2, 2)]
 	public float FrequencyPenalty { get; set; }
+	public int? AiConfigOrder { get; set; }
+	public int? AiConfigGroupId { get; set; }
+    public AiConfigGroup? AiConfigGroup { get; set; }
+
 
 }
