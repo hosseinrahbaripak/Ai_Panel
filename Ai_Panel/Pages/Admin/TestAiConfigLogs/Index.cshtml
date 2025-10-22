@@ -95,7 +95,7 @@
 								<tbody>
 									@foreach (var item in Model.TestAiConfigLogsDto)
 									{
-										<tr>
+										<tr onclick="window.location.href='/Admin/Contract?Id=@item.Id'">
 											<td>@(item.User?.FullName ?? "-")</td>
 											<td>@(item.AiModel.Title ?? "-")</td>
 											<td>@item.MaxTokens</td>
