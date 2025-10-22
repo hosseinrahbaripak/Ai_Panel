@@ -17,11 +17,9 @@ namespace Ai_Panel.Domain
         [ForeignKey(nameof(AiModelId))]
         public AiModel AiModel { get; set; }
         public int MaxTokens { get; set; }
-        [MaxLength(1500)]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         public string Message { get; set; }
 
-        [MaxLength(2000)]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         public string Prompt { get; set; }
         public int N { get; set; }

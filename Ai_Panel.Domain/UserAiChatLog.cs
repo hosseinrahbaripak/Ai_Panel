@@ -9,7 +9,6 @@ public class UserAiChatLog
     public int Id { get; set; }
     public DateTime DateTime { get; set; }
 
-    [MaxLength(1000)]
     [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
     public string UserMessage { get; set; }
     public bool AiCouldResponse { get; set; }

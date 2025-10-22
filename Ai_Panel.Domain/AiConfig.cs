@@ -20,7 +20,6 @@ public class AiConfig : BaseCategory
 	[ForeignKey(nameof(AiModelId))]
 	public AiModel AiModel { get; set; }
 
-	[MaxLength(2000)]
 	[Required(ErrorMessage = "لطفا {0} را وارد کنید")]
 	[DisplayName("پرامپت")]
 	public string Prompt { get; set; }
