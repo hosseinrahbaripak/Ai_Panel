@@ -41,6 +41,7 @@ public class AiConfig : BaseCategory
 	public int? AiConfigOrder { get; set; }
 	public int? AiConfigGroupId { get; set; }
     public AiConfigGroup? AiConfigGroup { get; set; }
-
+	public int? ContractTemplateId { get; set; }
+    public ContractTemplate? ContractTemplate { get; set; }
 
 }

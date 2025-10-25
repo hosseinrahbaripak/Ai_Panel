@@ -24,6 +24,7 @@ namespace Ai_Panel.Persistence.Configurations
         public DbSet<AiService> AiServices { get; set; }
         public DbSet<UserService> UserServices { get; set; }
         public DbSet<AiConfigGroup> AiConfigGroups { get; set; }
+        public DbSet<ContractTemplate> ContractTemplates { get; set; }
 
         #region OnModelCreating
         protected override void OnModelCreating(ModelBuilder modelBuilder)
