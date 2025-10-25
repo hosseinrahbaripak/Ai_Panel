@@ -19,14 +19,25 @@ namespace Ai_Panel
                 return;
             }
             var user = context.HttpContext.User;
-
+            var currentPath = context.HttpContext.Request.Path;
             var roles = user.FindFirst(CustomClaimTypes.Roles).Value;
 
-            if (roles.Contains("Admin") || roles.Contains("SuperAdmin"))
+            if ((currentPath.StartsWithSegments("/Admin") && (roles.Contains("Admin") || roles.Contains("SuperAdmin"))) ||
+                (currentPath.StartsWithSegments("/User") && roles.Contains("User")))
             {
                 return;
             }
-            context.Result = new RedirectResult("/User");
+            if (roles.Contains("Admin") || roles.Contains("SuperAdmin"))
+            {
+                context.Result = new RedirectResult("/Admin");
+                return;
+            }
+            else if (roles.Contains("User"))
+            {
+                context.Result = new RedirectResult("/User");
+                return;
+            }
+
 
 
 
