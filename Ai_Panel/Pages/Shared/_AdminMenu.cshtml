@@ -1,9 +1,8 @@
 ﻿@using Ai_Panel.Application.Constants
 @using Ai_Panel.Classes
-@* @inject AdminHelper AdminHelper *@
 
 @{
-	// var admin = await AdminHelper.GetAdminLoggedIn(true);
+	string roles = User.FindFirst(CustomClaimTypes.Roles).Value;
 }
 
 <header>
@@ -35,48 +34,37 @@
 					</div>
 				</div>
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					@if (roles.Contains("Admin") || roles.Contains("SuperAdmin"))
+					{
+						<li class="nav-item">
+							<a class="dropdown-item" asp-page="@Urls.AiConfig@ActionPage.Index">تنظیمات و کانفیگ</a>
+						</li>
+						<li class="nav-item">
+							<a class="dropdown-item" asp-page="@Urls.User@ActionPage.Index">کاربران</a>
+						</li>
 
-					<li class="nav-item">
-						<a class="dropdown-item" asp-page="@Urls.AiConfig@ActionPage.Index">تنظیمات و کانفیگ</a>
-					</li>
-					<li class="nav-item">
-						<a class="dropdown-item" asp-page="@Urls.User@ActionPage.Index">کاربران</a>
-					</li>
-					
-					<li class="nav-item">
-						<a class="dropdown-item" href="/Admin/TestAiConfigLogs">گزارشات هوش مصنوعی</a>
-					</li>
-					<li class="nav-item"> 
-						<a class="dropdown-item" href="/Admin/MultiStepAiConfig">کانفیگ چند مرحله ای</a>
-					</li>
-					<li class="nav-item">
-						<a class="dropdown-item" href="/Admin/Contract">قرارداد ها</a> 
-					</li>
-					@* <li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="dropdownMenuButton2" role="button" data-bs-toggle="dropdown" aria-expanded="true">
-							هوش مصنوعی
-						</a>
-						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2" data-bs-popper="none">
-							<li> <a class="dropdown-item" asp-page="@Urls.AiConfig@ActionPage.Index">تنظیمات و کانفیگ</a></li>
-							<li> <a class="dropdown-item" asp-page="@Urls.BookQuestions@ActionPage.Index">سوالات کتاب</a></li>
-							<li> <a class="dropdown-item" asp-page="@Urls.TestAiConfigLogs@ActionPage.Index">گزارش تست کانفیگ ها </a></li>
-						</ul>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link text-dark" href="@Urls.User@ActionPage.Index?pageId=1"> لیست کاربران</a>
-					</li>
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="dropdownMenuButton4" role="button" data-bs-toggle="dropdown" aria-expanded="true">
-							اطلاعات پایه
-						</a>
-						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton4" data-bs-popper="none">
+						<li class="nav-item">
+							<a class="dropdown-item" href="/Admin/TestAiConfigLogs">گزارشات هوش مصنوعی</a>
+						</li>
+						<li class="nav-item">
+							<a class="dropdown-item" href="/Admin/MultiStepAiConfig">کانفیگ چند مرحله ای</a>
+						</li>
+						<li class="nav-item">
+							<a class="dropdown-item" href="/Admin/Contract">قرارداد ها</a>
+						</li>
+						@if(roles.Contains("User")){
+							<li class="nav-item">
+								<a class="dropdown-item" href="/User/Chat">صفحه چت</a>
+							</li>
+						}
+					}
+					else
+					{
+						<li class="nav-item">
+							<a class="dropdown-item" href="/User/Chat">صفحه چت</a>
+						</li>
+					}
 
-							<li> <a class="dropdown-item" href="@Urls.AboutUs@ActionPage.Index">درباره ما</a></li>
-							<li> <a class="dropdown-item" href="@Urls.ContactUs@ActionPage.Index">تماس با ما</a></li>
-							<li> <a class="dropdown-item" asp-controller="FrequentlyQuestion" asp-action="Index">سوالات متداول</a></li>
-							<li> <a class="dropdown-item" asp-controller="LearnApp" asp-action="Index">آموزش اپ</a></li>
-						</ul>
-					</li> *@
 				</ul>
 			</div>
 		</div>
