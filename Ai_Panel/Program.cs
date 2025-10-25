@@ -102,8 +102,8 @@ builder.Services.AddSingleton<WebTools>();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
         .AddCookie(option =>
         {
-            option.LoginPath = "/Admin/Login";
-            option.LogoutPath = "/Admin/SignOut";
+            option.LoginPath = "/Login";
+            option.LogoutPath = "/SignOut";
             option.ExpireTimeSpan = TimeSpan.FromDays(3);
             option.Cookie.HttpOnly = true;
         }).AddJwtBearer("JwtBearer", options =>

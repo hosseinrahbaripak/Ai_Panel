@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Options;
 using System.Security.Claims;
 
-namespace Ai_Panel.Pages.Admin
+namespace Ai_Panel.Pages
 {
     public class LoginModel : PageModel
     {
@@ -63,7 +63,7 @@ namespace Ai_Panel.Pages.Admin
             //    return Page();
             //}
 
-            var user = await _user.FirstOrDefault(x => x.MobileNumber == Login.MobileNumber);
+            var user = await _user.FirstOrDefault(x =>!x.IsDelete && x.MobileNumber == Login.MobileNumber,null, "UserRoles.Role");
             if (user == null)
             {
                 ModelState.AddModelError("Login.MobileNumber", "اطلاعات صحیح نیست");
@@ -71,6 +71,7 @@ namespace Ai_Panel.Pages.Admin
             }
 
             var pass = Login.Password.GeneratePass(user.PassKey).Item2;
+
             if (user.Password != pass)
             {
                 ModelState.AddModelError("Login.Password", "رمز عبور صحیح نیست");
@@ -80,6 +81,7 @@ namespace Ai_Panel.Pages.Admin
             {
                 try
                 {
+                    var roles = string.Join(",", user.UserRoles.Select(ur => ur.Role.RoleTitle));
                     string token = _jwt.GenerateToken(user.UserId);
                     var clamis = new List<Claim>
                         {
@@ -87,6 +89,7 @@ namespace Ai_Panel.Pages.Admin
                             new Claim(CustomClaimTypes.Token ,token),
                             new Claim(CustomClaimTypes.UserName ,user.FirstName),
                             new Claim(CustomClaimTypes.Email,user.Email),
+                            new Claim(CustomClaimTypes.Roles , roles)
                         };
 
                     var identity = new ClaimsIdentity(clamis, CookieAuthenticationDefaults.AuthenticationScheme);

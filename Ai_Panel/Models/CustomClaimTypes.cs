@@ -11,5 +11,6 @@
         public const string AdminProfileId = "AdminProfileId";
         public const string Pages = "Pages";
         public const string IsSuperAdmin = "IsSuperAdmin";
+        public const string Roles = "Roles";
     }
 }

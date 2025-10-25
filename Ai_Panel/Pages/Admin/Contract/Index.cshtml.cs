@@ -1,10 +1,12 @@
 ﻿using Ai_Panel.Application.Contracts.Persistence.EfCore;
 using Ai_Panel.TagHelpers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Ai_Panel.Pages.Admin.Contract
 {
+    [Authorize(Roles = "Admin,SuperAdmin")]
     public class IndexModel(IContractRepository contract) : PageModel
     {
         public List<Domain.ContractTemplate> Contracts { get; set; }

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Ai_Panel.Pages.Admin
+namespace Ai_Panel.Pages
 {
     [Authorize]
     public class SignOutModel : PageModel
@@ -12,7 +12,7 @@ namespace Ai_Panel.Pages.Admin
         public async Task<IActionResult> OnGet()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToPage("/Admin/Login");
+            return RedirectToPage("/Login");
         }
     }
 }

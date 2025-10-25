@@ -56,25 +56,18 @@ namespace Ai_Panel.Persistence.Repository.EfCore
         //    }
         //    return await _db.Users.IgnoreQueryFilters().Where(x => x.IsDelete == true).Where(where).CountAsync();
         //}
-        public async Task<User> FirstOrDefault(Expression<Func<User, bool>> @where = null, bool include = false)
+        public virtual async Task<User> FirstOrDefault(Expression<Func<User, bool>> where, Func<IQueryable<User>, IOrderedQueryable<User>> orderBy = null, string includeProperties = "")
         {
-            if (where == null)
+            IQueryable<User> query = _db.Set<User>();
+            foreach (var includeProperty in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
             {
-                return null;
+                query = query.Include(includeProperty);
             }
-
-            if (include)
-            {
-                var user = await _db.Users.Where(x => x.IsDelete == false)
-                    .FirstOrDefaultAsync(where);
-                return user;
-            }
-            else
-            {
-                var user = await _db.Users.Where(x => x.IsDelete == false).FirstOrDefaultAsync(where);
-                return user;
-            }
+            if (orderBy != null)
+                query = orderBy(query);
+            return await query.FirstOrDefaultAsync(where);
         }
+
         public async Task<bool> Any(Expression<Func<User, bool>> where = null)
         {
             return await _db.Users.AnyAsync(where);
