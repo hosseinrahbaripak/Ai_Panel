@@ -1,0 +1,37 @@
+﻿@page
+@model Ai_Panel.Pages.Admin.AiServices.AddModel
+@{
+}
+<div class="col-lg-8 col-md-8 col-12 mb-2 mx-auto">
+	<div class="card shadow p-4">
+		<form id="FormInModal" method="Post" enctype="multipart/form-data">
+			<input type="hidden" />
+			@Html.AntiForgeryToken()
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="row">
+				<div class="col-lg-6 col-12 mb-3">
+					<label class="form-label fw-semibold">عنوان</label>
+					<input class="form-control" asp-for="AiService.Title" type="text" />
+					<span class="text-danger small" asp-validation-for="AiService.Title"></span> 
+				</div>
+				<div class="col-lg-6 col-12 mb-3">
+					<label class="form-label fw-semibold">کانفیگ هوش مصنوعی</label>
+					<select class="form-select" id="AiPlatform" asp-for="AiService.AiConfigId" asp-items="ViewBag.AiConfigs">
+						<option disabled selected>لطفا موردی را انتخاب کنید</option>
+					</select>
+					<span class="text-danger small" asp-validation-for="AiService.AiConfig"></span>
+				</div>
+				<div class="col-12 mb-3">
+					<label class="form-label fw-semibold">توضیحات</label>
+					<textarea asp-for="AiService.Description" class="form-control" rows="4"></textarea>
+					<span class="text-danger small" asp-validation-for="AiService.Description"></span>
+				</div>
+			</div>
+			<div class="col-12 mt-4">
+				<div class="d-grid gap-2">
+					<button class="btn btn-primary py-2" type="submit">ثبت</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

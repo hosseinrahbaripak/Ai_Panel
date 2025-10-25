@@ -82,6 +82,10 @@
     <Folder Include="Features\AiConfig\Request\Command\" />
     <Folder Include="Features\AiContent\Handler\Queries\" />
     <Folder Include="Features\AiContent\Request\Queries\" />
+    <Folder Include="Features\AiServices\Handler\Command\" />
+    <Folder Include="Features\AiServices\Handler\Queries\" />
+    <Folder Include="Features\AiServices\Request\Command\" />
+    <Folder Include="Features\AiServices\Request\Queries\" />
     <Folder Include="Features\Contract\Handler\Queries\" />
     <Folder Include="Features\Contract\Request\Queries\" />
     <Folder Include="Features\TestAiConfig\Handler\Queries\" />

@@ -1,0 +1,77 @@
+﻿@page
+@model Ai_Panel.Pages.Admin.AiServices.IndexModel
+@{
+}
+<div class="row justify-content-md-center">
+	<div class="col-md-12 col-lg-12 col-12 mt-3">
+		<div class="card shadow">
+			<h6 class="card-header">لیست قراردادها </h6>
+			<div class="col-4 me-3 mt-3">
+				<a class="btn btn-outline-success btn-sm" asp-page="add">
+					<i class="fa fa-plus"></i>
+					ایجاد سرویس جدید
+				</a>
+			</div>
+			<div class="card-body">
+				<div class="table-responsive table">
+					<table class="table-hover table-bordered table">
+						<thead>
+							<tr>
+								<th>
+									عنوان
+								</th>
+								<th>
+									توضیحات
+								</th>
+								<th>
+									وضعیت
+								</th>
+								<th>
+									پیشنهاد شده
+								</th>
+								<th>
+									تاریخ ایجاد
+								</th>
+							</tr>
+						</thead>
+						@* @if (Model.Contracts.Any())
+						{
+							<tbody>
+								@foreach (var contract in Model.Contracts)
+								{
+									<tr>
+										<td>
+											@contract.Title
+										</td>
+										<td>
+											@contract.DateTime.ToPersianDate()
+										</td>
+										<td>
+											@contract.UpdatedDateTime.ToPersianDate()
+										</td>
+										<td>
+											<a class="btn btn-sm" href="/Admin/Contract/Edit?Id=@contract.Id">
+												<i class="fa fa-edit text-warning"></i>
+											</a>
+											<a class="btn btn-sm">
+												<i class="fa fa-link text-success"></i>
+											</a>
+											<a class="btn btn-sm mouse-pointer"
+											 onclick="DeleteFunction('/Admin/AppVersion/Delete', @contract.Id)" 
+															 >
+												<i class="fa fa-trash text-danger"></i>
+											</a>
+										</td>
+
+									</tr>
+								}
+
+							</tbody>
+						} *@
+
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
