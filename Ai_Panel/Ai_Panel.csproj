@@ -100,7 +100,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\User\" />
     <Folder Include="wwwroot\excel\export\" />
     <Folder Include="wwwroot\excel\import\" />
     <Folder Include="wwwroot\files\app\android\" />

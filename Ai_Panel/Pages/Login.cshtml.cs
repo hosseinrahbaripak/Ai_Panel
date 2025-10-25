@@ -88,7 +88,6 @@ namespace Ai_Panel.Pages
                             new Claim(CustomClaimTypes.UserId,user.UserId.ToString()),
                             new Claim(CustomClaimTypes.Token ,token),
                             new Claim(CustomClaimTypes.UserName ,user.FirstName),
-                            new Claim(CustomClaimTypes.Email,user.Email),
                             new Claim(CustomClaimTypes.Roles , roles)
                         };
 
@@ -103,13 +102,22 @@ namespace Ai_Panel.Pages
 
                     await HttpContext.SignInAsync(principal, properties);
 
-                    if (!string.IsNullOrEmpty(ReturnUrl))
+                    if(roles.Contains("Admin") || roles.Contains("SuperAdmin"))
                     {
-                        if (Url.IsLocalUrl(ReturnUrl))
-                        {
-                            return Redirect(ReturnUrl);
-                        }
+                        return RedirectToAction("Index", "Admin");
                     }
+                    else
+                    {
+                        return RedirectToAction("Index", "User");
+                    }
+
+                    //if (!string.IsNullOrEmpty(ReturnUrl))
+                    //{
+                    //    if (Url.IsLocalUrl(ReturnUrl))
+                    //    {
+                    //        return Redirect(ReturnUrl);
+                    //    }
+                    //}
                 }
                 catch (Exception e)
                 {
