@@ -22,7 +22,7 @@ namespace Ai_Panel.Pages.Admin.Contract
             });
             if(res.ErrorId == 0)
             {
-                return RedirectToPage("/Admin/Contract/Index");
+                return RedirectToPage("/Admin/Contract");
             }
             else
             {

@@ -2,3 +2,28 @@
 @model Ai_Panel.Pages.Admin.Contract.EditModel
 @{
 }
+<div class="row justify-content-md-center">
+    <div class="col-12">
+        <div class="card shadow">
+            <h5 class="card-header">ویرایش قرارداد</h5>
+            <div class="card-body">
+                <form id="ContractTemplateForm" method="post">
+                    <input asp-for="ContractDto.Id" type="hidden" /> 
+                    <div class="mb-3">
+                        <label class="form-label">عنوان قرارداد</label>
+                        <input type="text" class="form-control" asp-for="ContractDto.Title" placeholder="مثلاً: قرارداد اجاره‌نامه" />
+                        <span class="text-danger" asp-validation-for="ContractDto.Title"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">متن قالب</label>
+                        <textarea class="form-control" rows="8" asp-for="ContractDto.Content" placeholder="متن قرارداد را اینجا بنویسید..."></textarea>
+                        <span class="text-danger" asp-validation-for="ContractDto.Content"></span>
+                    </div>
+                    <div class="d-grid gap-2 mt-3">
+                        <button type="submit" class="btn btn-primary">ثبت</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

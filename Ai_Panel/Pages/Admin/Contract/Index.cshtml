@@ -31,35 +31,30 @@
 								</th>
 							</tr>
 						</thead>
-						@* @if (false)
+						@if (Model.Contracts.Any())
 						{
 							<tbody>
-								@foreach (var user in Model.Users)
+								@foreach (var contract in Model.Contracts)
 								{
 									<tr>
 										<td>
-											@user.FullName
+											@contract.Title
 										</td>
 										<td>
-											@user.MobileNumber
+											@contract.DateTime.ToPersianDate()
 										</td>
 										<td>
-											@(user.UserType == Ai_Panel.Domain.Enum.UserTypeEnum.USER ? "کاربر عادی" : "ادمین")
+											@contract.UpdatedDateTime.ToPersianDate()
 										</td>
 										<td>
-											@user.DateTime.ToPersianDate()
-										</td>
-
-
-										<td>
-											<a class="btn btn-sm">
+											<a class="btn btn-sm" href="/Admin/Contract/Edit?Id=@contract.Id">
 												<i class="fa fa-edit text-warning"></i>
 											</a>
 											<a class="btn btn-sm">
 												<i class="fa fa-link text-success"></i>
 											</a>
 											<a class="btn btn-sm mouse-pointer"
-											 onclick="DeleteFunction('/Admin/AppVersion/Delete', @item.Id)" 
+											 @* onclick="DeleteFunction('/Admin/AppVersion/Delete', @contract.Id)"  *@
 													 >
 												<i class="fa fa-trash text-danger"></i>
 											</a>
@@ -69,11 +64,19 @@
 								}
 
 							</tbody>
-						} *@
+						}
 
 					</table>
 				</div>
 			</div>
 		</div>
+	</div>
+</div>
+<div class="text-center mt-3">
+	<div page-model="Model.PagingInfo"
+		 page-action=""
+		 page-class="btn"
+		 page-class-normal="btn-outline-secondary"
+		 page-class-selected="btn-primary text-white">
 	</div>
 </div>
