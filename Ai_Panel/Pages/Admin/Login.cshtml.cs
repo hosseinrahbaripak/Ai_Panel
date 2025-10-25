@@ -16,14 +16,12 @@ namespace Ai_Panel.Pages.Admin
     public class LoginModel : PageModel
     {
         #region Ctor 
-        private readonly IDNTCaptchaValidatorService _validatorService;
         //private readonly DNTCaptchaOptions _captchaOptions;
         private readonly IUser _user;
         private readonly IJwtTokenGenerator _jwt;
 
-        public LoginModel( IDNTCaptchaValidatorService validatorService, IOptions<DNTCaptchaOptions> options , IUser user , IJwtTokenGenerator jwt)
+        public LoginModel(IOptions<DNTCaptchaOptions> options , IUser user , IJwtTokenGenerator jwt)
         {
-            _validatorService = validatorService;
             //_captchaOptions = options == null ? throw new ArgumentNullException(nameof(options)) : options.Value;
             _user = user;
             _jwt = jwt;

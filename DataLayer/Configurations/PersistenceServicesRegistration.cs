@@ -30,6 +30,7 @@ public static class PersistenceServicesRegistration
         services.AddScoped<IAiConfigRepository, AiConfigRepository>();
         services.AddScoped<IAiModelRepository, AiModelRepository>();
         services.AddScoped<IAiPlatformRepository, AiPlatformRepository>();
+        services.AddScoped<IContractRepository, ContractRepository>();
         #endregion
         services.AddScoped<IUser, UserRepository>();
         #region --IOC--Dapper

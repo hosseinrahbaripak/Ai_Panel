@@ -67,5 +67,8 @@
         public const string UserExist = "کاربری با این مشخصات وجود دارد";
         public const string ErrorAddUserToDb = "خطایی برای ثبت نام صورت گرفته است";
         public const string UserNotFound = "کاربری با این مشخصات یافت نشد";
+        public const string ErrorAddContract = "خطا در اضافه کردن قرار داد";
+        public const string ErrorEditContract = "خطا در ویرایش قرارداد";
+        public const string ContractNotFound = "قرارداد مورد نظر یافت نشد";
     }
 }
