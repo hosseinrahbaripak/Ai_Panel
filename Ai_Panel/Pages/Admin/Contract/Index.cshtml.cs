@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Ai_Panel.Pages.Admin.Contract
 {
-    [Authorize(Roles = "Admin,SuperAdmin")]
+    [PermissionChecker]
     public class IndexModel(IContractRepository contract) : PageModel
     {
         public List<Domain.ContractTemplate> Contracts { get; set; }

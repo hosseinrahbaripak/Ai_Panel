@@ -13,7 +13,7 @@ using System.Text.Json;
 
 namespace Ai_Panel.Pages.Admin.MultiStepAiConfig
 {
-    [Authorize]
+    [PermissionChecker]
     public class AddModel(IMediator mediator, IAiModelRepository aiModelRepository,
 		IAiConfigRepository aiConfigRepository, IAiPlatformRepository aiPlatformRepository) : PageModel
 	{

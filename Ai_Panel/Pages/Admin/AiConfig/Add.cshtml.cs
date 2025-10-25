@@ -12,7 +12,7 @@ using System.Text.Json;
 
 namespace Ai_Panel.Pages.Admin.AiConfig
 {
-    [Authorize(Roles = "Admin,SuperAdmin")]
+    [PermissionChecker]
     public class AddModel(IMediator mediator, IAiModelRepository aiModelRepository,
 		IAiConfigRepository aiConfigRepository, IAiPlatformRepository aiPlatformRepository) : PageModel
 	{

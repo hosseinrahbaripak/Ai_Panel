@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Ai_Panel.Pages.Admin.MultiStepAiConfig
 {
-    [Authorize]
+    [PermissionChecker]
     public class EditModel(IMediator mediator, IAiModelRepository aiModelRepository, IAiPlatformRepository aiPlatformRepository, IAiConfigRepository aiConfigGroup) : PageModel
     {
         public List<Domain.AiConfig> AiConfigDto { get; set; }

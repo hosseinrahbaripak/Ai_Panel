@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Text.Json;
 
-namespace Ai_Panel.Pages.Admin.TestAiConfigLogs;
+namespace Ai_Panel.Pages.Admin.TestAiConfigLogs; 
 
-[Authorize]
+[PermissionChecker]
 public class IndexModel : PageModel
 {
     private readonly IGenericRepository<Domain.TestAiConfig> _testAiConfigRepository;

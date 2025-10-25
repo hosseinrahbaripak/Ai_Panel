@@ -11,7 +11,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Ai_Panel.Pages.Admin
 {
-    [Authorize]
+    [PermissionChecker]
     public class TestAiModel : PageModel
     {
         private readonly IAiModelRepository _aiModelRepository;

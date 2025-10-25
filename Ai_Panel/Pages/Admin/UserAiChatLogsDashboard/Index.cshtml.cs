@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Ai_Panel.Pages.Admin.UserAiChatLogsDashboard;
-[Authorize]
+[PermissionChecker]
 public class IndexModel(IMediator mediator,  IUser userRepository, IUserAiChatLogsRepository UACLRepository) : PageModel
 {
     public AiChatDashboardDto AiChatLogsDashboardDto { get; set; }

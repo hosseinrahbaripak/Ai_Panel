@@ -1,10 +1,8 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Ai_Panel.Pages
+namespace Ai_Panel.Pages.Admin
 {
-    [PermissionChecker]
     public class IndexModel : PageModel
     {
         public void OnGet()

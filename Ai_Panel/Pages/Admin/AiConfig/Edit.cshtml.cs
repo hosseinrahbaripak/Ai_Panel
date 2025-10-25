@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Ai_Panel.Pages.Admin.AiConfig
 {
-    [Authorize]
+    [PermissionChecker]
     public class EditModel(IMediator mediator, IAiModelRepository aiModelRepository, IAiPlatformRepository aiPlatformRepository) : PageModel
 	{
 		public string Error { get; set; }

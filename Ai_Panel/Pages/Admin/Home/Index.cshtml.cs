@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Ai_Panel.Pages.Admin.Home
 {
-    [Authorize]
+    [PermissionChecker]
     public class IndexModel : PageModel
     {
         private readonly IMediator _mediator;

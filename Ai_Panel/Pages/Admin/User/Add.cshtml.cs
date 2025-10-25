@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Ai_Panel.Pages.Admin.User
 {
-    [Authorize]
+    [PermissionChecker]
     public class AddModel(IMediator mediator) : PageModel
     {
         [BindProperty]

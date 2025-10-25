@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Ai_Panel.Pages.Admin.User
 {
-    [Authorize]
+    [PermissionChecker]
     public class IndexModel : PageModel
     {
         private IUser _user;

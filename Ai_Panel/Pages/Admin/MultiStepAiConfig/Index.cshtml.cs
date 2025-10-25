@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Ai_Panel.Pages.Admin.MultiStepAiConfig
 {
-    [Authorize]
+    [PermissionChecker]
     public class IndexModel : PageModel
     {
         private readonly IAiConfigRepository _aiConfigRepository;
