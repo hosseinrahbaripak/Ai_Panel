@@ -45,7 +45,6 @@ namespace Ai_Panel.Controllers
                 IsPremiumAccount = user.IsPremiumAccount,
                 Gender = user.Gender,
                 NationalId = user.NationalId,
-                UserType = user.UserType,
             };
             return new ServiceMessage()
             {

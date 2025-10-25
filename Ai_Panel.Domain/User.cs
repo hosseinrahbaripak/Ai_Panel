@@ -63,8 +63,6 @@ namespace Ai_Panel.Domain
         [Display(Name = "تاریخ آپدیت")]
         public DateTime UpdateDateTime { get; set; }
 
-        public UserTypeEnum UserType { get; set; }
-
         public bool IsDelete { get; set; }
         public bool HasAccessToAiChat { get; set; }
         public List<UserAiChatLog>? UserAiChatLogs { get; set; }

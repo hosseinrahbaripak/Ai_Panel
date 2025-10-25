@@ -14,8 +14,8 @@ namespace Ai_Panel.Domain
         public string? Description { get; set; }
         public bool IsActive { get; set; }
         public bool IsRecommended { get; set; } = false;
-        public int AiConfigId { get; set; }
-        public AiConfig AiConfig { get; set; }
+        public int AiConfigGroupId { get; set; }
+        public AiConfigGroup AiConfigGroup { get; set; }
         public List<UserService>? UserService { get; set; }
     }
 }

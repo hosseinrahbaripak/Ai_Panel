@@ -18,7 +18,6 @@ namespace Ai_Panel.Application.DTOs.User
         public string? Avatar { get; set; }
         public bool IsPremiumAccount { get; set; }
         public DateTime DateTime { get; set; }
-        public UserTypeEnum UserType { get; set; }
         public string Token { get; set; }
     }
 }

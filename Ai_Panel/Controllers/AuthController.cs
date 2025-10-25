@@ -106,7 +106,6 @@ namespace Ai_Panel.Controllers
                     ActiveCode = 5.GenerateCode(),
                     DateTime = DateTime.UtcNow.AddHours(3.5),
                     UpdateDateTime = DateTime.UtcNow.AddHours(3.5),
-                    UserType = UserTypeEnum.USER,
                 };
                 var addedUser =  await _user.Upsert(newUser);
 
@@ -200,7 +199,6 @@ namespace Ai_Panel.Controllers
                 IsPremiumAccount = user.IsPremiumAccount,
                 Gender = user.Gender,
                 NationalId = user.NationalId,
-                UserType = user.UserType,
                 Token = token
             };
             return new ServiceMessage()

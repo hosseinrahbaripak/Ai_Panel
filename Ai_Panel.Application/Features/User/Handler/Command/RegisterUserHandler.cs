@@ -30,7 +30,6 @@ namespace Ai_Panel.Application.Features.User.Handler.Command
                 LastName = request.dto.LastName,
                 NationalId = request.dto.NationalId,
                 MobileNumber = request.dto.MobileNumber,
-                UserType = Domain.Enum.UserTypeEnum.USER , 
                 DateTime = DateTime.UtcNow.AddHours(3.5),
                 UpdateDateTime = DateTime.UtcNow.AddHours(3.5),
                 ActiveCode = Code,
