@@ -70,5 +70,6 @@ namespace Ai_Panel.Domain
         public List<UserAiChatLog>? UserAiChatLogs { get; set; }
         public List<UserSession> UserSessions { get; set; }
         public List<UserService>? UserServices {  get; set; }
+        public List<UserRole> UserRoles { get; set; }
     }
 }

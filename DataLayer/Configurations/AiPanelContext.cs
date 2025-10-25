@@ -25,6 +25,7 @@ namespace Ai_Panel.Persistence.Configurations
         public DbSet<UserService> UserServices { get; set; }
         public DbSet<AiConfigGroup> AiConfigGroups { get; set; }
         public DbSet<ContractTemplate> ContractTemplates { get; set; }
+        public DbSet<UserRole> UserRoles { get; set; }
 
         #region OnModelCreating
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -40,6 +41,19 @@ namespace Ai_Panel.Persistence.Configurations
                 .WithMany(u => u.UserAiChatLogs)
                 .HasForeignKey(c => c.UserServiceId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<UserRole>()
+                .HasKey(ur => new { ur.UserId, ur.RoleId });
+
+            modelBuilder.Entity<UserRole>()
+                .HasOne(ur => ur.User)
+                .WithMany(u => u.UserRoles) 
+                .HasForeignKey(ur => ur.UserId);
+
+            modelBuilder.Entity<UserRole>()
+                .HasOne(ur => ur.Role)
+                .WithMany(r => r.UserRoles)
+                .HasForeignKey(ur => ur.RoleId);
 
 
         }
