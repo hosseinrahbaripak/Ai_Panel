@@ -89,7 +89,7 @@ namespace Ai_Panel.Persistence.Repository.EfCore
 
         //    return 0;
         //}
-        public async Task Upsert(User user)
+        public async Task<User> Upsert(User user)
         {
             try
             {
@@ -108,6 +108,7 @@ namespace Ai_Panel.Persistence.Repository.EfCore
 
             }
             await _db.SaveChangesAsync();
+            return user;
         }
         //public async Task Delete(int userId)
         //{

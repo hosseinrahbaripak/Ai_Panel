@@ -14,7 +14,7 @@ namespace Ai_Panel.Application.Contracts.Persistence.EfCore
         Task<User> FirstOrDefault(Expression<Func<User, bool>> where, Func<IQueryable<User>, IOrderedQueryable<User>> orderBy = null, string includeProperties = "");
         Task<bool> Any(Expression<Func<User, bool>> where = null);
   //      Task<int> Add(User user);
-        Task Upsert(User users);
+        Task<User> Upsert(User users);
   //      Task Delete(int userId);
   //      Task Delete(User user);
   //      Task<string> CreateToken(int userId);

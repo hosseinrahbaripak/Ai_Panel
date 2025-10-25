@@ -28,6 +28,9 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddHttpClient<IAiApiClient, AiApiClient>();
+// sms
+builder.Services.AddScoped<Sms>();
+
 
 builder.Services.AddRazorPages();
 //builder.Services.AddControllersWithViews();
