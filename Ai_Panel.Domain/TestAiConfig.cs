@@ -34,5 +34,8 @@ namespace Ai_Panel.Domain
         public double RequestCost { get; set; }
         public double EmbeddingCost { get; set; }
         public string? AiResponse { get; set; }
+        public bool FinalResponse {  get; set; }
+        public int? ContractTemplateId { get; set; }
+        public ContractTemplate? ContractTemplate { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using Ai_Panel.Persistence.Configurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ai_Panel.Persistence.Migrations
 {
     [DbContext(typeof(AiPanelContext))]
-    partial class LiveBookContextModelSnapshot : ModelSnapshot
+    [Migration("20251025090612_add Contract template table")]
+    partial class addContracttemplatetable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -87,8 +90,7 @@ namespace Ai_Panel.Persistence.Migrations
 
                     b.Property<string>("Prompt")
                         .IsRequired()
-                        .HasMaxLength(2000)
-                        .HasColumnType("nvarchar(2000)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Stop")
                         .IsRequired()
@@ -476,8 +478,7 @@ namespace Ai_Panel.Persistence.Migrations
 
                     b.Property<string>("Message")
                         .IsRequired()
-                        .HasMaxLength(1500)
-                        .HasColumnType("nvarchar(1500)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("N")
                         .HasColumnType("int");
@@ -487,8 +488,7 @@ namespace Ai_Panel.Persistence.Migrations
 
                     b.Property<string>("Prompt")
                         .IsRequired()
-                        .HasMaxLength(2000)
-                        .HasColumnType("nvarchar(2000)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("RequestCost")
                         .HasColumnType("float");
@@ -627,8 +627,7 @@ namespace Ai_Panel.Persistence.Migrations
 
                     b.Property<string>("UserMessage")
                         .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserServiceId")
                         .HasColumnType("int");
